@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="css/qm.css" rel="stylesheet"/>
+    <link href="css/ioffice.css" rel="stylesheet"/>
+</head>
+<body>
+	<div class="qm-main">
+		<div class="ioffice-header">
+	        <div class="ioffice-header-handle">
+	            <a href="#" rel="iofficeDiy" class="guide diy">自定义审批</a>
+	        </div>
+	        <div class="ioffice-header-crumb">
+	            <a href="#" class="icon-back">返回</a>
+	        </div>
+	        <div class="ioffice-tab">管理</div>
+	    </div>
+	    <div class="ioffice-main">
+	    	<div class="ioffice-title">
+		        <a href="javascript:;" class="filter" event-node="office_manger_export"><span class="icon-export"></span>导出</a>
+		        <div class="filter-list left">
+		            <div class="filter-item" model-node="manger_drop" model-args="id=manageuser">
+		                申请人：
+		                    <a href="javascript:;">
+		                        <span id="manger_user">全部</span>
+		                        <span class="ico-angle-down"></span>
+		                    </a>
+		            </div>
+		            <div class="filter-item" model-node="manger_drop" model-args="id=managetime">
+		                时间：
+		                    <a href="javascript:;">
+		                        <span id="manger_time">全部</span>
+		                        <span class="ico-angle-down"></span>
+		                    </a>
+		            </div>
+		            <div class="filter-item" model-node="manger_drop" model-args="id=manageprocess">
+		                类型：
+		                    <a href="javascript:;">
+		                        <span id="manger_process">全部</span>
+		                        <span class="ico-angle-down"></span>
+		                    </a>
+		            </div>
+		            <div class="filter-item" model-node="manger_drop" model-args="id=manageaudit">
+		                审批人：
+		                    <a href="javascript:;">
+		                        <span id="manger_audit">全部</span>
+		                        <span class="ico-angle-down"></span>
+		                    </a>
+		            </div>
+		            <div class="filter-item" model-node="manger_drop" model-args="id=managestatus">
+		                状态：
+		                    <a href="javascript:;">
+		                        <span id="manger_status">全部</span>
+		                        <span class="ico-angle-down"></span>
+		                    </a>
+		            </div>
+		        </div>
+		    </div>
+			<div class="ioffice-list show_manage_office_list" id="show_manage_office_list">
+		        <div class="ioffice-item">
+		            <div class="ioffice-summary" model-node="show_office_detail">
+		                <div class="fold"><a href="javascript:;" class="ico-angle-down"></a></div>
+		                <div class="handle office_status_23 status">
+		                    <span class="btn-390">已通过
+		                    </span>
+		                </div>
+		                <div class="time">昨天 16:42</div>
+		                <div class="user"><a href="#core/Profile/index?uid=40610" event-node="face_card" uid="40610">王菲菲</a></div>
+		                <div class="face"><a href="#core/Profile/index?uid=40610">
+		                    <img src="#avatar-40610-2-1434016480.jpg" class="img-circle"></a></div>
+		                <div class="title"><span>【报销】</span><a href="javascript:;">加班打车费报销(有票）</a></div>
+		            </div>
+		            <div class="ioffice-detail" style="display: none;">
+		                <div class="ioffice-info">
+		                    <div class="handle js_handle_23">
+		                        <a href="javascript:;" event-node="del_office" event-args="office_id=23"><span class="ico-remove"></span>删除 </a>
+		                        <a href="javascript:;" event-node="print_office" event-args="office_id=23"><span class="ico-print4"></span>打印 </a>
+		                    </div>
+		                    <table class="ioffice-table">
+		                        <tbody>
+		                            <tr>
+		                                <td class="td-title" valign="top">报销事由：</td>
+		                                <td>加班打车费报销(有票）                                                                            </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">报销人：</td>
+		                                <td>
+		                                    <a href="#core/Profile/index?uid=40610" event-node="face_card" uid="40610">王菲菲</a>                                                                            </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">发票情况：</td>
+		                                <td>有发票                                    </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">报销明细：</td>
+		                                <td>
+		                                    <table class="table-data-list">
+		                                        <tbody>
+		                                            <tr>
+		                                                <td>交通费</td>
+		                                                <td>25 元</td>
+		                                                <td>2015-06-14</td>
+		                                            </tr>
+		                                            <tr>
+		                                                <td colspan="3">总计：25 元</td>
+		                                            </tr>
+		                                        </tbody>
+		                                    </table>
+		                                </td>
+		                            </tr>
+		                            <!-- 审批人 -->
+		                        </tbody>
+		                    </table>
+		                </div>
+		                <div>
+		                    <div class="tab-box">
+		                        <div class="tab-box-item">
+		                            <div class="dynamic-outer">
+		                                <div class="dynamic-in" model-node="log_model" model-args="app_name=ioffice&amp;model_name=office&amp;row_id=23&amp;ext_id=&amp;row_uid=40610">
+		                                    <dl class="dynamic-header">
+		                                        <dt>
+		                                            <img src="#avatar-40624-2-1434014741.jpg" class="img-circle"></dt>
+		                                        <dd>
+		                                            <div class="rich-txt" model-node="dynamic_send"></div>
+		                                            <div class="rich-txt-max" style="display: none">
+		                                                <div class="rich-txt-bg">
+		                                                    <textarea class="" event-node="mini_editor_log_textarea" id="comment"></textarea>
+		                                                </div>
+		                                                <div class="dynamic-handle">
+		                                                    <div class="dynamic-kind">
+		                                                        <span event-node="insert_face" class="icon-face" event-args="type=log&amp;setOffset=no"></span>
+		                                                        <span event-node="insert_at" class="icon-at" event-args="type=log"></span>
+		                                                    </div>
+		                                                    <div class="dynamic-button">
+		                                                        <a title="按Ctrl+Enter可以快速提交" event-node="log_comment" href="javascript:void(0);" class="btn btn-green right"><span>评论</span></a>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                        </dd>
+		                                    </dl>
+
+		                                    <dl class="dynamic-list">
+		                                        <dt class="dynamic-icon"><span class="handle-plus"><i class="icon-plus"></i></span></dt>
+		                                        <dd>
+		                                            <div class="comment-bg">
+		                                                <div class="comment-name"><a href="#core/Profile/index?uid=40610" uid="6">王菲菲</a> 创建了申请</div>
+		                                                <div class="comment-info">
+		                                                    <div class="time">昨天 16:42</div>
+		                                                </div>
+		                                            </div>
+		                                        </dd>
+		                                    </dl>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		        <div class="ioffice-item">
+		            <div class="ioffice-summary" model-node="show_office_detail">
+		                <div class="fold"><a href="javascript:;" class="ico-angle-down"></a></div>
+		                <div class="handle office_status_12 status">
+		                    <span class="btn-390">已通过
+		                    </span>
+		                </div>
+		                <div class="time">昨天 11:32</div>
+		                <div class="user"><a href="#core/Profile/index?uid=40605" event-node="face_card" uid="40605">王思冲</a></div>
+		                <div class="face"><a href="#core/Profile/index?uid=40605">
+		                    <img src="#avatar-40605-2-1453812921.jpg" class="img-circle"></a></div>
+		                <div class="title"><span>【报销】</span><a href="javascript:;">深圳出差费用</a></div>
+		            </div>
+		            <div class="ioffice-detail">
+		                <div class="ioffice-info">
+		                    <div class="handle js_handle_12">
+		                        <a href="javascript:;" event-node="del_office" event-args="office_id=12"><span class="ico-remove"></span>删除 </a>
+		                        <a href="javascript:;" event-node="print_office" event-args="office_id=12"><span class="ico-print4"></span>打印 </a>
+		                    </div>
+		                    <table class="ioffice-table">
+		                        <tbody>
+		                            <tr>
+		                                <td class="td-title" valign="top">报销事由：</td>
+		                                <td>深圳出差费用                                                                            </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">报销人：</td>
+		                                <td>
+		                                    <a href="#core/Profile/index?uid=40605" event-node="face_card" uid="40605">王思冲</a>                                                                            </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">知会人：</td>
+		                                <td>
+		                                    <a href="#core/Profile/index?uid=40622" event-node="face_card" uid="40622">王霜</a>                                                                            </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">发票情况：</td>
+		                                <td>有发票                                    </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">报销明细：</td>
+		                                <td>
+		                                    <table class="table-data-list">
+		                                        <tbody>
+		                                            <tr>
+		                                                <td>交通</td>
+		                                                <td>2000 元</td>
+		                                                <td>2015-06-15</td>
+		                                            </tr>
+		                                            <tr>
+		                                                <td>用餐</td>
+		                                                <td>600 元</td>
+		                                                <td>2015-06-15</td>
+		                                            </tr>
+		                                            <tr>
+		                                                <td>住宿</td>
+		                                                <td>1000 元</td>
+		                                                <td>2015-06-15</td>
+		                                            </tr>
+		                                            <tr>
+		                                                <td colspan="3">总计：3600 元</td>
+		                                            </tr>
+		                                        </tbody>
+		                                    </table>
+		                                </td>
+		                            </tr>
+		                            <!-- 审批人 -->
+		                        </tbody>
+		                    </table>
+		                </div>
+		                <div>
+		                    <div class="tab-box">
+		                        <div class="tab-box-item">
+		                            <div class="dynamic-outer">
+		                                <div class="dynamic-in" model-node="log_model" model-args="app_name=ioffice&amp;model_name=office&amp;row_id=12&amp;ext_id=&amp;row_uid=40605">
+		                                    <dl class="dynamic-header">
+		                                        <dt>
+		                                            <img src="#avatar-40624-2-1434014741.jpg" class="img-circle"></dt>
+		                                        <dd>
+		                                            <div class="rich-txt" model-node="dynamic_send"></div>
+		                                            <div class="rich-txt-max" style="display: none">
+		                                                <div class="rich-txt-bg">
+		                                                    <textarea class="" event-node="mini_editor_log_textarea" id="Textarea10"></textarea>
+		                                                </div>
+		                                                <div class="dynamic-handle">
+		                                                    <div class="dynamic-kind">
+		                                                        <span event-node="insert_face" class="icon-face" event-args="type=log&amp;setOffset=no"></span>
+		                                                        <span event-node="insert_at" class="icon-at" event-args="type=log"></span>
+		                                                    </div>
+		                                                    <div class="dynamic-button">
+		                                                        <a title="按Ctrl+Enter可以快速提交" event-node="log_comment" href="javascript:void(0);" class="btn btn-green right"><span>评论</span></a>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                        </dd>
+		                                    </dl>
+
+		                                    <dl class="dynamic-list">
+		                                        <dt class="dynamic-icon"><span class="handle-plus"><i class="icon-plus"></i></span></dt>
+		                                        <dd>
+		                                            <div class="comment-bg">
+		                                                <div class="comment-name"><a href="#core/Profile/index?uid=40605" uid="6">王思冲</a> 创建了申请</div>
+		                                                <div class="comment-info">
+		                                                    <div class="time">昨天 11:32</div>
+		                                                </div>
+		                                            </div>
+		                                        </dd>
+		                                    </dl>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		        <div class="ioffice-item">
+		            <div class="ioffice-summary" model-node="show_office_detail">
+		                <div class="fold"><a href="javascript:;" class="ico-angle-down"></a></div>
+		                <div class="handle office_status_8 status">
+		                    <span class="btn-f60">待审批
+		                    </span>
+		                </div>
+		                <div class="time">2016-03-07</div>
+		                <div class="user"><a href="#core/Profile/index?uid=40606" event-node="face_card" uid="40606">方杰</a></div>
+		                <div class="face"><a href="#core/Profile/index?uid=40606">
+		                    <img src="#avatar-40606-2-1434015041.jpg" class="img-circle"></a></div>
+		                <div class="title"><span>【离职】</span><a href="javascript:;">离职申请</a></div>
+		            </div>
+		            <div class="ioffice-detail">
+		                <div class="ioffice-info">
+		                    <div class="handle js_handle_8">
+		                        <a href="javascript:;" event-node="del_office" event-args="office_id=8"><span class="ico-remove"></span>删除 </a>
+		                        <a href="javascript:;" event-node="print_office" event-args="office_id=8"><span class="ico-print4"></span>打印 </a>
+		                    </div>
+		                    <table class="ioffice-table">
+		                        <tbody>
+		                            <tr>
+		                                <td class="td-title" valign="top">申请事由：</td>
+		                                <td>离职申请                                                                            </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">离职日期：</td>
+		                                <td>2015-07-10                                                                            </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">离职事由：</td>
+		                                <td>个人发展                                                                            </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">离职原因：</td>
+		                                <td>思考良久，终究还是提出离职。感触良多，非常感谢公司这么久的培养，但由于个人希望转行，所以提此辞呈，不过将会按合同执行，烦请审批。                                                                                                </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">申请人：</td>
+		                                <td>
+		                                    <a href="#core/Profile/index?uid=40606" event-node="face_card" uid="40606">方杰</a>                                                                            </td>
+		                            </tr>
+		                            <!-- 审批人 -->
+		                            <tr>
+		                                <td class="td-title">一级审批：</td>
+		                                <td><a href="#core/Profile/index?uid=40624" event-node="face_card" uid="40624">许多</a></td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title">二级审批：</td>
+		                                <td><a href="#core/Profile/index?uid=40605" event-node="face_card" uid="40605">王思冲</a></td>
+		                            </tr>
+		                        </tbody>
+		                    </table>
+		                </div>
+		                <div>
+		                    <div class="tab-box">
+		                        <div class="tab-box-item">
+		                            <div class="dynamic-outer">
+		                                <div class="dynamic-in" model-node="log_model" model-args="app_name=ioffice&amp;model_name=office&amp;row_id=8&amp;ext_id=&amp;row_uid=40606">
+		                                    <dl class="dynamic-header">
+		                                        <dt>
+		                                            <img src="#avatar-40624-2-1434014741.jpg" class="img-circle"></dt>
+		                                        <dd>
+		                                            <div class="rich-txt" model-node="dynamic_send"></div>
+		                                            <div class="rich-txt-max" style="display: none">
+		                                                <div class="rich-txt-bg">
+		                                                    <textarea class="" event-node="mini_editor_log_textarea" id="Textarea14"></textarea>
+		                                                </div>
+		                                                <div class="dynamic-handle">
+		                                                    <div class="dynamic-kind">
+		                                                        <span event-node="insert_face" class="icon-face" event-args="type=log&amp;setOffset=no"></span>
+		                                                        <span event-node="insert_at" class="icon-at" event-args="type=log"></span>
+		                                                    </div>
+		                                                    <div class="dynamic-button">
+		                                                        <a title="按Ctrl+Enter可以快速提交" event-node="log_comment" href="javascript:void(0);" class="btn btn-green right"><span>评论</span></a>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                        </dd>
+		                                    </dl>
+
+		                                    <dl class="dynamic-list">
+		                                        <dt class="dynamic-icon"><span class="handle-plus"><i class="icon-ok"></i></span></dt>
+		                                        <dd>
+		                                            <div class="comment-bg">
+		                                                <div class="comment-name"><a href="#core/Profile/index?uid=40624" uid="6">许多</a> 同意了申请 </div>
+		                                                <div class="comment-info">
+		                                                    <div class="time">3 分钟前</div>
+		                                                </div>
+		                                            </div>
+		                                        </dd>
+		                                    </dl>
+		                                    <dl class="dynamic-list">
+		                                        <dt class="dynamic-icon"><span class="handle-plus"><i class="icon-plus"></i></span></dt>
+		                                        <dd>
+		                                            <div class="comment-bg">
+		                                                <div class="comment-name"><a href="#core/Profile/index?uid=40606" uid="6">方杰</a> 创建了申请</div>
+		                                                <div class="comment-info">
+		                                                    <div class="time">2016-03-07 12:18</div>
+		                                                </div>
+		                                            </div>
+		                                        </dd>
+		                                    </dl>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		        <div class="ioffice-item">
+		            <div class="ioffice-summary" model-node="show_office_detail">
+		                <div class="fold"><a href="javascript:;" class="ico-angle-down"></a></div>
+		                <div class="handle office_status_7 status">
+		                    <span class="btn-f60">待审批
+		                    </span>
+		                </div>
+		                <div class="time">2016-03-07</div>
+		                <div class="user"><a href="#core/Profile/index?uid=40616" event-node="face_card" uid="40616">钱任</a></div>
+		                <div class="face"><a href="#core/Profile/index?uid=40616">
+		                    <img src="#avatar-40616-2-1434015283.jpg" class="img-circle"></a></div>
+		                <div class="title"><span>【预支款】</span><a href="javascript:;">海南出差</a></div>
+		            </div>
+		            <div class="ioffice-detail">
+		                <div class="ioffice-info">
+		                    <div class="handle js_handle_7">
+		                        <a href="javascript:;" event-node="print_office" event-args="office_id=7"><span class="ico-print4"></span>打印 </a>
+		                    </div>
+		                    <table class="ioffice-table">
+		                        <tbody>
+		                            <tr>
+		                                <td class="td-title" valign="top">申请事由：</td>
+		                                <td>海南出差                                                                            </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">申请人：</td>
+		                                <td>
+		                                    <a href="#core/Profile/index?uid=40616" event-node="face_card" uid="40616">钱任</a>                                                                            </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">知会人：</td>
+		                                <td>
+		                                    <a href="#core/Profile/index?uid=40605" event-node="face_card" uid="40605">王思冲</a>                                                                            </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">申请明细：</td>
+		                                <td>
+		                                    <table class="table-data-list">
+		                                        <tbody>
+		                                            <tr>
+		                                                <td>机票</td>
+		                                                <td>3000 元</td>
+		                                                <td>2015-06-30</td>
+		                                            </tr>
+		                                            <tr>
+		                                                <td>住宿费</td>
+		                                                <td>1200 元</td>
+		                                                <td>2015-06-30</td>
+		                                            </tr>
+		                                            <tr>
+		                                                <td>餐饮费</td>
+		                                                <td>500 元</td>
+		                                                <td>2015-06-30</td>
+		                                            </tr>
+		                                            <tr>
+		                                                <td colspan="3">总计：4700 元</td>
+		                                            </tr>
+		                                        </tbody>
+		                                    </table>
+		                                </td>
+		                            </tr>
+		                            <!-- 审批人 -->
+		                            <tr>
+		                                <td class="td-title">一级审批：</td>
+		                                <td><a href="#core/Profile/index?uid=40605" event-node="face_card" uid="40605">王思冲</a></td>
+		                            </tr>
+		                        </tbody>
+		                    </table>
+		                </div>
+		                <div>
+		                    <div class="tab-box">
+		                        <div class="tab-box-item">
+		                            <div class="dynamic-outer">
+		                                <div class="dynamic-in" model-node="log_model" model-args="app_name=ioffice&amp;model_name=office&amp;row_id=7&amp;ext_id=&amp;row_uid=40616">
+		                                    <dl class="dynamic-header">
+		                                        <dt>
+		                                            <img src="#avatar-40624-2-1434014741.jpg" class="img-circle"></dt>
+		                                        <dd>
+		                                            <div class="rich-txt" model-node="dynamic_send"></div>
+		                                            <div class="rich-txt-max" style="display: none">
+		                                                <div class="rich-txt-bg">
+		                                                    <textarea class="" event-node="mini_editor_log_textarea" id="Textarea15"></textarea>
+		                                                </div>
+		                                                <div class="dynamic-handle">
+		                                                    <div class="dynamic-kind">
+		                                                        <span event-node="insert_face" class="icon-face" event-args="type=log&amp;setOffset=no"></span>
+		                                                        <span event-node="insert_at" class="icon-at" event-args="type=log"></span>
+		                                                    </div>
+		                                                    <div class="dynamic-button">
+		                                                        <a title="按Ctrl+Enter可以快速提交" event-node="log_comment" href="javascript:void(0);" class="btn btn-green right"><span>评论</span></a>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                        </dd>
+		                                    </dl>
+
+		                                    <dl class="dynamic-list">
+		                                        <dt class="dynamic-icon"><span class="handle-plus"><i class="icon-plus"></i></span></dt>
+		                                        <dd>
+		                                            <div class="comment-bg">
+		                                                <div class="comment-name"><a href="#core/Profile/index?uid=40616" uid="6">钱任</a> 创建了申请</div>
+		                                                <div class="comment-info">
+		                                                    <div class="time">2016-03-07 12:14</div>
+		                                                </div>
+		                                            </div>
+		                                        </dd>
+		                                    </dl>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		        <div class="ioffice-item">
+		            <div class="ioffice-summary" model-node="show_office_detail">
+		                <div class="fold"><a href="javascript:;" class="ico-angle-down"></a></div>
+		                <div class="handle office_status_4 status">
+		                    <span class="btn-f9">已核销
+		                    </span>
+		                </div>
+		                <div class="time">2016-03-07</div>
+		                <div class="user"><a href="#core/Profile/index?uid=40623" event-node="face_card" uid="40623">陈虹</a></div>
+		                <div class="face"><a href="#core/Profile/index?uid=40623">
+		                    <img src="#avatar-40623-2-1434016866.jpg" class="img-circle"></a></div>
+		                <div class="title"><span>【报销】</span><a href="javascript:;">人事部聚餐餐费（有票）</a></div>
+		            </div>
+		            <div class="ioffice-detail">
+		                <div class="ioffice-info">
+		                    <div class="handle js_handle_4">
+		                        <a href="javascript:;" event-node="del_office" event-args="office_id=4"><span class="ico-remove"></span>删除 </a>
+		                        <a href="javascript:;" event-node="print_office" event-args="office_id=4"><span class="ico-print4"></span>打印 </a>
+		                    </div>
+		                    <table class="ioffice-table">
+		                        <tbody>
+		                            <tr>
+		                                <td class="td-title" valign="top">报销事由：</td>
+		                                <td>人事部聚餐餐费（有票）                                                                            </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">详细描述：</td>
+		                                <td>1、人事部月中聚餐；                                                                                                </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">报销人：</td>
+		                                <td>
+		                                    <a href="#core/Profile/index?uid=40623" event-node="face_card" uid="40623">陈虹</a>                                                                            </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">发票情况：</td>
+		                                <td>有发票                                    </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">报销明细：</td>
+		                                <td>
+		                                    <table class="table-data-list">
+		                                        <tbody>
+		                                            <tr>
+		                                                <td>餐费</td>
+		                                                <td>100 元</td>
+		                                                <td>2015-06-10</td>
+		                                            </tr>
+		                                            <tr>
+		                                                <td>饮料费</td>
+		                                                <td>10 元</td>
+		                                                <td>2015-06-10</td>
+		                                            </tr>
+		                                            <tr>
+		                                                <td colspan="3">总计：110 元</td>
+		                                            </tr>
+		                                        </tbody>
+		                                    </table>
+		                                </td>
+		                            </tr>
+		                            <!-- 审批人 -->
+		                            <tr>
+		                                <td class="td-title">直属领导：</td>
+		                                <td><a href="#core/Profile/index?uid=40605" event-node="face_card" uid="40605">王思冲</a></td>
+		                            </tr>
+		                        </tbody>
+		                    </table>
+		                </div>
+		                <div>
+		                    <div class="tab-box">
+		                        <div class="tab-box-item">
+		                            <div class="dynamic-outer">
+		                                <div class="dynamic-in" model-node="log_model" model-args="app_name=ioffice&amp;model_name=office&amp;row_id=4&amp;ext_id=&amp;row_uid=40623">
+		                                    <dl class="dynamic-header">
+		                                        <dt>
+		                                            <img src="#avatar-40624-2-1434014741.jpg" class="img-circle"></dt>
+		                                        <dd>
+		                                            <div class="rich-txt" model-node="dynamic_send"></div>
+		                                            <div class="rich-txt-max" style="display: none">
+		                                                <div class="rich-txt-bg">
+		                                                    <textarea class="" event-node="mini_editor_log_textarea" id="Textarea18"></textarea>
+		                                                </div>
+		                                                <div class="dynamic-handle">
+		                                                    <div class="dynamic-kind">
+		                                                        <span event-node="insert_face" class="icon-face" event-args="type=log&amp;setOffset=no"></span>
+		                                                        <span event-node="insert_at" class="icon-at" event-args="type=log"></span>
+		                                                    </div>
+		                                                    <div class="dynamic-button">
+		                                                        <a title="按Ctrl+Enter可以快速提交" event-node="log_comment" href="javascript:void(0);" class="btn btn-green right"><span>评论</span></a>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                        </dd>
+		                                    </dl>
+
+		                                    <dl class="dynamic-list">
+		                                        <dt class="dynamic-icon"><span class="handle-plus"><i class="icon-ok"></i></span></dt>
+		                                        <dd>
+		                                            <div class="comment-bg">
+		                                                <div class="comment-name"><a href="#core/Profile/index?uid=40605" uid="6">王思冲</a> 同意了申请 </div>
+		                                                <div class="comment-info">
+		                                                    <div class="time">2016-03-07 11:52</div>
+		                                                </div>
+		                                            </div>
+		                                        </dd>
+		                                    </dl>
+		                                    <dl class="dynamic-list">
+		                                        <dt class="dynamic-icon"><span class="handle-plus"><i class="icon-plus"></i></span></dt>
+		                                        <dd>
+		                                            <div class="comment-bg">
+		                                                <div class="comment-name"><a href="#core/Profile/index?uid=40623" uid="6">陈虹</a> 创建了申请</div>
+		                                                <div class="comment-info">
+		                                                    <div class="time">2016-03-07 11:19</div>
+		                                                </div>
+		                                            </div>
+		                                        </dd>
+		                                    </dl>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		        <div class="ioffice-item">
+		            <div class="ioffice-summary" model-node="show_office_detail">
+		                <div class="fold"><a href="javascript:;" class="ico-angle-down"></a></div>
+		                <div class="handle office_status_3 status">
+		                    <span class="btn-f9">已核销
+		                    </span>
+		                </div>
+		                <div class="time">2016-03-06</div>
+		                <div class="user"><a href="#core/Profile/index?uid=40620" event-node="face_card" uid="40620">苏彩儿</a></div>
+		                <div class="face"><a href="#core/Profile/index?uid=40620">
+		                    <img src="#avatar-40620-2-1434015357.jpg" class="img-circle"></a></div>
+		                <div class="title"><span>【报销】</span><a href="javascript:;">客户礼品</a></div>
+		            </div>
+		            <div class="ioffice-detail">
+		                <div class="ioffice-info">
+		                    <div class="handle js_handle_3">
+		                        <a href="javascript:;" event-node="del_office" event-args="office_id=3"><span class="ico-remove"></span>删除 </a>
+		                        <a href="javascript:;" event-node="print_office" event-args="office_id=3"><span class="ico-print4"></span>打印 </a>
+		                    </div>
+		                    <table class="ioffice-table">
+		                        <tbody>
+		                            <tr>
+		                                <td class="td-title" valign="top">报销事由：</td>
+		                                <td>客户礼品                                                                            </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">报销人：</td>
+		                                <td>
+		                                    <a href="#core/Profile/index?uid=40620" event-node="face_card" uid="40620">苏彩儿</a>                                                                            </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">知会人：</td>
+		                                <td>
+		                                    <a href="#core/Profile/index?uid=40605" event-node="face_card" uid="40605">王思冲</a>                                                                            </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">发票情况：</td>
+		                                <td>无发票                                    </td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title" valign="top">报销明细：</td>
+		                                <td>
+		                                    <table class="table-data-list">
+		                                        <tbody>
+		                                            <tr>
+		                                                <td>小熊</td>
+		                                                <td>1000 元</td>
+		                                                <td>2015-06-10</td>
+		                                            </tr>
+		                                            <tr>
+		                                                <td colspan="3">总计：1000 元</td>
+		                                            </tr>
+		                                        </tbody>
+		                                    </table>
+		                                </td>
+		                            </tr>
+		                            <!-- 审批人 -->
+		                            <tr>
+		                                <td class="td-title">直属领导：</td>
+		                                <td><a href="#core/Profile/index?uid=40616" event-node="face_card" uid="40616">钱任</a></td>
+		                            </tr>
+		                            <tr>
+		                                <td class="td-title">上级领导：</td>
+		                                <td><a href="#core/Profile/index?uid=40605" event-node="face_card" uid="40605">王思冲</a></td>
+		                            </tr>
+		                        </tbody>
+		                    </table>
+		                </div>
+		                <div>
+		                    <div class="tab-box">
+		                        <div class="tab-box-item">
+		                            <div class="dynamic-outer">
+		                                <div class="dynamic-in" model-node="log_model" model-args="app_name=ioffice&amp;model_name=office&amp;row_id=3&amp;ext_id=&amp;row_uid=40620">
+		                                    <dl class="dynamic-header">
+		                                        <dt>
+		                                            <img src="#avatar-40624-2-1434014741.jpg" class="img-circle"></dt>
+		                                        <dd>
+		                                            <div class="rich-txt" model-node="dynamic_send"></div>
+		                                            <div class="rich-txt-max" style="display: none">
+		                                                <div class="rich-txt-bg">
+		                                                    <textarea class="" event-node="mini_editor_log_textarea" id="Textarea19"></textarea>
+		                                                </div>
+		                                                <div class="dynamic-handle">
+		                                                    <div class="dynamic-kind">
+		                                                        <span event-node="insert_face" class="icon-face" event-args="type=log&amp;setOffset=no"></span>
+		                                                        <span event-node="insert_at" class="icon-at" event-args="type=log"></span>
+		                                                    </div>
+		                                                    <div class="dynamic-button">
+		                                                        <a title="按Ctrl+Enter可以快速提交" event-node="log_comment" href="javascript:void(0);" class="btn btn-green right"><span>评论</span></a>
+		                                                    </div>
+		                                                </div>
+		                                            </div>
+		                                        </dd>
+		                                    </dl>
+
+		                                    <dl class="dynamic-list">
+		                                        <dt class="dynamic-icon"><span class="handle-plus"><i class="icon-ok"></i></span></dt>
+		                                        <dd>
+		                                            <div class="comment-bg">
+		                                                <div class="comment-name"><a href="#core/Profile/index?uid=40605" uid="6">王思冲</a> 同意了申请 辛苦，价格比较合理。</div>
+		                                                <div class="comment-info">
+		                                                    <div class="time">2016-03-07 11:51</div>
+		                                                </div>
+		                                            </div>
+		                                        </dd>
+		                                    </dl>
+		                                    <dl class="dynamic-list">
+		                                        <dt class="dynamic-icon"><span class="handle-plus"><i class="icon-ok"></i></span></dt>
+		                                        <dd>
+		                                            <div class="comment-bg">
+		                                                <div class="comment-name"><a href="#core/Profile/index?uid=40616" uid="6">钱任</a> 同意了申请 </div>
+		                                                <div class="comment-info">
+		                                                    <div class="time">2016-03-06 20:23</div>
+		                                                </div>
+		                                            </div>
+		                                        </dd>
+		                                    </dl>
+		                                    <dl class="dynamic-list">
+		                                        <dt class="dynamic-icon"><span class="handle-plus"><i class="icon-plus"></i></span></dt>
+		                                        <dd>
+		                                            <div class="comment-bg">
+		                                                <div class="comment-name"><a href="#core/Profile/index?uid=40620" uid="6">苏彩儿</a> 创建了申请</div>
+		                                                <div class="comment-info">
+		                                                    <div class="time">2016-03-06 18:56</div>
+		                                                </div>
+		                                            </div>
+		                                        </dd>
+		                                    </dl>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+	    	</div>
+	    </div>
+	</div>
+</body>
+</html>

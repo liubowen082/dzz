@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="css/qm.css" rel="stylesheet"/>
+    <link href="css/ioffice.css" rel="stylesheet"/>
+</head>
+<body>
+	<div class="boxy-modal-blackout" style="height: 100%; width: 100%;z-index: 10010;"></div>
+	<table class="M-layer div-focus showSweetAlert" id="uibox" cellspacing="0" cellpadding="0" style="z-index: 999999; left: 690px; top: 372.5px;">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="M-content">
+                        <div class="hd"><a class="icon-close" href="javascript:;"></a>
+                            <div class="M-title">导出</div>
+                        </div>
+                        <div class="bd" id="layer-content">
+                            <div class="pop-ioffice">
+                                <dl class="pop-punch">
+                                    <dd>
+                                        <div class="dd-left">类型：</div>
+                                        <div id="userdepartment">
+                                            <select id="process">
+                                                <option value="0">全部</option>
+                                                <option value="3">报销</option>
+                                                <option value="2">出差</option>
+                                                <option value="1">请假</option>
+                                                <option value="5">预支款</option>
+                                                <option value="6">离职</option>
+                                                <option value="8">test</option>
+                                            </select>
+                                        </div>
+                                    </dd>
+                                    <dd class="export_detail">
+                                        <div class="dd-left"><span class="time-txt">时间段：</span></div>
+                                        <div class="dd-right" style="line-height: 34px">
+                                            <label class="options">
+                                                <input type="radio" name="time_type" class="q-ck" value="0" checked="">本周</label>
+                                            <label class="options">
+                                                <input type="radio" name="time_type" class="q-ck" value="1">本月</label>
+                                            <label class="options">
+                                                <input type="radio" name="time_type" class="q-ck" value="2">其他时间</label>
+                                            <div id="dateselect" style="display: none;">
+                                                <div class="widget-date" model-node="date_select" model-args="inputId=start_time&amp;mod=Ymd&amp;timeIputId=&amp;callback=">
+                                                    <div class="date-day" rel="manage">
+                                                        <i class="icon-clock2"></i>
+                                                        <input name="start_time" event-node="date_input" type="text" class="s-txt q-txt rcalendar_input left" id="start_time" value="" readonly="readonly" placeholder="">
+                                                    </div>
+                                                    <div style="display: none; left: 0" model-node="date_show" class="time-picker drop_clayer">
+                                                        <div class="qm-day-inner">
+                                                            <div class="days">
+                                                                <span event-node="date_click" event-args="date=2016-03-12&amp;desc=今天">今天</span>
+                                                                <span event-node="date_click" event-args="date=2016-03-13&amp;desc=明天">明天</span>
+                                                                <span event-node="date_click" event-args="date=2016-03-14&amp;desc=后天">后天</span>
+                                                                <!--   <span event-node='date_click'  event-args='date=&desc='></span>
+        <span event-node='date_click'  event-args='date=&desc='></span>
+        <span event-node='date_click'  event-args='date=&desc='></span>
+        <span event-node='date_click'  event-args='date=&desc='></span> -->
+                                                            </div>
+                                                            <span event-node="date_click" event-args="date=other&amp;desc=" class="rcalendar_input other-time">其他日期»</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div model-node="date_widget_load" style="height: 1px; width: 1px"></div>
+                                                <script type="text/javascript">
+                                                    //日期
+                                                    var GetDateStr = function (AddDayCount) {
+                                                        var dd = new Date();
+                                                        //获取AddDayCount天后的日期
+                                                        dd.setDate(dd.getDate() + AddDayCount);
+                                                        var y = dd.getFullYear();
+                                                        //获取当前月份的日期
+                                                        var m = dd.getMonth() + 1;
+                                                        var d = dd.getDate();
+                                                        if (m < 10) {
+                                                            m = '0' + m;
+                                                        }
+                                                        if (d < 10) {
+                                                            d = '0' + d;
+                                                        }
+                                                        return y + "-" + m + "-" + d;
+                                                    }
+
+                                                </script>
+                                                <span class="vline">-</span>
+                                                <div class="widget-date" model-node="date_select" model-args="inputId=end_time&amp;mod=Ymd&amp;timeIputId=&amp;callback=">
+                                                    <div class="date-day" rel="manage">
+                                                        <i class="icon-clock2"></i>
+                                                        <input name="end_time" event-node="date_input" type="text" class="s-txt q-txt rcalendar_input left" id="end_time" value="" readonly="readonly" placeholder="">
+                                                    </div>
+                                                    <div style="display: none; left: 0" model-node="date_show" class="time-picker drop_clayer">
+                                                        <div class="qm-day-inner">
+                                                            <div class="days">
+                                                                <span event-node="date_click" event-args="date=2016-03-12&amp;desc=今天">今天</span>
+                                                                <span event-node="date_click" event-args="date=2016-03-13&amp;desc=明天">明天</span>
+                                                                <span event-node="date_click" event-args="date=2016-03-14&amp;desc=后天">后天</span>
+                                                                <!--   <span event-node='date_click'  event-args='date=&desc='></span>
+        <span event-node='date_click'  event-args='date=&desc='></span>
+        <span event-node='date_click'  event-args='date=&desc='></span>
+        <span event-node='date_click'  event-args='date=&desc='></span> -->
+                                                            </div>
+                                                            <span event-node="date_click" event-args="date=other&amp;desc=" class="rcalendar_input other-time">其他日期»</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div model-node="date_widget_load" style="height: 1px; width: 1px"></div>
+                                                <script type="text/javascript">
+                                                    //日期
+                                                    var GetDateStr = function (AddDayCount) {
+                                                        var dd = new Date();
+                                                        //获取AddDayCount天后的日期
+                                                        dd.setDate(dd.getDate() + AddDayCount);
+                                                        var y = dd.getFullYear();
+                                                        //获取当前月份的日期
+                                                        var m = dd.getMonth() + 1;
+                                                        var d = dd.getDate();
+                                                        if (m < 10) {
+                                                            m = '0' + m;
+                                                        }
+                                                        if (d < 10) {
+                                                            d = '0' + d;
+                                                        }
+                                                        return y + "-" + m + "-" + d;
+                                                    }
+
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <div class="actionBtn">
+                                    <input type="hidden" name="export_time_type" id="export_time_type" value="0">
+                                    <input type="hidden" name="export_department" id="export_department" value="0">
+                                    <a href="javascript:;" class="btn btn-green mr10" event-node="office_export_submit"><span>导出</span></a><a event-node="submit_btn" event-args="ajax=true" style="display: none"></a><a class="btn btn-gray" href="javascript:;" onclick="ui.box.close();"><span>取消</span></a>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                $("input[name='time_type']").click(function () {
+                                    var time_type = $(this).val();
+                                    $("#export_time_type").val(time_type);
+                                    if (time_type == 2) {
+                                        $("#dateselect").show();
+                                    } else {
+                                        $("#dateselect").hide();
+                                    }
+                                })
+                                M(document.getElementById('uibox'));
+                            </script>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
