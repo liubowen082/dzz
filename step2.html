@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="css/qm.css" rel="stylesheet"/>
     <link href="css/ioffice.css" rel="stylesheet"/>
+    <style type="text/css">
+
+        .sortable-placeholder {
+            border: 1px dashed #CCC;
+            background: none;
+            height:35px;
+        }</style>
 </head>
 <body>
 	<div class="qm-main ">
@@ -115,8 +122,8 @@
                                         <dl>
                                             <dt>数量</dt>
                                             <dd>
-                                                <label class="mr15">名称：<input type="text" class="q-txt" onkeyup="ioffice.keyup('data_option',this)" style="width: 100px" value="金额"></label>
-                                                <label>单位：<input type="text" class="q-txt" onkeyup="ioffice.keyup('data_option_else',this)" style="width: 100px" value="元"></label></dd>
+                                                <label class="mr15">名称：<input type="text" class="q-txt" style="width: 100px" value="金额" name="data_option"></label>
+                                                <label>单位：<input type="text" class="q-txt" style="width: 100px" value="元" name="data_option"></label></dd>
                                         </dl>
                                     </div>
                                     <div class="form-edit-datetype js_edit_format" style="display: none">
@@ -163,18 +170,15 @@
                             </div>
                         </div>
                         <div class="design-btn">
-                            <a href="javascript:;" class="btn btn-blue right ml15" onclick="ioffice.saveFormConfig(1)"><span>保存并设置流程</span></a>
-                            <a href="javascript:;" class="btn btn-blue right ml15" onclick="ioffice.saveFormConfig(0)"><span>保存</span></a>
-                            <a href="javascript:;" class="btn btn-gray right ml15" onclick="ioffice.previewForm(this)"><span>预览</span></a>
-                            <a href="javascript:;" class="btn btn-gray left" onclick="ioffice.cancelForm(-1)"><span>重新选择模板</span></a>
+                            <a href="javascript:;" class="btn btn-blue right ml15" id="saveFormConfigNext"><span>保存并设置流程</span></a>
+                            <a href="javascript:;" class="btn btn-blue right ml15" id="saveFormConfig"><span>保存</span></a>
+                            <a href="javascript:;" class="btn btn-gray right ml15"><span>预览</span></a>
+                            <a href="javascript:;" class="btn btn-gray left"><span>重新选择模板</span></a>
                         </div>
                     </div>
                     <div class="design-form">
                         <div class="design-formin ui-droppable ui-sortable" id="designFormin">
-                            <dl rel="text" hash="1" id="dl1">
-                                <dt>申请事由</dt>
-                                <dd><input type="text" class="q-txt" disabled="true" placeholder="请填写当前审批的申请事由"></dd>
-                            </dl>
+                            
                         </div>
                     </div>
                 </div>
@@ -183,8 +187,13 @@
     </div>
 </body>
 <script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
 <script src="js/sea2.3.0.js"></script>
 <script>seajs.config({base:'./jsSrc'})</script>
+<script type="text/javascript">
+    var GLOBAL = {};
+    GLOBAL.id = '';
+</script>
 <script type="text/javascript">
     seajs.use('step2')
 

@@ -486,6 +486,8 @@
 .ioffice-plus .option-other .q-txt{width:auto}
 .ioffice-plus [type="radio"],.ioffice-plus [type="checkbox"]{margin:0 5px 0 0}
 
+.ui-sortable-helper{ background-color: ##f9f5e0}
+
 /*审批适配*/
 @media screen and (max-width:1680px){
 .custom-item{width:25%}
