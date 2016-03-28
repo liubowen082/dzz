@@ -298,6 +298,7 @@ define(function(require, exports, module) {
 
 		designFormin.each(function(i,a){
 			var _obj = $(a).data();
+
 			_obj['input_type'] = $(a).attr('rel');
 
 			var _arr = _obj.select ?  _obj.select.split('###') : [];
@@ -306,6 +307,10 @@ define(function(require, exports, module) {
 				_arr.pop();
 			}
 			_obj['option'] = _arr.join('###');
+
+			delete(_obj.select);
+			delete(_obj.sortableItem);
+
 			_obj = $.extend({
 			        "title": "",
 			        "placeholder": "",
@@ -318,7 +323,7 @@ define(function(require, exports, module) {
 			        "option_else": "0"
 			    },_obj);
 			
-
+console.log(_obj)
 
 			arr.push(_obj)
 
@@ -331,6 +336,7 @@ define(function(require, exports, module) {
 	var sendFormConfig = function(callback){
 		var callback = callback || function(){};
 		var obj = saveFormConfig();
+		console.log(obj)
 
 		var data = {
 			id : GLOBAL.id,
@@ -339,9 +345,10 @@ define(function(require, exports, module) {
 
 		$.ajax({
 
-			url : 'index.php?mod=shenpi&op=index&act=process_saveConfig',
-			data : obj,
+			url : '/index.php?mod=shenpi&op=index&act=process_saveConfig',
+			data : data,
 			catch : false,
+			type : 'post',
 			function(json){
 				if(json.status === 0){
 					callback();

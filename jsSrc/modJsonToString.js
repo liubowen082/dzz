@@ -1,6 +1,7 @@
 
 define(function(require, exports, module) {
-	return function(obj) {
+
+	var jsonToString =  function(obj) {
 			if (obj == undefined) {
 				return "";
 			}
@@ -17,11 +18,13 @@ define(function(require, exports, module) {
 		        for (n in obj) {
 		            v = obj[n]; t = typeof(v);
 		            if (t == "string") v = '"'+v+'"';
-		            else if (t == "object" && v !== null) v = common.jsonToString(v);
+		            else if (t == "object" && v !== null) v = jsonToString(v);
 		            json.push((arr ? "" : '"' + n + '":') + String(v));
 		        }
-		        return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
+		        return (arr ? "[" : "{") + json.join(',') + (arr ? "]" : "}");
 		    }
 		}
+
+	return jsonToString;
 
 });
