@@ -23,18 +23,18 @@
             <div class="template-main">
                 <div class="template-mainin">
                     <div class="template-side">
-                        <ul>
-                            <li class="current" model-node="office_tpl" model-args="id=0"><a href="javascript:;">空白模板</a></li>
-                            <li model-node="office_tpl" model-args="id=3"><a href="javascript:;">报销</a></li>
+                        <ul id="templateSide">
+                            <li class="current" data-id="" data-i="-1"><a href="javascript:;">空白模板</a></li>
+                            <!-- <li model-node="office_tpl" model-args="id=3"><a href="javascript:;">报销</a></li>
                             <li model-node="office_tpl" model-args="id=2"><a href="javascript:;">出差</a></li>
                             <li model-node="office_tpl" model-args="id=1"><a href="javascript:;">请假</a></li>
                             <li model-node="office_tpl" model-args="id=5"><a href="javascript:;">预支款</a></li>
                             <li model-node="office_tpl" model-args="id=6"><a href="javascript:;">离职</a></li>
-                            <li model-node="office_tpl" model-args="id=8"><a href="javascript:;">test</a></li>
+                            <li model-node="office_tpl" model-args="id=8"><a href="javascript:;">test</a></li> -->
                         </ul>
                     </div>
 
-                    <div class="template-form">
+                    <div class="template-form" id="templateCon">
                         <div class="template-none">
                             <h4>空白表单</h4>
                         </div>
@@ -42,9 +42,22 @@
                 </div>
             </div>
             <div class="template-btn">
-                <a href="javascript:;" class="btn btn-green" event-args="id=11" event-node="select_tpl"><span>选择此模板</span></a>
+                <a href="http://www.baidu.com/" class="btn btn-green" id="gotoNext"><span>选择此模板</span></a>
             </div>
         </div>
     </div>
 </body>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/sea2.3.0.js"></script>
+<script>seajs.config({base:'./jsSrc'})</script>
+<script type="text/javascript">
+    var GLOBAL = {};
+    GLOBAL.id = '1000';
+    GLOBAL.tid = '';
+</script>
+<script type="text/javascript">
+    seajs.use('step1')
+
+</script>
 </html>
