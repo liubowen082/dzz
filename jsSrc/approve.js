@@ -7,6 +7,7 @@ define(function (require) {
 
     var getHTML = require('getHTML');
     var queryToJson = require('queryToJson');
+    var tpl = require('approveTpl');
 
     var parameter = {
         creater_id: '',
@@ -17,11 +18,34 @@ define(function (require) {
         status: ''
     };
 
-    var tpl = {
-        nodata: '<div class="mod-empty" ><div style="height: 810px;" class="empty-table"><div class="empty-td"><i class="icon-ioffice"></i><div class="empty-txt">没有相关审批哦</div></div></div></div>',
-        loading: '<div class="loading" style="text-align:center;padding:20px;"><span class="loader ico-spinner2"></span></div>',
-        box:'<div class="M-content"><div class="hd"><a href="javascript:;" class="icon-close" onclick="ui.box.close();"></a><div class="M-title">同意</div></div><div id="layer-content" class="bd"><div class="pop-leave"><textarea placeholder="详细说明（选填）" id="office_tips" class="q-textarea"></textarea><div class="action clearfix"><a href="javascript:;" onclick="alert(81)" class="btn btn-green mr10"><span>同意</span></a><a onclick="ui.box.close();" href="javascript:" class="btn btn-gray"><span>取消</span></a></div></div></div></div>'
-    };
+    var senRequest = false;
+
+    //发送请求方法
+    function senRequestHandle(url, args, cb, errrCb, type) {
+        if (senRequest) {
+            return false;
+        }
+        senRequest = true;
+
+        $.ajax({
+            url: url,
+            data: args,
+            dataType: type || 'json',
+            success: function (json) {
+                if (json.status == 0) {
+                    cb && cb();
+                } else {
+                    alert(json.msg || '提交失败，请稍后重试');
+                    errrCb && errrCb();
+                }
+                senRequest = false;
+            },
+            fail: function () {
+                alert('服务端异常，请稍后重试');
+                senRequest = false;
+            }
+        });
+    }
 
     //初始换页面内容
     function createHTML() {
@@ -49,7 +73,7 @@ define(function (require) {
         });
     }
 
-    //初始化导航条功能
+    //loading导航条功能
     function initNavBar(t) {
         var navBar = $('#progress');
 
@@ -130,7 +154,7 @@ define(function (require) {
         });
 
         $('body').click(function () {
-            $('[node_type="layer"]').hide();
+            $(window).triggerHandler('resize');
         });
 
     }
@@ -154,10 +178,16 @@ define(function (require) {
                     box.html(tpl.nodata);
                 }
             });
+
+            if (i == 2) {
+                $('#office_user').show();
+            }else{
+                $('#office_user').hide();
+            }
         });
     }
 
-    //筛选功能
+    //筛选功能(给自己挖个大坑)
     function addFilterEvt() {
         var js_filter = $('#js_filter'),
             filter_list = $('#filter_list');
@@ -168,22 +198,82 @@ define(function (require) {
 
         var office_time_drop = $('#office_time_drop'),
             office_process_drop = $('#office_process_drop'),
+            office_user_drop = $('#office_user_drop'),
             timeClassify = $('#timeClassify'),
-            typeClassify = $('#typeClassify');
+            typeClassify = $('#typeClassify'),
+            userClassify = $('#userClassify');
+
 
         timeClassify.click(function () {
-            timeClassify.find('.ico-angle-down').eq(0).className = 'ico-angle-up';
+            var outH = timeClassify.outerHeight(),
+                outW = timeClassify.outerWidth(),
+                offset = timeClassify.offset();
+
+            office_time_drop.css({
+                top: offset.top + outH + 'px',
+                left: offset.left - office_time_drop.width() + outW + 'px'
+            });
+
             office_time_drop.toggle();
+            if (office_time_drop.is(':hidden')) {
+                timeClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
+            } else {
+                timeClassify.find('span').eq(1).removeClass('ico-angle-down').addClass('ico-angle-up');
+            }
             office_process_drop.hide();
+            typeClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
+            office_user_drop.hide();
+            userClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
             $('#drop-navtop').hide();
             $('#create_menu').hide();
             return false;
         });
 
         typeClassify.click(function () {
-            typeClassify.find('.ico-angle-down').eq(0).className = 'ico-angle-up';
+            var outH = typeClassify.outerHeight(),
+                outW = typeClassify.outerWidth(),
+                offset = typeClassify.offset();
+
+            office_process_drop.css({
+                top: offset.top + outH + 'px',
+                left: offset.left - office_process_drop.width() + outW + 'px'
+            });
+
             office_process_drop.toggle();
+            if (office_process_drop.is(':hidden')) {
+                typeClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
+            } else {
+                typeClassify.find('span').eq(1).removeClass('ico-angle-down').addClass('ico-angle-up');
+            }
             office_time_drop.hide();
+            office_user_drop.hide();
+            timeClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
+            userClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
+            $('#drop-navtop').hide();
+            $('#create_menu').hide();
+            return false;
+        });
+
+        userClassify.click(function () {
+            var outH = userClassify.outerHeight(),
+                outW = userClassify.outerWidth(),
+                offset = userClassify.offset();
+
+            office_user_drop.css({
+                top: offset.top + outH + 'px',
+                left: offset.left - office_process_drop.width() + outW + 'px'
+            });
+
+            office_user_drop.toggle();
+            if (office_user_drop.is(':hidden')) {
+                userClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
+            } else {
+                userClassify.find('span').eq(1).removeClass('ico-angle-down').addClass('ico-angle-up');
+            }
+            office_process_drop.hide();
+            typeClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
+            office_time_drop.hide();
+            timeClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
             $('#drop-navtop').hide();
             $('#create_menu').hide();
             return false;
@@ -196,7 +286,7 @@ define(function (require) {
 
             box.html(tpl.loading);
             $('#office_time').html(target.html());
-            timeClassify.find('.ico-angle-up').eq(0).className = 'ico-angle-down';
+            timeClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
 
             getHTML(queryToJson(data), function (data) {
                 if (data.html[0]) {
@@ -210,11 +300,11 @@ define(function (require) {
         office_process_drop.find('li').click(function () {
             var target = $(this),
                 data = target.find('a').attr('node_data'),
-                box = $('#show_office_list');;
+                box = $('#show_office_list');
 
             box.html(tpl.loading);
             $('#office_process').html(target.html());
-            typeClassify.find('.ico-angle-up').eq(0).className = 'ico-angle-down';
+            typeClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
 
             getHTML(queryToJson(data), function (data) {
                 if (data.html[0]) {
@@ -225,23 +315,104 @@ define(function (require) {
             });
         });
 
+        office_user_drop.find('li').click(function () {
+            var target = $(this),
+                data = target.find('a').attr('node_data'),
+                box = $('#show_office_list');
+
+            box.html(tpl.loading);
+            $('#office_user_btn').html(target.html());
+            userClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
+
+            getHTML(queryToJson(data), function (data) {
+                if (data.html[0]) {
+                    box.html(data.html[0]);
+                } else {
+                    box.html(tpl.nodata);
+                }
+            });
+        });
     }
 
-    //列表内的所有操作功能，包括同意、驳回、下拉动画、删除、编辑等
-    function addMainBoxEvt(){
-        var box = $('#approve_need_me');
+    //列表内的所有操作功能，包括同意、驳回、删除等
+    function addMainBoxEvt() {
+        var box = $('#main_box'), approveBox = $('#approve_need_me');
+
+
+        window.agree_reject_handle = function (ele) {
+            var target = $(ele), args = queryToJson(target.attr('arg'));
+            var office_tips = $('#office_tips'), v = $.trim(office_tips.val());
+
+            if (v == '') {
+                alert('请添加详细说明');
+                return false;
+            }
+
+            if (target.attr('loading') == 'true') {
+                return false;
+            }
+            target.attr('loading', 'true');
+
+            args.remark = v;
+
+            senRequestHandle('/index.php?mod=shenpi&op=index&act=application_approve', args, function () {
+                target.attr('loading', 'false');
+                ele.parent().replaceWith(tpl.approve(args.stauts == 2 ? '待审批' : '已驳回'));
+                ui.box.close();
+            }, function () {
+                ui.box.close();
+                target.attr('loading', 'false');
+            });
+        };
 
         //同意功能
-        box.delegate('a[node_type="agree"]', 'click', function () {
+        approveBox.delegate('a[node_type="agree"]', 'click', function (e) {
+            var target = $(e.target), args = target.attr('node_args');
 
-            ui.box.show(tpl.box);
+            ui.box.show(tpl.agree(args));
             return false;
         });
 
         //驳回功能
-        box.delegate('a[node_type="reject"]', 'click', function () {
+        approveBox.delegate('a[node_type="reject"]', 'click', function (e) {
+            var target = $(e.target), args = target.attr('node_args');
 
-            ui.box.show(tpl.box);
+            ui.box.show(tpl.reject(args));
+            return false;
+        });
+
+        //删除模板功能
+        box.delegate('a[node_type="del_process"]', 'click', function () {
+            var target = $(this), args = queryToJson(target.attr('node_args'));
+
+            ui.confirm(target, '确定要删除吗', function () {
+                senRequestHandle('/index.php?mod=shenpi&op=index&act=process_delete', args, function () {
+                    target.closest('.ioffice-item').remove();
+                });
+            });
+        });
+    }
+
+    //每条数据下拉的动画功能
+    function addAnimateEvt() {
+        $('#main_box').delegate('[node_type="animateBox"]', 'click', function () {
+            var target = $(this), detailBox = target.next();
+
+            if (detailBox.is(':hidden')) {
+                target.addClass('open');
+                target.find(".ico-angle-down").removeClass().addClass("ico-angle-up");
+                detailBox.slideDown();
+            } else {
+                target.removeClass("open");
+                target.find(".ico-angle-up").removeClass().addClass("ico-angle-down");
+                detailBox.slideUp();
+            }
+            //关闭掉其他的
+            var open = target.parent().siblings().find('.open');
+            open.removeClass("open");
+            open.find(".ico-angle-up").removeClass().addClass("ico-angle-down");
+            open.next(".ioffice-detail").slideUp();
+
             return false;
         });
     }
@@ -256,9 +427,16 @@ define(function (require) {
         addChangeListEvt();
         addFilterEvt();
         addMainBoxEvt();
+        addAnimateEvt();
 
         $(window).resize(function () {
+            var timeClassify = $('#timeClassify'),
+                typeClassify = $('#typeClassify'),
+                userClassify = $('#userClassify');
             $('[node_type="layer"]').hide();
+            typeClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
+            timeClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
+            userClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
         });
 
     }();

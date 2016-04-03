@@ -16,9 +16,14 @@ define(function (require, exports, module) {
         status: ''
     };
 
+    var url = {
+        approve: '/index.php?mod=shenpi&op=index&act=application_getList',
+        manage: '/index.php?mod=shenpi&op=index&act=application_manageList'
+    }, type;
+
     var tpl = [
             '<div class="ioffice-item">',
-                '<div class="ioffice-summary">',
+                '<div class="ioffice-summary" node_type="animateBox">',
                     '<div class="fold"><a href="javascript:;" class="ico-angle-down"></a></div>',
                     '#{agreeAndReject}',
                     '<div class="time">#{create_time}</div>',
@@ -33,7 +38,9 @@ define(function (require, exports, module) {
                 '<div class="ioffice-detail">',
                     '<div class="ioffice-info">',
                         '<div class="handle js_handle_8">',
-                            '<a href="javascript:;" node_type="print_office" node_args="office_id=8"><span class="ico-print4"></span>打印</a>',
+                            '#{edit}',
+                            '<a node_args="id=#{id}" node_type="del_process" href="javascript:;"><span class="ico-remove"></span>删除 </a>',
+                            '<a href="#{print_link}"><span class="ico-print4"></span>打印</a>',
                         '</div>',
                         '<table class="ioffice-table">',
                             '<tbody>',
@@ -79,7 +86,7 @@ define(function (require, exports, module) {
             return modTemp(tpl, {
                 agreeAndReject: (function () {
                     if (i == 0) {
-                        return '<div class="handle office_status_8 status"><a href="javascript:;" class="btn btn-green" node_type="agree" node_args="status=2&amp;office_id=8">同意</a><a href="javascript:;" class="btn btn-gray" node_type="reject" node_args="status=2&amp;office_id=8">驳回</a></div>';
+                        return '<div class="handle office_status_8 status"><a href="javascript:;" class="btn btn-green" node_type="agree" node_args="status=2&amp;id=' + obj.id + '">同意</a><a href="javascript:;" class="btn btn-gray" node_type="reject" node_args="status=3&amp;id=' + obj.id + '">驳回</a></div>';
                     } else {
                         var status = {
                             0: '<span class="btn-f60">待审批</span>',
@@ -97,24 +104,43 @@ define(function (require, exports, module) {
                 creater_name:obj.creater_name || '方杰',
                 creater_img:obj.creater_img || 'http://blkj.qimingdao.com/avatar-40624-2-1434014741.jpg',
                 title_reason:obj.title_reason || '【离职】',
-                title:obj.title || '离职申请'
+                title:obj.title || '离职申请',
+                print_link: 'http://blkj.qimingdao.com/ioffice/Index/print_office?office_id=' + obj.id,
+                create_id:obj.creater_id,
+                id:obj.id,
+                edit: (function () {
+                    if (obj.status == 1 || obj.status == 4) {
+                        return '<a target="_blank" href="http://blkj.qimingdao.com/ioffice/Index/edit?office_id=' + obj.id + '"><span class="ico-pencil2"></span>编辑</a>';
+                    } else {
+                        return '';
+                    }
+                })()
             });
         };
 
         $.each(dataArr, function (i, item) {
-            if (item) {
-                var htmls = [];
-                lengthArr[i] = item.length ? item.length : 1;
+            if(type == 'approve'){
+                if (item) {
+                    var htmls = [];
+                    lengthArr[i] = item.length ? item.length : 1;
 
-                $.each(item, function (index, ele) {
-                    htmls.push(getText(ele, i));
-                });
-                arr[i] = htmls.join('');
-            } else {
-                arr[i] = '';
-                lengthArr[i] = 0;
+                    $.each(item, function (index, ele) {
+                        htmls.push(getText(ele, i));
+                    });
+                    arr[i] = htmls.join('');
+                } else {
+                    arr[i] = '';
+                    lengthArr[i] = 0;
+                }
+            }else if(type == 'manage'){
+                arr.push(getText(item, i));
             }
         });
+
+        if (type == 'manage') {
+            arr = arr.join('');
+            lengthArr = dataArr.length;
+        }
 
         return {
             html: arr,
@@ -124,7 +150,7 @@ define(function (require, exports, module) {
 
     function getData(data, cb, errCb) {
         $.ajax({
-            url: '/index.php?mod=shenpi&op=index&act=application_getList',
+            url: url[type],
             data: data,
             dataType: 'json',
             success: function (json) {
@@ -132,7 +158,7 @@ define(function (require, exports, module) {
                     console.log(json.data);
                     cb && cb(createHTML(json.data));
                 } else {
-                    alert(json.msg);
+                    alert(json.msg || '请求异常请稍后再试');
                 }
             },
             fail: function () {
@@ -141,9 +167,11 @@ define(function (require, exports, module) {
         });
     }
 
-    module.exports = function (data, cb) {
+    module.exports = function (data, cb, _type) {
 
         var args = $.extend(parameter, data);
+
+        type = _type || 'approve';
 
         getData(args, function (obj) {
             cb && cb(obj);
