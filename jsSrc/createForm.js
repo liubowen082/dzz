@@ -314,7 +314,7 @@ define(function(require, exports, module) {
 					var val = input.val();
 
 					var rel = $(a).attr('rel');
-					swatch(a.type){
+					switch(a.type){
 						case 'select' : 
 							var val = $(a).find('select').val();
 
