@@ -25,7 +25,7 @@ var createFormList = function(dom,items,temp){
 
 		delete(a.option)
 
-		$(dom).append(modTemp(moduleList[rel].tpl,{id:id,title:a.title}));
+		$(dom).append(modTemp(temp[rel].tpl,{id:id,title:a.title}));
 		
 		$('#' + id).data(a)
 

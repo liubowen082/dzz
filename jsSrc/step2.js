@@ -275,12 +275,13 @@ define(function(require, exports, module) {
 			url : '/index.php?mod=shenpi&op=index&act=process_saveConfig',
 			data : data,
 			catch : false,
+			dataType : 'json',
 			type : 'post',
-			function(json){
-				if(json.status === 0){
+			success : function(json){
+				if(json.status == 0){
 					callback();
 				}else{
-					alert('提交失败请重试')
+					alert(json.msg)
 				}
 			}
 		})
@@ -299,8 +300,6 @@ define(function(require, exports, module) {
 
 	})
 
-	
-
 
 // 获取模板列表
 GLOBAL.tid != '' && $.ajax({
@@ -309,9 +308,13 @@ GLOBAL.tid != '' && $.ajax({
 								id : GLOBAL.tid
 							},
 							catch : false,
-							function(json){
-								if(json.status === 0){
-									createFormList('#designFormin' , json.data);
+							dataType : 'json',
+							success : function(json){
+								console.log(json)
+								if(json.status == 0){
+									var data = json.data && json.data.form_config
+									data = eval('(' + data + ")")
+									createFormList('#designFormin' , data);
 									
 								}else{
 									alert('模板列表获取失败')
@@ -335,140 +338,140 @@ if (!GLOBAL.tid || GLOBAL.tid == '')
 	
 
 
-var pdsfsdf = [
-    {
-        "title": "申请事由",
-        "placeholder": "请填写当前审批的申请事由",
-        "must": "1",
-        "input_type": "textMust",
-        "format": "",
-        "notify": "",
-        "option": "",
-        "option_else": "0",
-        "candel": "0"
-    },
-    {
-        "title": "单行文本3333",
-        "placeholder": "dddd",
-        "must": "0",
-        "input_type": "text",
-        "format": "",
-        "notify": "0",
-        "option": "",
-        "candel": "1",
-        "option_else": "0"
-    },
-    {
-        "title": "多行文本",
-        "placeholder": "",
-        "must": "0",
-        "input_type": "textarea",
-        "format": "",
-        "notify": "0",
-        "option": "",
-        "candel": "1",
-        "option_else": "0"
-    },
-    {
-        "title": "下拉菜单",
-        "placeholder": "",
-        "must": "0",
-        "input_type": "select",
-        "format": "",
-        "notify": "0",
-        "option": "选项1###选项2",
-        "candel": "1",
-        "option_else": "0"
-    },
-    {
-        "title": "日期",
-        "placeholder": "",
-        "must": "0",
-        "input_type": "date",
-        "format": "Ymd",
-        "notify": "0",
-        "option": "",
-        "candel": "1",
-        "option_else": "0"
-    },
-    {
-        "title": "时间段",
-        "placeholder": "",
-        "must": "0",
-        "input_type": "date_between",
-        "format": "Ymd",
-        "notify": "0",
-        "option": "",
-        "candel": "1",
-        "option_else": "0"
-    },
-    {
-        "title": "清单",
-        "placeholder": "",
-        "must": "0",
-        "input_type": "data_list",
-        "format": "time",
-        "notify": "0",
-        "option": "金额",
-        "candel": "1",
-        "option_else": "元"
-    },
-    {
-        "title": "用户选择框",
-        "placeholder": "",
-        "must": "0",
-        "input_type": "user",
-        "format": "mulit",
-        "notify": "0",
-        "option": "",
-        "candel": "1",
-        "option_else": "0"
-    },
-    {
-        "title": "附件",
-        "placeholder": "",
-        "must": "0",
-        "input_type": "attach",
-        "format": "",
-        "notify": "0",
-        "option": "",
-        "candel": "1",
-        "option_else": "0"
-    },
-    {
-        "title": "数字",
-        "placeholder": "",
-        "must": "0",
-        "input_type": "number",
-        "format": "",
-        "notify": "0",
-        "option": "",
-        "candel": "1",
-        "option_else": "0"
-    },
-    {
-        "title": "单项选择",
-        "placeholder": "",
-        "must": "0",
-        "input_type": "radio",
-        "format": "",
-        "notify": "0",
-        "option": "选项1###选项2",
-        "candel": "1",
-        "option_else": "0"
-    },
-    {
-        "title": "多项选择",
-        "placeholder": "",
-        "must": "0",
-        "input_type": "checkbox",
-        "format": "",
-        "notify": "0",
-        "option": "选项1###选项2",
-        "candel": "1",
-        "option_else": "1"
-    }
-]
+// var pdsfsdf = [
+//     {
+//         "title": "申请事由",
+//         "placeholder": "请填写当前审批的申请事由",
+//         "must": "1",
+//         "input_type": "textMust",
+//         "format": "",
+//         "notify": "",
+//         "option": "",
+//         "option_else": "0",
+//         "candel": "0"
+//     },
+//     {
+//         "title": "单行文本3333",
+//         "placeholder": "dddd",
+//         "must": "0",
+//         "input_type": "text",
+//         "format": "",
+//         "notify": "0",
+//         "option": "",
+//         "candel": "1",
+//         "option_else": "0"
+//     },
+//     {
+//         "title": "多行文本",
+//         "placeholder": "",
+//         "must": "0",
+//         "input_type": "textarea",
+//         "format": "",
+//         "notify": "0",
+//         "option": "",
+//         "candel": "1",
+//         "option_else": "0"
+//     },
+//     {
+//         "title": "下拉菜单",
+//         "placeholder": "",
+//         "must": "0",
+//         "input_type": "select",
+//         "format": "",
+//         "notify": "0",
+//         "option": "选项1###选项2",
+//         "candel": "1",
+//         "option_else": "0"
+//     },
+//     {
+//         "title": "日期",
+//         "placeholder": "",
+//         "must": "0",
+//         "input_type": "date",
+//         "format": "Ymd",
+//         "notify": "0",
+//         "option": "",
+//         "candel": "1",
+//         "option_else": "0"
+//     },
+//     {
+//         "title": "时间段",
+//         "placeholder": "",
+//         "must": "0",
+//         "input_type": "date_between",
+//         "format": "Ymd",
+//         "notify": "0",
+//         "option": "",
+//         "candel": "1",
+//         "option_else": "0"
+//     },
+//     {
+//         "title": "清单",
+//         "placeholder": "",
+//         "must": "0",
+//         "input_type": "data_list",
+//         "format": "time",
+//         "notify": "0",
+//         "option": "金额",
+//         "candel": "1",
+//         "option_else": "元"
+//     },
+//     {
+//         "title": "用户选择框",
+//         "placeholder": "",
+//         "must": "0",
+//         "input_type": "user",
+//         "format": "mulit",
+//         "notify": "0",
+//         "option": "",
+//         "candel": "1",
+//         "option_else": "0"
+//     },
+//     {
+//         "title": "附件",
+//         "placeholder": "",
+//         "must": "0",
+//         "input_type": "attach",
+//         "format": "",
+//         "notify": "0",
+//         "option": "",
+//         "candel": "1",
+//         "option_else": "0"
+//     },
+//     {
+//         "title": "数字",
+//         "placeholder": "",
+//         "must": "0",
+//         "input_type": "number",
+//         "format": "",
+//         "notify": "0",
+//         "option": "",
+//         "candel": "1",
+//         "option_else": "0"
+//     },
+//     {
+//         "title": "单项选择",
+//         "placeholder": "",
+//         "must": "0",
+//         "input_type": "radio",
+//         "format": "",
+//         "notify": "0",
+//         "option": "选项1###选项2",
+//         "candel": "1",
+//         "option_else": "0"
+//     },
+//     {
+//         "title": "多项选择",
+//         "placeholder": "",
+//         "must": "0",
+//         "input_type": "checkbox",
+//         "format": "",
+//         "notify": "0",
+//         "option": "选项1###选项2",
+//         "candel": "1",
+//         "option_else": "1"
+//     }
+// ]
 
 // createFormList(pdsfsdf);
 

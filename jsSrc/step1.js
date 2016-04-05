@@ -25,7 +25,8 @@ define(function(require, exports, module) {
 	$.ajax({
 		url : '/index.php?mod=shenpi&op=index&act=process_getList',
 		catch : false,
-		function(json){
+		dataType : 'json',
+		success : function(json){
 			if(json.status === 0){
 				createModule(json.data)
 			}else{
@@ -60,6 +61,19 @@ define(function(require, exports, module) {
 	})
 
 
-	createModule([{"id":"8","title":"\u8bf7\u5047","form_config":"[{\"title\":\"\\u7533\\u8bf7\\u4e8b\\u7531\",\"placeholder\":\"\\u8bf7\\u586b\\u5199\\u5f53\\u524d\\u5ba1\\u6279\\u7684\\u7533\\u8bf7\\u4e8b\\u7531\",\"must\":\"1\",\"input_type\":\"text\",\"format\":\"\",\"notify\":\"\",\"option\":\"\",\"option_else\":\"0\",\"candel\":\"0\"}]","status":"1","approver_config":"","checker_id":"0","remark":"","update_time":"2016-03-27 10:36:36","create_time":"2016-03-27 10:36:36","creater_id":"1","updater_id":"1"},{"id":"9","title":"\u51fa\u5dee","form_config":"[{\"title\":\"\\u7533\\u8bf7\\u4e8b\\u7531\",\"placeholder\":\"\\u8bf7\\u586b\\u5199\\u5f53\\u524d\\u5ba1\\u6279\\u7684\\u7533\\u8bf7\\u4e8b\\u7531\",\"must\":\"1\",\"input_type\":\"text\",\"format\":\"\",\"notify\":\"\",\"option\":\"\",\"option_else\":\"0\",\"candel\":\"0\"}]","status":"1","approver_config":"","checker_id":"0","remark":"","update_time":"2016-03-27 10:36:41","create_time":"2016-03-27 10:36:41","creater_id":"1","updater_id":"1"}])
+	// createModule([{"id":"8","title":"\u8bf7\u5047","form_config":"[{\"title\":\"\\u7533\\u8bf7\\u4e8b\\u7531\",\"placeholder\":\"\\u8bf7\\u586b\\u5199\\u5f53\\u524d\\u5ba1\\u6279\\u7684\\u7533\\u8bf7\\u4e8b\\u7531\",\"must\":\"1\",\"input_type\":\"text\",\"format\":\"\",\"notify\":\"\",\"option\":\"\",\"option_else\":\"0\",\"candel\":\"0\"}]","status":"1","approver_config":"","checker_id":"0","remark":"","update_time":"2016-03-27 10:36:36","create_time":"2016-03-27 10:36:36","creater_id":"1","updater_id":"1"},{"id":"9","title":"\u51fa\u5dee","form_config":"[{\"title\":\"\\u7533\\u8bf7\\u4e8b\\u7531\",\"placeholder\":\"\\u8bf7\\u586b\\u5199\\u5f53\\u524d\\u5ba1\\u6279\\u7684\\u7533\\u8bf7\\u4e8b\\u7531\",\"must\":\"1\",\"input_type\":\"text\",\"format\":\"\",\"notify\":\"\",\"option\":\"\",\"option_else\":\"0\",\"candel\":\"0\"}]","status":"1","approver_config":"","checker_id":"0","remark":"","update_time":"2016-03-27 10:36:41","create_time":"2016-03-27 10:36:41","creater_id":"1","updater_id":"1"}])
+
+
+
+
+	var createForm = require('createForm')
+	$('[event-node="ajax_detail"]').on('click',function(){
+
+
+		createForm.show(8,this);
+
+		return false;
+
+	})
 
 });
