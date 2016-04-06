@@ -7,28 +7,63 @@ define(function (require) {
 
     var getHTML = require('getHTML');
     var queryToJson = require('queryToJson');
+    var tpl = require('approveTpl');
 
     var mainBox = $('#mainBox'),
-        senRequest = false;
+        listBox = $('#show_manage_office_list'),
+        senRequest = false,
+        cacheRequest = [];
 
-    var parameter = {
-        creater_id: '',
-        start_time: '',
-        end_time: '',
-        template_id: '',
-        approver_id: '',
-        status: ''
-    };
+    var parameter = {};
 
     function createHTML(data) {
         getHTML(data, function (obj) {
-            console.log(obj);
+            if(obj.html != ''){
+                listBox.html(obj.html);
+            }else{
+                listBox.html(tpl.nodata);
+            }
         }, 'manage');
+    }
+
+    function createLayer() {
+
+        senRequestHandle('/index.php?mod=shenpi&op=index&act=process_getList', {}, function (json) {
+            if (json.data.length != 0) {
+                var arr = ['<ul class="dropdown-box">', '<li><a href="javascript:;" node_args="template_id=0" node_type="change_type">全部</a></li>'];
+                $.each(json.data, function (i, item) {
+                    arr.push('<li><a href="javascript:;" node_type="change_type" node_args="template_id=' + item.id + '">' + item.title + '</a></li>');
+                });
+                arr.push('</ul>');
+                $('#manageprocess').html(arr.join(''));
+            } else {
+                $('#typeClassify').parent().remove();
+            }
+        }, function () {});
+
+        senRequestHandle('/index.php?mod=shenpi&op=index&act=user_getList', {}, function (json) {
+            if (json.data.length != 0) {
+                var arr_1 = ['<ul class="dropdown-box">', '<li><a href="javascript:;" node_args="creater_id=0" node_type="change_type">全部</a></li>'];
+                var arr_2 = ['<ul class="dropdown-box">', '<li><a href="javascript:;" node_args="approver_id=0" node_type="change_type">全部</a></li>'];
+                $.each(json.data, function (i, item) {
+                    arr_1.push('<li><a href="javascript:;" node_type="change_type" node_args="creater_id=' + item.uid + '">' + item.username + '</a></li>');
+                    arr_2.push('<li><a href="javascript:;" node_type="change_type" node_args="approver_id=' + item.uid + '">' + item.username + '</a></li>');
+                });
+                arr_1.push('</ul>');
+                arr_2.push('</ul>');
+                $('#manageuser').html(arr_1.join(''));
+                $('#manageaudit').html(arr_2.join(''));
+            } else {
+                $('#manger_user').parent().remove();
+                $('#manageaudit').parent().remove();
+            }
+        }, function () {});
     }
 
     //发送请求方法
     function senRequestHandle(url, args, cb, errrCb, type) {
         if (senRequest) {
+            cacheRequest.push(arguments);
             return false;
         }
         senRequest = true;
@@ -39,12 +74,16 @@ define(function (require) {
             dataType: type || 'json',
             success: function (json) {
                 if (json.status == 0) {
-                    cb && cb();
+                    cb && cb(json);
                 } else {
                     alert(json.msg || '提交失败，请稍后重试');
                     errrCb && errrCb();
                 }
+
                 senRequest = false;
+                if (cacheRequest.length != 0) {
+                    senRequestHandle.apply(this, cacheRequest.shift());
+                }
             },
             fail: function () {
                 alert('服务端异常，请稍后重试');
@@ -102,8 +141,8 @@ define(function (require) {
             arrow: null
         };
 
-        function clearCache(){
-            for(var i in cache) cache[i] = null;
+        function clearCache() {
+            for (var i in cache) cache[i] = null;
         }
 
         mainBox.find('a[node_type="selectBtn"]').click(function () {
@@ -112,6 +151,15 @@ define(function (require) {
                 id = target.attr('show_box');
 
             var showBox = $('#' + id);
+
+            var outH = target.outerHeight(),
+                outW = target.outerWidth(),
+                offset = target.offset();
+
+            showBox.css({
+                top: offset.top + outH + 'px',
+                left: offset.left - showBox.width() + outW + 'px'
+            });
 
             if (cache.box && cache.box.attr('id') != id) {
                 cache.box.hide();
@@ -150,7 +198,7 @@ define(function (require) {
             });
         });
 
-        $('a[node_type="change_type"]').click(function () {
+        $('.qm-main').delegate('a[node_type="change_type"]', 'click', function () {
             var target = $(this), args = queryToJson(target.attr('node_args'));
 
             var btnBox = $('[show_box="' + cache.box.attr('id') + '"]'),
@@ -160,18 +208,16 @@ define(function (require) {
             typeBox.html(target.html());
             cache.arrow.removeClass('ico-angle-up').addClass('ico-angle-down');
 
+            listBox.html(tpl.loading);
+
             data = $.extend(parameter, args);
             createHTML(data);
         });
     }
 
     ~function () {
-        createHTML({
-            creater_id: 2,
-            template_id: 8,
-            approver_id: 11,
-            status: 2
-        });
+        createHTML({});
+        createLayer();
         addEvt();
         initNavBar(1000);
         addAnimateEvt();

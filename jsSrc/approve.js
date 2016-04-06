@@ -18,7 +18,8 @@ define(function (require) {
         status: ''
     };
 
-    var senRequest = false;
+    var senRequest = false,
+        index = 1;
 
     //发送请求方法
     function senRequestHandle(url, args, cb, errrCb, type) {
@@ -33,7 +34,7 @@ define(function (require) {
             dataType: type || 'json',
             success: function (json) {
                 if (json.status == 0) {
-                    cb && cb();
+                    cb && cb(json);
                 } else {
                     alert(json.msg || '提交失败，请稍后重试');
                     errrCb && errrCb();
@@ -70,6 +71,19 @@ define(function (require) {
             if (html[2]) {
                 $('#my_done_count').html(count[2]);
             }
+
+            senRequestHandle('/index.php?mod=shenpi&op=index&act=process_getList', {}, function (json) {
+                if (json.data.length != 0) {
+                    var arr = ['<ul class="dropdown-box">','<li><a href="javascript:;" node_data="template_id=">全部</a></li>'];
+                    $.each(json.data, function (i, item) {
+                        arr.push('<li><a href="javascript:;" node_data="template_id=' + item.id + '">' + item.title + '</a></li>');
+                    });
+                    arr.push('</ul>');
+                    $('#office_process_drop').html(arr.join(''));
+                } else {
+                    $('#typeClassify').parent().remove();
+                }
+            }, function () {});
         });
     }
 
@@ -177,11 +191,12 @@ define(function (require) {
                 } else {
                     box.html(tpl.nodata);
                 }
+                index = i;
             });
 
             if (i == 2) {
                 $('#office_user').show();
-            }else{
+            } else {
                 $('#office_user').hide();
             }
         });
@@ -279,7 +294,7 @@ define(function (require) {
             return false;
         });
 
-        office_time_drop.find('li').click(function () {
+        office_time_drop.delegate('li', 'click', function () {
             var target = $(this),
                 data = target.find('a').attr('node_data'),
                 box = $('#show_office_list');
@@ -289,15 +304,15 @@ define(function (require) {
             timeClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
 
             getHTML(queryToJson(data), function (data) {
-                if (data.html[0]) {
-                    box.html(data.html[0]);
+                if (data.html[index]) {
+                    box.html(data.html[index]);
                 } else {
                     box.html(tpl.nodata);
                 }
             });
         });
 
-        office_process_drop.find('li').click(function () {
+        office_process_drop.delegate('li', 'click', function () {
             var target = $(this),
                 data = target.find('a').attr('node_data'),
                 box = $('#show_office_list');
@@ -307,15 +322,15 @@ define(function (require) {
             typeClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
 
             getHTML(queryToJson(data), function (data) {
-                if (data.html[0]) {
-                    box.html(data.html[0]);
+                if (data.html[index]) {
+                    box.html(data.html[index]);
                 } else {
                     box.html(tpl.nodata);
                 }
             });
         });
 
-        office_user_drop.find('li').click(function () {
+        office_user_drop.delegate('li', 'click', function () {
             var target = $(this),
                 data = target.find('a').attr('node_data'),
                 box = $('#show_office_list');
@@ -325,8 +340,8 @@ define(function (require) {
             userClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
 
             getHTML(queryToJson(data), function (data) {
-                if (data.html[0]) {
-                    box.html(data.html[0]);
+                if (data.html[index]) {
+                    box.html(data.html[index]);
                 } else {
                     box.html(tpl.nodata);
                 }
@@ -357,7 +372,7 @@ define(function (require) {
 
             senRequestHandle('/index.php?mod=shenpi&op=index&act=application_approve', args, function () {
                 target.attr('loading', 'false');
-                ele.parent().replaceWith(tpl.approve(args.stauts == 2 ? '待审批' : '已驳回'));
+                $('[node_id="' + args.id + '"]', approveBox).find('.office_status_8').replaceWith(tpl.approve(args.status == 2 ? '待审批' : '已驳回'));
                 ui.box.close();
             }, function () {
                 ui.box.close();
