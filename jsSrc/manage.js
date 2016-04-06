@@ -39,7 +39,9 @@ define(function (require) {
             } else {
                 $('#typeClassify').parent().remove();
             }
-        }, function () {});
+        }, function () {
+            $('#typeClassify').parent().remove();
+        });
 
         senRequestHandle('/index.php?mod=shenpi&op=index&act=user_getList', {}, function (json) {
             if (json.data.length != 0) {
@@ -57,7 +59,10 @@ define(function (require) {
                 $('#manger_user').parent().remove();
                 $('#manageaudit').parent().remove();
             }
-        }, function () {});
+        }, function () {
+            $('#manger_user').parent().remove();
+            $('#manageaudit').parent().remove();
+        });
     }
 
     //发送请求方法

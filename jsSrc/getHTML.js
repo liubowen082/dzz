@@ -84,7 +84,7 @@ define(function (require, exports, module) {
         var arr = [], lengthArr = [], getText = function (obj, i) {
             return modTemp(tpl, {
                 agreeAndReject: (function () {
-                    if (i == 0) {
+                    if (i == 0 && type == 'approve') {
                         return '<div class="handle office_status_8 status"><a href="javascript:;" class="btn btn-green" node_type="agree" node_args="status=2&amp;id=' + obj.id + '">同意</a><a href="javascript:;" class="btn btn-gray" node_type="reject" node_args="status=3&amp;id=' + obj.id + '">驳回</a></div>';
                     } else {
                         var status = {
@@ -98,7 +98,7 @@ define(function (require, exports, module) {
                         return '<div class="handle office_status_16 status">' + status[obj.status] + '</div>';
                     }
                 })(),
-                create_time: obj.create_time.split(' ')[0],
+                create_time: obj.create_time,
                 creater_link: 'http://www.baidu.com/?uid=' + obj.id,
                 creater_name: obj.creater_name,
                 creater_img: obj.avatar,
@@ -181,7 +181,12 @@ define(function (require, exports, module) {
 
         type = _type || 'approve';
 
-        var args = type == 'approve' ? $.extend(parameter, data) : data;
+        if(data == 'del creater_id'){
+            parameter.creater_id = '';
+            var args = parameter;
+        }else{
+            var args = type == 'approve' ? $.extend(parameter, data) : data;
+        }
 
         getData(args, function (obj) {
             cb && cb(obj);
