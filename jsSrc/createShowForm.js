@@ -11,8 +11,6 @@ var getId = require('getId');// id生成器
 var createFormList = function(dom,items,temp){
 	temp = temp || moduleList;
 
-	console.log(items)
-
 	$(items).each(function(i,a){
 		var rel = a.input_type;
 		var id = getId();

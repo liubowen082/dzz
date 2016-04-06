@@ -17,7 +17,7 @@ define(function(require, exports, module) {
 
 
 
-	var cretaeForm = {
+	var createForm = {
 		layCon: '[node-name="layer-window"]',
 		init: function() {},
 		get: function() {
@@ -85,7 +85,7 @@ define(function(require, exports, module) {
 						}
 					})
 				})
-				// select
+			// select
 
 			$(t.layCon).on('click', '[node-name="select_div"] .btn-join', function() {
 				$(this).next().toggle();
@@ -122,6 +122,10 @@ define(function(require, exports, module) {
 
 		
 			$(t.layCon).find('[node-name="user"]').autocomplete({
+				// autoFocus : true,
+        		scroll: true,
+				disabledType : true,
+				minLength : 0,
 				// _renderItem : function(ul, item) {
 				// 	console.log(22)
 				// 	return $("<li></li>")
@@ -139,16 +143,17 @@ define(function(require, exports, module) {
 				// },
 				source: function(request, response) {
 				    $.ajax({
-				        url: "index.php?mod=shenpi&op=index&act=user_getList",
+				        url: "/index.php?mod=shenpi&op=index&act=user_getList",
 				        dataType: "json",
 				        data: {
 				            top: 10,
 				            key: request.term
 				        },
 				        success: function(json) {
+				        	console.log(json)
 				        	if(json.status == 0){
 					             response($.map(json.data, function(item) {
-					                 return { label: item.name, value: item.id }
+					                 return { label: item.nickname, value: item.uid ,img : item.avatar }
 					             }));
 					        }
 					    }
@@ -167,40 +172,101 @@ define(function(require, exports, module) {
 						note : obj.note
 					}))
 
+					$(this).val('');
+					return false
 
 				},
 				create: function() {
 				        $(this).data('ui-autocomplete')._renderItem = function(ul, item) {
-									console.log(22)
 									return $("<li></li>")
 				        					.data("item.autocomplete", item)
-				        					.attr('search_id',item.id)
+				        					.attr('search_id',item.value)
 				        					.append('<div class="face"><img src="'+item.img+'" width="20px" height="20px" /></div>')
-				        					.append('<div class="content"><a href="javascript:void(0)">'+ item.lable +'</a><span>'+item.note+'</span></div></li>')
+				        					.append('<div class="content"><a href="javascript:void(0)">'+ item.label +'</a></div></li>')
 										    .appendTo( ul );
-
-									var html = '<ul class="at-user-list"></ul>';
-				                                
 								} 
+				},
+				focus : function(event, ui){
+
+					$(this).val(ui.item.label)
+					return false;
 				},
 				delay: 200
 			});
 
+			$(t.layCon).find('[node-name="user"]').on('focus',function(){
+				$(this).autocomplete("search",'');
+			})
+
 
 
 			// 附件
-			// $(t.layCon).find('[type="file"]').each(function(){
+			$(t.layCon).find('[type="file"]').each(function(i,a){
+				$(a).attr('id','data15')
 
-			// 	var obj = {
-			// 		max_size : '',
-			// 		allow_exts : '',
-			// 		upload_id : '',
-			// 		drop_area_id : '', 
-			// 		onUploadCallback : function(){}
-			// 	}
-			// 	uploadLoad(obj)
+				var obj = {
+					allow_exts: "jpg,gif,png,jpeg,bmp,zip,rar,doc,xls,ppt,docx,xlsx,pptx,pdf,txt,dmg,dwg,gz,bz2,amr,apk,psd,ai,cdr,tif,xmind,mwb,rp,m4a",
+					ext_id: "0",
+					inputname: "data15",
+					is_show: "0",
+					max_size: "209715200",
+					obj: {
+						onUploadCallback : function(){
+							console.log(1)
+						},
+						uploadCallback : function(){
+							console.log('uploadCallback')
+						},
+						delCallback : function(){
+							console.log('delCallback')
+						}
+					},
+					upload_id: "manual-fine-uploader",
+					template:'dfsdfsd',
+					onUploadCallback : function(){}
+				}
+				// uploadLoad(obj)
 
-			// })
+
+				 var uploader = new qq.FineUploader({
+                        element: $("#manual-fine-uploader")[0],
+                        request: {
+                            endpoint: 'server/handlerfunction'
+                        },
+                        text: {
+                            uploadButton: '<i class="icon-paperclip"></i><span>添加文件</span>'
+                        },
+                        template: 
+                            'dfsdfsd',
+                        classes: {
+                            success: 'alert alert-success',
+                            fail: 'alert alert-error'
+                       },
+                       debug: true
+                   });
+
+			});
+
+
+		// var galleryUploader = new qq.FineUploader({
+  //           element: document.getElementById("fine-uploader-gallery"),
+  //           template: 'qq-template-gallery',
+  //           request: {
+  //               endpoint: '/application_upload'
+  //           },
+  //           text: {
+  //               uploadButton: '<i class="icon-paperclip"></i><span>添加文件</span>'
+  //           },
+  //           thumbnails: {
+  //               placeholders: {
+  //                   waitingPath: '/source/placeholders/waiting-generic.png',
+  //                   notAvailablePath: '/source/placeholders/not_available-generic.png'
+  //               }
+  //           },
+  //           validation: {
+  //               allowedExtensions: ['jpeg', 'jpg', 'gif', 'png']
+  //           }
+  //       });
 
 
 			// 清单
@@ -233,24 +299,27 @@ define(function(require, exports, module) {
 					var val = input.val();
 
 					var rel = $(a).attr('rel');
-					switch(a.type){
+
+					switch(rel){
+						case 'textarea' :
+							var val = $(a).find('textarea').val();
+						break;
 						case 'select' : 
-							var val = $(a).find('select').val();
+							var val = $(a).data('id');
 						break;
 						case 'radio' : 
 							var val = $(a).find('input:radio:checked').val();
 						break;
 						case 'checkbox':
 							var arr = [];
+							console.log($(a).find('input:checkbox:checked'))
 							$(a).find('input:checkbox:checked').each(function(j,b){
 								arr.push($(b).val())
 							});
 							var val = arr.join('###');
-						break;	
-
 						break;
 						case 'attach' : 
-
+							var val = '';
 						break;
 						case 'user' : 
 							var ids = $(a).find('li');
@@ -258,7 +327,7 @@ define(function(require, exports, module) {
 							$(ids).each(function(j,b){
 								var search_id = $(b).attr('search_id');
 								var search_name = $(b).attr('search_name');
-								arr.push(search_id + ',' + search_name)
+								arr.push(search_id + '|' + search_name)
 							})
 							var val = arr.join('###');
 						break;
@@ -270,7 +339,7 @@ define(function(require, exports, module) {
 
 							var ids = $(a).find('.js_list');
 							var data_listArr = [];
-							$(ids).each(function(j,k){
+							$(ids).each(function(j,b){
 								var input = $(b).find('input');
 								var _data_listArr = [];
 								input.each(function(m,k){
@@ -288,7 +357,7 @@ define(function(require, exports, module) {
 					_data_[i].value = val;
 
 				});
-	
+		
 
 				var tm = this;
 				$.ajax({
@@ -302,14 +371,12 @@ define(function(require, exports, module) {
 					type: 'post',
 					success: function(json) {
 						if (json.status == 0) {
-							
-
+							$(t).trigger('onSubmitSuccess',{id:t.id,data:_data_});
 						} else {
 							alert(json.msg)
 						}
 					}
 				})
-
 
 			})
 
@@ -324,12 +391,15 @@ define(function(require, exports, module) {
 			// }, $(e).attr("title"), $(e).attr("href"));
 
 
+		},
+		hidden : function(){
+			$('.layer-window [event-node="close_index_ajax"]').remove();
 		}
 
 
 
 	}
 
-	return cretaeForm;
+	return createForm;
 
 })

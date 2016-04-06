@@ -7,10 +7,11 @@ define(function(require, exports, module) {
 	var uploadLoad = function(args) {
 			    var obj = eval(args.obj);
 			    var upload_id = args.upload_id;
+			    
 			    var manualuploader = new qq.FineUploader({
 			        element: $("#" + upload_id)[0],
 			        request: {
-			            endpoint: "widget/Upload/save",
+			            endpoint: "application_upload",
 			            params: {
 			                attach_max_size: args.max_size,
 			                allow_exts: args.allow_exts

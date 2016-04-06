@@ -6877,7 +6877,7 @@ a:focus {
 	max-height: 300px
 }
 
-.mod-at-wrap .at-user-list li {
+.ui-widget-content li {
 	padding: 5px 10px!important;
 	text-align: left;
 	white-space: nowrap;
@@ -6885,22 +6885,27 @@ a:focus {
 	cursor: pointer
 }
 
-.mod-at-wrap .at-user-list li:hover {
+.ui-widget-content li:hover,.ui-widget-content li.ui-state-focus  {
 	background: #3bafda;
-	cursor: pointer
+	cursor: pointer;
+}
+.ui-widget-content li:hover a,.ui-widget-content li.ui-state-focus a {
+	color:#FFF;
 }
 
-.mod-at-wrap .at-user-list li span {
+
+.ui-widget-content li span {
 	color: #999
 }
 
-.mod-at-wrap .at-user-list li .face {
+.ui-widget-content li .face {
 	display: inline-block;
 	margin: 0 8px 0 0;
-	width: 25px
+	width: 25px;
+	float: left;
 }
 
-.mod-at-wrap .at-user-list li .face img {
+.ui-widget-content li .face img {
 	width: 25px;
 	height: 25px;
 	-webkit-border-radius: 50%;
@@ -6909,29 +6914,30 @@ a:focus {
 	vertical-align: top
 }
 
-.mod-at-wrap .at-user-list li .content {
-	display: inline-block;
-	white-space: nowrap
+.ui-widget-content li .content {
+	white-space: nowrap;
+	margin-left: 26px;
 }
 
-.mod-at-wrap .at-user-list li .content a:hover {
-	text-decoration: none
+.ui-widget-content li .content a:hover {
+	text-decoration: none;
+	color:#FFF;
 }
 
-.mod-at-wrap .at-user-list .hover {
+.ui-widget-content .hover {
 	background: #3bafda;
 	cursor: pointer
 }
 
-.mod-at-wrap .at-user-list .current a,.mod-at-wrap .at-user-list .hover .content a {
+.ui-widget-content .current a,.ui-widget-content .hover .content a {
 	color: #fff
 }
 
-.mod-at-wrap .at-user-list .current *,.mod-at-wrap .at-user-list .hover * {
+.ui-widget-content .current *,.ui-widget-content .hover * {
 	color: #fff
 }
 
-.mod-at-wrap .at-user-list .current {
+.ui-widget-content .current {
 	background: #3bafda;
 	cursor: pointer
 }
@@ -7013,11 +7019,12 @@ a:focus {
 	padding: 5px 15px;
 	height: 18px;
 	line-height: 18px;
-	cursor: pointer
+	cursor: pointer;
 }
 
 .ui-menu-item a:hover {
-	background: #e8e9ee
+	/*background: #e8e9ee*/
+	color:#fff;
 }
 
 .msg-outer {

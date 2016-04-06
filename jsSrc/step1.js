@@ -66,14 +66,14 @@ define(function(require, exports, module) {
 
 
 
-	var createForm = require('createForm')
-	$('[event-node="ajax_detail"]').on('click',function(){
+	// var createForm = require('createForm')
+	// $('[event-node="ajax_detail"]').on('click',function(){
 
 
-		createForm.show(11,this);
+	// 	createForm.show(11,this);
 
-		return false;
+	// 	return false;
 
-	})
+	// })
 
 });
