@@ -70,10 +70,18 @@ define(function(require, exports, module) {
 	// $('[event-node="ajax_detail"]').on('click',function(){
 
 
-	// 	createForm.show(11,this);
+	// 	createForm.show(11);
+	// 	window.history.pushState({
+	// 			title : $(this),attr('title'),
+	// 			href : $(this).attr('href')
+	// 		}, $(e).attr("title"), $(this).attr("href"));
 
 	// 	return false;
 
+	// });
+	// $(createForm).on('onSubmitSuccess',function(){
+	// 	// do
+	// 	this.hide();
 	// })
 
 });

@@ -381,14 +381,11 @@ define(function(require, exports, module) {
 			})
 
 		},
-		show: function(id, e) {
+		show: function(id) {
 			this.id = id;
 			this.create(id);
 
-			// window.history.pushState({
-			// 	title : $(e),attr('title'),
-			// 	href : $(e).attr('href')
-			// }, $(e).attr("title"), $(e).attr("href"));
+			
 
 
 		},
