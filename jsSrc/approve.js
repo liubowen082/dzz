@@ -8,22 +8,18 @@ define(function (require) {
     var getHTML = require('getHTML');
     var queryToJson = require('queryToJson');
     var tpl = require('approveTpl');
-
-    var parameter = {
-        creater_id: '',
-        start_time: '',
-        end_time: '',
-        template_id: '',
-        approver_id: '',
-        status: ''
-    };
+    var createForm = require('createForm');
 
     var senRequest = false,
-        index = 1;
+        index = 1,
+        cacheRequest = [];
+
+    var creater_id = 0;
 
     //发送请求方法
-    function senRequestHandle(url, args, cb, errrCb, type) {
+    function senRequestHandle(url, args, cb, errCb, type) {
         if (senRequest) {
+            cacheRequest.push(arguments);
             return false;
         }
         senRequest = true;
@@ -37,9 +33,12 @@ define(function (require) {
                     cb && cb(json);
                 } else {
                     alert(json.msg || '提交失败，请稍后重试');
-                    errrCb && errrCb();
+                    errCb && errCb();
                 }
                 senRequest = false;
+                if (cacheRequest.length != 0) {
+                    senRequestHandle.apply(this, cacheRequest.shift());
+                }
             },
             fail: function () {
                 alert('服务端异常，请稍后重试');
@@ -71,19 +70,43 @@ define(function (require) {
             if (html[2]) {
                 $('#my_done_count').html(count[2]);
             }
+        });
+    }
 
-            senRequestHandle('/index.php?mod=shenpi&op=index&act=process_getList', {}, function (json) {
-                if (json.data.length != 0) {
-                    var arr = ['<ul class="dropdown-box">','<li><a href="javascript:;" node_data="template_id=">全部</a></li>'];
-                    $.each(json.data, function (i, item) {
-                        arr.push('<li><a href="javascript:;" node_data="template_id=' + item.id + '">' + item.title + '</a></li>');
-                    });
-                    arr.push('</ul>');
-                    $('#office_process_drop').html(arr.join(''));
-                } else {
-                    $('#typeClassify').parent().remove();
-                }
-            }, function () {});
+    function createLayer() {
+        senRequestHandle('/index.php?mod=shenpi&op=index&act=process_getList', {}, function (json) {
+            if (json.data.length != 0) {
+                var arr_1 = ['<ul class="dropdown-box">'];
+                var arr = ['<ul class="dropdown-box">'];
+                arr.push('<li><a href="javascript:;" node_data="template_id=0" title="全部">全部</a></li>');
+                $.each(json.data, function (i, item) {
+                    arr.push('<li><a href="javascript:;" title="' + item.title + '" node_data="template_id=' + item.id + '">' + item.title + '</a></li>');
+                    arr_1.push('<li><a href="javascript:;" title="' + item.title + '" node_data="template_id=' + item.id + '">' + item.title + '</a></li>');
+                });
+                arr.push('</ul>');
+                arr_1.push('</ul>');
+                $('#office_process_drop').html(arr.join(''));
+                $('#create_menu').html(arr_1.join(''));
+            } else {
+                $('#typeClassify').parent().remove();
+            }
+        }, function () {
+            $('#typeClassify').parent().remove();
+        });
+
+        senRequestHandle('/index.php?mod=shenpi&op=index&act=user_getList', {}, function (json) {
+            if (json.data.length != 0) {
+                var arr = ['<ul class="dropdown-box">', '<li><a href="javascript:;" node_data="creater_id=0" node_type="change_type">全部</a></li>'];
+                $.each(json.data, function (i, item) {
+                    arr.push('<li><a href="javascript:;" node_type="change_type" node_data="creater_id=' + item.uid + '">' + item.username + '</a></li>');
+                });
+                arr.push('</ul>');
+                $('#office_user_drop').html(arr.join(''));
+            } else {
+                $('#office_user').remove();
+            }
+        }, function () {
+            $('#office_user').remove();
         });
     }
 
@@ -146,14 +169,30 @@ define(function (require) {
     //创建申请按钮
     function addCreateBtnEvt() {
         var create_menu_btn = $('#create_menu'),
-            as = create_menu_btn.find('a');
+            o = (function (url) {
+                var parse_url = /^(?:([A-Za-z]+):(\/{0,3}))?([0-9.\-A-Za-z]+\.[0-9A-Za-z]+)?(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/;
+                var names = ['url', 'scheme', 'slash', 'host', 'port', 'path', 'query', 'hash'];
+                var results = parse_url.exec(url);
+                var that = {};
+                for (var i = 0, len = names.length; i < len; i += 1) {
+                    that[names[i]] = results[i] || '';
+                }
+                return that;
+            })(window.location.href);
 
-        as.click(function () {
+        create_menu_btn.delegate('a', 'click', function () {
 
-            var target = $(this);
+            var target = $(this),
+                data = target.attr('node_data'),
+                template_id = queryToJson(data).template_id;
+
+            var url = o.scheme + ':' + o.slash + o.host +'/'+ o.path;
 
             //调用创建审批的方法
-            alert('called method: ' + target.attr('node_type'));
+            createForm.show(template_id);
+            window.history.pushState({
+                title: target.attr('title')
+            }, '', url+ '?template_id=' + template_id);
             create_menu_btn.hide();
 
             return false;
@@ -171,6 +210,11 @@ define(function (require) {
             $(window).triggerHandler('resize');
         });
 
+        $(createForm).on('onSubmitSuccess', function () {
+            createHTML();
+            this.hide();
+        })
+
     }
 
     //切换列表数据功能
@@ -185,7 +229,15 @@ define(function (require) {
 
             box.html(tpl.loading);
 
-            getHTML({}, function (data) {
+            if (i == 2) {
+                $('#office_user').show();
+                var arg = {creater_id: creater_id};
+            } else {
+                $('#office_user').hide();
+                var arg = 'del creater_id';
+            }
+
+            getHTML(arg, function (data) {
                 if (data.html[i]) {
                     box.html(data.html[i]);
                 } else {
@@ -193,12 +245,6 @@ define(function (require) {
                 }
                 index = i;
             });
-
-            if (i == 2) {
-                $('#office_user').show();
-            } else {
-                $('#office_user').hide();
-            }
         });
     }
 
@@ -339,7 +385,10 @@ define(function (require) {
             $('#office_user_btn').html(target.html());
             userClassify.find('span').eq(1).removeClass('ico-angle-up').addClass('ico-angle-down');
 
-            getHTML(queryToJson(data), function (data) {
+            var arg = queryToJson(data);
+            creater_id = arg.creater_id;
+
+            getHTML(arg, function (data) {
                 if (data.html[index]) {
                     box.html(data.html[index]);
                 } else {
@@ -427,8 +476,6 @@ define(function (require) {
             open.removeClass("open");
             open.find(".ico-angle-up").removeClass().addClass("ico-angle-down");
             open.next(".ioffice-detail").slideUp();
-
-            return false;
         });
     }
 
@@ -436,6 +483,7 @@ define(function (require) {
 
         initNavBar(1000);
         createHTML();
+        createLayer();
         addCreateBtnEvt();
         addFullScrEvt();
         addNavTopEvt();

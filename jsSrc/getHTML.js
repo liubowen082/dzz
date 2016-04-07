@@ -27,9 +27,9 @@ define(function (require, exports, module) {
                     '<div class="fold"><a href="javascript:;" class="ico-angle-down"></a></div>',
                     '#{agreeAndReject}',
                     '<div class="time">#{create_time}</div>',
-                    '<div class="user"><a href="#{creater_link}" uid="#{create_id}">#{creater_name}</a></div>',
+                    '<div class="user"><a href="/user.php?uid=#{create_id}" uid="#{create_id}">#{creater_name}</a></div>',
                     '<div class="face">',
-                        '<a href="#{creater_link}"><img src="#{creater_img}" class="img-circle"></a>',
+                        '<a href="/user.php?uid=#{create_id}"><img src="#{creater_img}" class="img-circle"></a>',
                     '</div>',
                     '<div class="title">',
                         '<p>#{title_reason}<a href="javascript:;">&nbsp;#{title}</a></p>',
@@ -63,12 +63,30 @@ define(function (require, exports, module) {
                                 '<tr>',
                                     '<td class="td-title" valign="top">申请人：</td>',
                                     '<td>',
-                                        '<a href="#/core/Profile/index?uid=40606" event-node="face_card" uid="40606">#{creater_name}</a>',
+                                        '<a href="/user.php?uid=#{create_id}" uid="#{create_id}">#{creater_name}</a>',
                                     '</td>',
                                 '</tr>',
                                 '#{approve_line}',
                             '</tbody>',
                         '</table>',
+                    '</div>',
+                    '<div class="tab-box">',
+                        '<div class="tab-box-item">',
+                            '<div class="dynamic-outer">',
+                                '<div class="dynamic-in">',
+                                    '#{approve_time_line}',
+                                    '<dl class="dynamic-list">',
+                                        '<dt class="dynamic-icon"><span class="handle-plus"><i class="icon-plus"></i></span></dt>',
+                                        '<dd>',
+                                            '<div class="comment-bg">',
+                                                '<div class="comment-name"><a uid="6" href="http://blkj.qimingdao.com/core/Profile/index?uid=40624">#{creater_name}</a> 创建了申请</div>',
+                                                '<div class="comment-info"><div class="time">#{create_time}</div></div>',
+                                            '</div>',
+                                        '</dd>',
+                                    '</dl>',
+                                '</div>',
+                            '</div>',
+                        '</div>',
                     '</div>',
                 '</div>',
             '</div>'
@@ -84,7 +102,7 @@ define(function (require, exports, module) {
         var arr = [], lengthArr = [], getText = function (obj, i) {
             return modTemp(tpl, {
                 agreeAndReject: (function () {
-                    if (i == 0) {
+                    if (i == 0 && type == 'approve') {
                         return '<div class="handle office_status_8 status"><a href="javascript:;" class="btn btn-green" node_type="agree" node_args="status=2&amp;id=' + obj.id + '">同意</a><a href="javascript:;" class="btn btn-gray" node_type="reject" node_args="status=3&amp;id=' + obj.id + '">驳回</a></div>';
                     } else {
                         var status = {
@@ -98,8 +116,7 @@ define(function (require, exports, module) {
                         return '<div class="handle office_status_16 status">' + status[obj.status] + '</div>';
                     }
                 })(),
-                create_time: obj.create_time.split(' ')[0],
-                creater_link: 'http://www.baidu.com/?uid=' + obj.id,
+                create_time: obj.create_time,
                 creater_name: obj.creater_name,
                 creater_img: obj.avatar,
                 title_reason: '【'+ obj.template_title + '】',
@@ -118,7 +135,46 @@ define(function (require, exports, module) {
                     var approver_result = eval(obj.approver_result),arr = [];
                     $.each(approver_result, function (i, item) {
                         //' + item.remark + '
-                        arr.push('<tr><td class="td-title">' + item.title + ' :</td><td><a href="#/core/Profile/index?uid=' + item.id + '" event-node="face_card" uid="' + item.id + '">&nbsp;' + item.name + '&nbsp;</a></td></tr>');
+                        arr.push('<tr><td class="td-title">' + item.title + ' :</td><td><a href="/user.php?uid=' + item.id + '" event-node="face_card" uid="' + item.id + '">&nbsp;' + item.name + '&nbsp;</a></td></tr>');
+                    });
+                    return arr.join('');
+                })(),
+                approve_time_line:(function(){
+
+                    var html = '<dl class="dynamic-list"><dt class="dynamic-icon">#{icon}</dt><dd><div class="comment-bg"><div class="comment-arrow"><i class="ico-arrow-left22"></i></div><div class="comment-name"><a href="#">#{name}</a>&nbsp;#{msg}</div>#{remark}<div class="comment-info"><div class="time">#{approve_time}</div></div></div></dd></dl>';
+
+                    var approver_result = eval(obj.approver_result),arr = [];
+                    $.each(approver_result,function(i,item){
+                        if(item.approve_time){
+                            arr.push(modTemp(html,{
+                                icon:(function(){
+                                    if(item.status ==2){
+                                        return '<span class="handle-plus"><i class="icon-ok"></i></span>';
+                                    }else if(item.status ==3){
+                                        return '<span class="handle-close"><i class="icon-error"></i></span>';
+                                    }
+                                })(),
+                                uid:item.id,
+                                name:item.name,
+                                msg: (function () {
+                                    if (item.status == 2) {
+                                        return '同意了申请' + (item.remark ? '：' + item.remark : '');
+                                    } else if (item.status == 3) {
+                                        return '驳回了申请' + (item.remark ? '：' + item.remark : '');
+                                    }
+                                })(),
+                                remark:(function(){
+                                    if(item.status != 2 && item.status != 3){
+                                        return '<div class="comment-text">' + item.remark + '</div>';
+                                    }else{
+                                        return ''
+                                    }
+                                })(),
+                                approve_time:item.approve_time
+                            }));
+                        }else{
+                            arr.push('');
+                        }
                     });
                     return arr.join('');
                 })()
@@ -181,7 +237,12 @@ define(function (require, exports, module) {
 
         type = _type || 'approve';
 
-        var args = type == 'approve' ? $.extend(parameter, data) : data;
+        if(data == 'del creater_id'){
+            parameter.creater_id = '';
+            var args = parameter;
+        }else{
+            var args = type == 'approve' ? $.extend(parameter, data) : data;
+        }
 
         getData(args, function (obj) {
             cb && cb(obj);
