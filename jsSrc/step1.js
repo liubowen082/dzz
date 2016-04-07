@@ -66,22 +66,22 @@ define(function(require, exports, module) {
 
 
 
-	// var createForm = require('createForm')
-	// $('[event-node="ajax_detail"]').on('click',function(){
+	var createForm = require('createForm')
+	$('[event-node="ajax_detail"]').on('click',function(){
 
 
-	// 	createForm.show(11);
-	// 	window.history.pushState({
-	// 			title : $(this),attr('title'),
-	// 			href : $(this).attr('href')
-	// 		}, $(e).attr("title"), $(this).attr("href"));
+		createForm.show(11);
+		// window.history.pushState({
+		// 		title : $(this),attr('title'),
+		// 		href : $(this).attr('href')
+		// 	}, $(e).attr("title"), $(this).attr("href"));
 
-	// 	return false;
+		return false;
 
-	// });
-	// $(createForm).on('onSubmitSuccess',function(){
-	// 	// do
-	// 	this.hide();
-	// })
+	});
+	$(createForm).on('onSubmitSuccess',function(){
+		// do
+		this.hide();
+	})
 
 });

@@ -44,18 +44,7 @@ define(function(require, exports, module) {
 		},
 		'attach' : {
 			'name':'附件',
-			'tpl' : '<dl rel="attach" id="#{id}">'+
-						'<dt>#{isMust}  #{title}：</dt>'+
-						'<dd><div id="fine-uploader-gallery"></div></dd>'+
-						// '<dd><div id="manual-fine-uploader" model-node="upload_widget" model-args="obj=ioffice&amp;max_size=209715200&amp;allow_exts=jpg,gif,png,jpeg,bmp,zip,rar,doc,xls,ppt,docx,xlsx,pptx,pdf,txt,dmg,dwg,gz,bz2,amr,apk,psd,ai,cdr,tif,xmind,mwb,rp,m4a&amp;is_show=0&amp;drop_area_id=&amp;ext_id=0&amp;inputname=data15&amp;upload_id=manual-fine-uploader"><div class="qq-uploader">'+
-						// '<div class="qq-upload-drop-area" style="display:none"><span>拖动文件到此完成上传</span></div>'+
-						// '<div class="qq-upload-button" style="position: relative; overflow: hidden; direction: ltr;">'+
-						// 	'<div class="qq-upload-text"><i class="icon-paperclip"></i><span>添加文件</span></div>'+
-						// 	'<div class="qq-drop-drag">或拖拽到此上传</div>'+
-						// 	'<input multiple="multiple" type="file" name="file" style="position: absolute; right: 0px; top: 0px; font-family: Arial; font-size: 118px; margin: 0px; padding: 0px; cursor: pointer; opacity: 0;"></div><span class="qq-drop-processing">'+
-						// 	'<span>请稍后再拖动文件...</span><span class="qq-drop-processing-spinner"></span>'+
-						// 	'<ul class="qq-upload-list" id="dfsdfsd"><li></li></ul></div></div><div class="qq-uploader" id="upload_list"><ul class="qq-upload-list new-upload-list" style="display: none;"></ul></div><input type="hidden" name="data15_ids" id="data15_ids" value=""><input type="hidden" name="attach[]" value="15"></dd>'+
-					'</dl>'
+			'tpl' : '<dl rel="attach" id="#{id}"><dt>#{title}：</dt><dd><div model-node="upload_widget"><div class="qq-uploader"><div class="qq-upload-drop-area" style="display:none"><span>拖动文件到此完成上传</span></div><div class="qq-upload-button" style="position: relative; overflow: hidden; direction: ltr;"><div class="qq-upload-text"><i class="icon-paperclip"></i><span>添加文件</span></div><div class="qq-drop-drag">或拖拽到此上传</div><input multiple="multiple" type="file" name="file" style="position: absolute; right: 0px; top: 0px; font-family: Arial; font-size: 118px; margin: 0px; padding: 0px; cursor: pointer; opacity: 0;"></div><span class="qq-drop-processing"><span>请稍后再拖动文件...</span><span class="qq-drop-processing-spinner"></span></span><ul class="qq-upload-list"></ul></div></div><div class="qq-uploader" node-name="upload_list"><ul class="qq-upload-list new-upload-list" style="display: none;"></ul></div><input type="hidden" value="" node-name="input_#{id}"></dd></dl>'
 		},
 		'number' : {
 			'name':'数字',

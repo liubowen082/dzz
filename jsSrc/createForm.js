@@ -9,7 +9,9 @@ define(function(require, exports, module) {
 	var moduleShowList = require('moduleShowList');
 	var uploadLoad = require('updataFile');
 	var modJsonToString = require('modJsonToString');
+	var modUpdatePic = require('modUpdatePic');
 	var modTemp = require('modTemp');
+	
 	var _data_ = [];
 
 
@@ -126,21 +128,6 @@ define(function(require, exports, module) {
         		scroll: true,
 				disabledType : true,
 				minLength : 0,
-				// _renderItem : function(ul, item) {
-				// 	console.log(22)
-				// 	return $("<li></li>")
-    //     					.data("item.autocomplete", item)
-    //     					.attr('search_id',item.id)
-    //     					.append('<div class="face"><img src="'+item.img+'" width="20px" height="20px" /></div>')
-    //     					.append('<div class="content"><a href="javascript:void(0)">'+ item.lable +'</a><span>'+item.note+'</span></div></li>')
-				// 		    .appendTo( ul );
-
-
-
-
-				// 	var html = '<ul class="at-user-list">';
-                                
-				// },
 				source: function(request, response) {
 				    $.ajax({
 				        url: "/index.php?mod=shenpi&op=index&act=user_getList",
@@ -159,7 +146,6 @@ define(function(require, exports, module) {
 					    }
 				    });
 				},
-				// source: ['aa', 'bb', 'ab', 'de', 'ff'],
 				select: function(event, ui) {
 					//提交搜索...
 					var obj = ui.item;
@@ -201,72 +187,78 @@ define(function(require, exports, module) {
 
 
 			// 附件
-			$(t.layCon).find('[type="file"]').each(function(i,a){
-				$(a).attr('id','data15')
+			$(t.layCon).find('[rel="attach"]').each(function(i,a){
+				var parent = this;
+				var file = $(a).find('[type="file"]');
+				var list = $(parent).find('[node-name="upload_list"]');
 
-				var obj = {
-					allow_exts: "jpg,gif,png,jpeg,bmp,zip,rar,doc,xls,ppt,docx,xlsx,pptx,pdf,txt,dmg,dwg,gz,bz2,amr,apk,psd,ai,cdr,tif,xmind,mwb,rp,m4a",
-					ext_id: "0",
-					inputname: "data15",
-					is_show: "0",
-					max_size: "209715200",
-					obj: {
-						onUploadCallback : function(){
-							console.log(1)
-						},
-						uploadCallback : function(){
-							console.log('uploadCallback')
-						},
-						delCallback : function(){
-							console.log('delCallback')
+				var upload = new modUpdatePic($(file));
+
+				$(upload).on('onStart',function(){
+
+						var list = $(parent).find('[node-name="upload_list"]');
+						var tpl = '<li class="qq-upload-success"><div class="qq-progress-bar"></div><span class="qq-upload-spinner"></span></li>';
+						list.append(modTemp(tpl,{}))
+
+				})
+				$(upload).on('onProgress',function(e,result){
+						var id = result.id;
+						var data = result.result;
+		
+						if($('#'+id).length = 0){
+							var tpl = '<li class="qq-upload-success" id="' + id + '"></li>';
+							list.append(modTemp(tpl,{}))
 						}
-					},
-					upload_id: "manual-fine-uploader",
-					template:'dfsdfsd',
-					onUploadCallback : function(){}
-				}
-				// uploadLoad(obj)
+						
+						var loaded = Math.ceil((data.loaded / data.total) * 100);
+						var tpl = '<div class="qq-progress-bar" style="display: block; width: '+ loaded+'%;"></div><span class="qq-upload-spinner" style="display: inline-block;"></span><span class="qq-upload-finished"></span><a class="qq-upload-delete icon-close" href="#"></a><span class="qq-upload-size" style="display: inline;">已完成'+ loaded +'% ，总共' + data.total +'MB</span><span class="qq-upload-file">'+ result.name +'</span><a class="qq-upload-cancel" href="#">取消</a><span class="qq-upload-status-text"></span>'
+						$('#'+id).append(tpl)
 
+				})
+				$(upload).on('onLoad',function(e,json){
+					var id = json.id;
+					var data = json.result;
 
-				 var uploader = new qq.FineUploader({
-                        element: $("#manual-fine-uploader")[0],
-                        request: {
-                            endpoint: 'server/handlerfunction'
-                        },
-                        text: {
-                            uploadButton: '<i class="icon-paperclip"></i><span>添加文件</span>'
-                        },
-                        template: 
-                            'dfsdfsd',
-                        classes: {
-                            success: 'alert alert-success',
-                            fail: 'alert alert-error'
-                       },
-                       debug: true
-                   });
+					var tpl = '<span class="qq-upload-finished"></span><a href="#{url}" event-node="feed_ajax_detail" title="#{title}" target="_blank"><span class="qq-upload-icon"><i class="qg-ico16-file ico-#{type}"></i></span></a><a class="qq-upload-delete icon-close" node-name="fileDel" li-id="'+id+'"  href="javascript:;" li-file="#{title}|#{url}"></a><span class="qq-upload-size">(#{size} MB)</span><span class="qq-upload-file"><a href="#{url}" event-node="feed_ajax_detail" title="#{title}" target="_blank">#{title}</a></span><span class="qq-upload-download"><a href="${downUrl}" class="icon-download"></a></span><span class="qq-upload-status-text"></span>';
+					$('#' + id).html(modTemp(tpl,{
+						url : data.path,
+						size : data.size,
+						downUrl : data.path,
+						title : data.name
+					}));
+
+					var input  = $('[node-name="input_"' + id + ']');
+					var arr = input.val().split();
+					arr.push(data.name + '|' + data.url);
+					input.val(arr.join('###'))
+					
+				})
+				$(upload).on('onLoadFailure',function(e,json){
+					var name = json.name;
+					alert(name + json.result.msg)
+					$('#'+json.id).remove();
+					
+				})
+
 
 			});
+			$(t.layCon).on('click','[node-name="fileDel"]',function(){
+				var id = $(this).attr('li-id');
+				$('#' + id).remove();
 
+				var input  = $('[node-name="input_"' + id + ']');
+				var str = input.val();
 
-		// var galleryUploader = new qq.FineUploader({
-  //           element: document.getElementById("fine-uploader-gallery"),
-  //           template: 'qq-template-gallery',
-  //           request: {
-  //               endpoint: '/application_upload'
-  //           },
-  //           text: {
-  //               uploadButton: '<i class="icon-paperclip"></i><span>添加文件</span>'
-  //           },
-  //           thumbnails: {
-  //               placeholders: {
-  //                   waitingPath: '/source/placeholders/waiting-generic.png',
-  //                   notAvailablePath: '/source/placeholders/not_available-generic.png'
-  //               }
-  //           },
-  //           validation: {
-  //               allowedExtensions: ['jpeg', 'jpg', 'gif', 'png']
-  //           }
-  //       });
+				var delStr = $(this).attr('li-file').replace('|','\\|');
+				var reg = new RegExp('(###|^)'+ delStr +'(###|$)','g')
+				var ss = str.replace(reg,'')
+
+				input.val(ss)
+			})
+
+			
+  
+
 
 
 			// 清单
@@ -294,6 +286,7 @@ define(function(require, exports, module) {
 
 				var dl = $(t.layCon).find('dl');
 				var arr = [];
+				var flag = false;
 				$(dl).each(function(i,a){
 					var input = $(a).find('input');
 					var val = input.val();
@@ -319,7 +312,8 @@ define(function(require, exports, module) {
 							var val = arr.join('###');
 						break;
 						case 'attach' : 
-							var val = '';
+							var id = $(a).attr('id');
+							var val = $(a).find('[node-name="input_"' + id + ']').val();
 						break;
 						case 'user' : 
 							var ids = $(a).find('li');
@@ -352,12 +346,20 @@ define(function(require, exports, module) {
 						break;
 					}
 
+					var must = _data_[i].must;
+					if(must == 1){
+						alert(请填写+ _data_[i])
+						flag = true;
+						return false;
+					}
 
 
 					_data_[i].value = val;
 
 				});
-		
+				if(flag){
+					return;
+				}
 
 				var tm = this;
 				$.ajax({
@@ -384,16 +386,10 @@ define(function(require, exports, module) {
 		show: function(id) {
 			this.id = id;
 			this.create(id);
-
-			
-
-
 		},
 		hidden : function(){
 			$('.layer-window [event-node="close_index_ajax"]').remove();
 		}
-
-
 
 	}
 
