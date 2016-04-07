@@ -17,7 +17,7 @@ define(function (require) {
     var creater_id = 0;
 
     //发送请求方法
-    function senRequestHandle(url, args, cb, errrCb, type) {
+    function senRequestHandle(url, args, cb, errCb, type) {
         if (senRequest) {
             cacheRequest.push(arguments);
             return false;
@@ -33,7 +33,7 @@ define(function (require) {
                     cb && cb(json);
                 } else {
                     alert(json.msg || '提交失败，请稍后重试');
-                    errrCb && errrCb();
+                    errCb && errCb();
                 }
                 senRequest = false;
                 if (cacheRequest.length != 0) {
@@ -476,8 +476,6 @@ define(function (require) {
             open.removeClass("open");
             open.find(".ico-angle-up").removeClass().addClass("ico-angle-down");
             open.next(".ioffice-detail").slideUp();
-
-            return false;
         });
     }
 
