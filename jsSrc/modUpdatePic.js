@@ -54,6 +54,28 @@ define(function(require, exports, module) {
             }, false);
 
 
+            this.xhr.addEventListener("error", function(e){
+
+                $(t).trigger('onLoadFailure',{ 
+                        result : {
+                            msg : "上传失败!"
+                        },
+                        id : id,
+                        name :fileList[0].name
+                    })
+
+            }, false);
+            this.xhr.addEventListener("abort", function(){
+                $(t).trigger('onLoadFailure',{ 
+                        result : {
+                            msg : "上传失败!"
+                        },
+                        id : id,
+                        name :fileList[0].name
+                    })
+            }, false);
+
+
             var fd = new FormData();
             fd.append(name, fileList[0]);
             for(var i  in this.po){

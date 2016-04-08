@@ -11,6 +11,13 @@ define(function(require, exports, module) {
 	var modJsonToString = require('modJsonToString');
 	var modUpdatePic = require('modUpdatePic');
 	var modTemp = require('modTemp');
+
+
+	var bytesTosize = function(data){
+        var unit = ["Bytes","KB","MB","GB"];
+        var i = parseInt(Math.log(data)/Math.log(1024));
+        return (data/Math.pow(1024,i)).toFixed(1) + " " + unit[i];
+    }
 	
 	var _data_ = [];
 
@@ -191,46 +198,50 @@ define(function(require, exports, module) {
 				var parent = this;
 				var file = $(a).find('[type="file"]');
 				var list = $(parent).find('[node-name="upload_list"]');
+				var input = $(a).find('[node-name="input"]');
+				console.log(input)
 
 				var upload = new modUpdatePic($(file));
 
-				$(upload).on('onStart',function(){
-
-						var list = $(parent).find('[node-name="upload_list"]');
-						var tpl = '<li class="qq-upload-success"><div class="qq-progress-bar"></div><span class="qq-upload-spinner"></span></li>';
-						list.append(modTemp(tpl,{}))
-
-				})
 				$(upload).on('onProgress',function(e,result){
+						console.log(11)
 						var id = result.id;
 						var data = result.result;
 		
-						if($('#'+id).length = 0){
+						if($('#'+id).length == 0){
 							var tpl = '<li class="qq-upload-success" id="' + id + '"></li>';
-							list.append(modTemp(tpl,{}))
+							list.append(tpl).show();
 						}
-						
 						var loaded = Math.ceil((data.loaded / data.total) * 100);
-						var tpl = '<div class="qq-progress-bar" style="display: block; width: '+ loaded+'%;"></div><span class="qq-upload-spinner" style="display: inline-block;"></span><span class="qq-upload-finished"></span><a class="qq-upload-delete icon-close" href="#"></a><span class="qq-upload-size" style="display: inline;">已完成'+ loaded +'% ，总共' + data.total +'MB</span><span class="qq-upload-file">'+ result.name +'</span><a class="qq-upload-cancel" href="#">取消</a><span class="qq-upload-status-text"></span>'
-						$('#'+id).append(tpl)
+						var tpl = '<div class="qq-progress-bar" style="display: block; width: '+ loaded+'%;"></div><span class="qq-upload-spinner" style="display: inline-block;"></span><a class="qq-upload-cancel" href="javascript:;" node-name="loadDel">取消</a><span class="qq-upload-size" style="display: inline;">已完成'+ loaded +'% ，总共' + bytesTosize(data.total) +'</span><span class="qq-upload-file">'+ result.name.replace(/^(.{5})(.*)(.{5}\..*)$/,'$1'+'...'+'$3') +'</span><span class="qq-upload-status-text"></span>'
+						$('#'+id).html(tpl)
 
 				})
 				$(upload).on('onLoad',function(e,json){
 					var id = json.id;
-					var data = json.result;
+					var data = json.result.data;
+					
+					if($('#' + id).length == 0){
+						return
+					} 
 
-					var tpl = '<span class="qq-upload-finished"></span><a href="#{url}" event-node="feed_ajax_detail" title="#{title}" target="_blank"><span class="qq-upload-icon"><i class="qg-ico16-file ico-#{type}"></i></span></a><a class="qq-upload-delete icon-close" node-name="fileDel" li-id="'+id+'"  href="javascript:;" li-file="#{title}|#{url}"></a><span class="qq-upload-size">(#{size} MB)</span><span class="qq-upload-file"><a href="#{url}" event-node="feed_ajax_detail" title="#{title}" target="_blank">#{title}</a></span><span class="qq-upload-download"><a href="${downUrl}" class="icon-download"></a></span><span class="qq-upload-status-text"></span>';
+					var tpl = '<span class="qq-upload-finished"></span><a href="#{url}" event-node="feed_ajax_detail" title="#{title}" target="_blank"><span class="qq-upload-icon"><i class="qg-ico16-file ico-#{type}"></i></span></a><a class="qq-upload-delete icon-close" node-name="fileDel" li-id="'+id+'"  href="javascript:;" li-file="#{title}|#{url}"></a><span class="qq-upload-size">(#{size})</span><span class="qq-upload-file"><a href="#{url}" event-node="feed_ajax_detail" title="#{title}" target="_blank">#{shortTitle}</a></span><span class="qq-upload-download"><a href="#{downUrl}" class="icon-download" target="_blank"></a></span><span class="qq-upload-status-text"></span>';
 					$('#' + id).html(modTemp(tpl,{
 						url : data.path,
 						size : data.size,
 						downUrl : data.path,
-						title : data.name
+						title : data.name,
+						shortTitle : data.name.replace(/^(.{5})(.*)(.{5}\..*)$/,'$1'+'...'+'$3'),
+						type : data.name.replace(/.*\.(.*)/,'$1')
 					}));
 
-					var input  = $('[node-name="input_"' + id + ']');
-					var arr = input.val().split();
-					arr.push(data.name + '|' + data.url);
-					input.val(arr.join('###'))
+					var val = input.val();
+					var valss = data.name + '|' + data.path;
+					if($.trim(val) == ''){
+						input.val(valss);
+					}else{
+						input.val(val + '###' + valss);
+					}
 					
 				})
 				$(upload).on('onLoadFailure',function(e,json){
@@ -242,18 +253,23 @@ define(function(require, exports, module) {
 
 
 			});
+			//未上传完删除
+			$(t.layCon).on('click','[node-name="loadDel"]',function(){
+
+				$(this).parent().remove();
+			})
+
+			// 上传成功后删除
 			$(t.layCon).on('click','[node-name="fileDel"]',function(){
 				var id = $(this).attr('li-id');
-				$('#' + id).remove();
-
-				var input  = $('[node-name="input_"' + id + ']');
+				
+				var input = $(this).parentsUntil('dl').find('[node-name="input"]');
 				var str = input.val();
 
 				var delStr = $(this).attr('li-file').replace('|','\\|');
 				var reg = new RegExp('(###|^)'+ delStr +'(###|$)','g')
 				var ss = str.replace(reg,'')
-
-				input.val(ss)
+				$('#' + id).remove();
 			})
 
 			
