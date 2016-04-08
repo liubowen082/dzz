@@ -22,7 +22,7 @@ define(function(require, exports, module) {
 	var _data_ = [];
 
 
-	var str = '<div class="layer-window ajax_detal_layer"><a href="javascript:;" class="layer-close icon-close" event-node="close_index_ajax"></a><div class="ajax_content"><div class="ioffice-plus-wrap"><form action="http://blkj.qimingdao.com/ioffice/Do/addOffice" method="POST"><input type="hidden" name="id" value="#{id}"><div class="ioffice-plus-title">#{title}</div><div class="ioffice-plus" node-name="layer-window"></div><div class="ioffice-plus-btn"><a href="javascript:;" class="btn btn-green-big" event-node="submit_btn"><span class="js_submit_btn" node-name="js_submit_btn">创建</span></a><a href="http://blkj.qimingdao.com/ioffice/Index/index" class="btn btn-gray-big"><span>取消</span></a></div></form></div></div></div>';
+	var str = '<div class="layer-window ajax_detal_layer"><a href="javascript:;" class="layer-close icon-close" event-node="close_index_ajax"></a><div class="ajax_content"><div class="ioffice-plus-wrap"><form action="http://blkj.qimingdao.com/ioffice/Do/addOffice" method="POST"><input type="hidden" name="id" value="#{id}"><div class="ioffice-plus-title">#{title}</div><div class="ioffice-plus" node-name="layer-window"></div><div class="ioffice-plus-btn"><a href="javascript:;" class="btn btn-green-big" node-name="js_submit_btn"><span class="js_submit_btn">创建</span></a><a href="http://blkj.qimingdao.com/ioffice/Index/index" class="btn btn-gray-big"><span>取消</span></a></div></form></div></div></div>';
 
 
 
@@ -45,6 +45,8 @@ define(function(require, exports, module) {
 							id: t.id
 						}));
 
+						console.log(json.data.form_config)
+
 						var data = eval('(' + json.data.form_config + ')');
 
 						createShowForm($(t.layCon), data, moduleShowList);
@@ -58,22 +60,28 @@ define(function(require, exports, module) {
 			})
 
 		},
-		create: function() {
-			this.get();
-
-
-		},
-		checkData: function(type) {
-			switch (type) {
-				case "text":
-
-					break;
-
-
-
+		create: function(data) {
+			if(!data){
+				this.get();
+			}else{
+				createShowForm($(this.layCon), data, moduleShowList);
+				_data_ = data;
+				this.addEvent();
 			}
-
+			
 		},
+
+		// checkData: function(type) {
+		// 	switch (type) {
+		// 		case "text":
+
+		// 			break;
+
+
+
+		// 	}
+
+		// },
 		send: function() {},
 		addEvent: function() {
 			var t = this;
@@ -83,17 +91,17 @@ define(function(require, exports, module) {
 					console.log($(this).parent())
 					$(this).parent().remove();
 				})
-				// 提交
-			$(t.layCon).on('click', '[event-node="submit_btn"]', function() {
-					var dl = $(t.layCon).find('dl');
-					$(dl).each(function(i, a) {
-						var rel = $(a).attr('rel');
-						var flag = t.checkData(rel);
-						if (!flag) {
-							return false;
-						}
-					})
-				})
+			// 	// 提交
+			// $(t.layCon).on('click', '[event-node="submit_btn"]', function() {
+			// 		var dl = $(t.layCon).find('dl');
+			// 		$(dl).each(function(i, a) {
+			// 			var rel = $(a).attr('rel');
+			// 			var flag = t.checkData(rel);
+			// 			if (!flag) {
+			// 				return false;
+			// 			}
+			// 		})
+			// 	})
 			// select
 
 			$(t.layCon).on('click', '[node-name="select_div"] .btn-join', function() {
