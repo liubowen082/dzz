@@ -19,7 +19,7 @@ define(function(require, exports, module) {
         return (data/Math.pow(1024,i)).toFixed(1) + " " + unit[i];
     }
 	
-	var _data_ = [];
+	var _data_ = [] , _data_A = [];
 
 
 	var str = '<div class="layer-window ajax_detal_layer"><a href="javascript:;" class="layer-close icon-close" event-node="close_index_ajax"></a><div class="ajax_content"><div class="ioffice-plus-wrap"><form action="http://blkj.qimingdao.com/ioffice/Do/addOffice" method="POST"><input type="hidden" name="id" value="#{id}"><div class="ioffice-plus-title">#{title}</div><div class="ioffice-plus" node-name="layer-window"></div><div class="ioffice-plus-btn"><a href="javascript:;" class="btn btn-green-big" node-name="js_submit_btn"><span class="js_submit_btn">创建</span></a><a href="http://blkj.qimingdao.com/ioffice/Index/index" class="btn btn-gray-big"><span>取消</span></a></div></form></div></div></div>';
@@ -45,12 +45,15 @@ define(function(require, exports, module) {
 							id: t.id
 						}));
 
-						console.log(json.data.form_config)
 
 						var data = eval('(' + json.data.form_config + ')');
+						createShowForm.createFormList($(t.layCon), data, moduleShowList);
 
-						createShowForm($(t.layCon), data, moduleShowList);
+						var dataA = eval('(' + json.data.approver_config + ')');
+						createShowForm.createApproval($(t.layCon), dataA, moduleShowList);
+
 						_data_ = data;
+						_data_A = dataA
 						t.addEvent();
 
 					} else {
@@ -64,7 +67,7 @@ define(function(require, exports, module) {
 			if(!data){
 				this.get();
 			}else{
-				createShowForm($(this.layCon), data, moduleShowList);
+				createShowForm.createFormList($(this.layCon), data, moduleShowList);
 				_data_ = data;
 				this.addEvent();
 			}
@@ -88,7 +91,6 @@ define(function(require, exports, module) {
 
 			// 关闭
 			$('.layer-window').on('click', '[event-node="close_index_ajax"]', function() {
-					console.log($(this).parent())
 					$(this).parent().remove();
 				})
 			// 	// 提交
@@ -103,7 +105,6 @@ define(function(require, exports, module) {
 			// 		})
 			// 	})
 			// select
-
 			$(t.layCon).on('click', '[node-name="select_div"] .btn-join', function() {
 				$(this).next().toggle();
 				return false;
@@ -152,7 +153,6 @@ define(function(require, exports, module) {
 				            key: request.term
 				        },
 				        success: function(json) {
-				        	console.log(json)
 				        	if(json.status == 0){
 					             response($.map(json.data, function(item) {
 					                 return { label: item.nickname, value: item.uid ,img : item.avatar }
@@ -207,12 +207,10 @@ define(function(require, exports, module) {
 				var file = $(a).find('[type="file"]');
 				var list = $(parent).find('[node-name="upload_list"]');
 				var input = $(a).find('[node-name="input"]');
-				console.log(input)
 
 				var upload = new modUpdatePic($(file));
 
 				$(upload).on('onProgress',function(e,result){
-						console.log(11)
 						var id = result.id;
 						var data = result.result;
 		
@@ -329,7 +327,6 @@ define(function(require, exports, module) {
 						break;
 						case 'checkbox':
 							var arr = [];
-							console.log($(a).find('input:checkbox:checked'))
 							$(a).find('input:checkbox:checked').each(function(j,b){
 								arr.push($(b).val())
 							});
@@ -337,7 +334,7 @@ define(function(require, exports, module) {
 						break;
 						case 'attach' : 
 							var id = $(a).attr('id');
-							var val = $(a).find('[node-name="input_"' + id + ']').val();
+							var val = $(a).find('[node-name="input"]').val();
 						break;
 						case 'user' : 
 							var ids = $(a).find('li');
@@ -370,15 +367,26 @@ define(function(require, exports, module) {
 						break;
 					}
 
-					var must = _data_[i].must;
-					if(must == 1){
-						alert(请填写+ _data_[i])
-						flag = true;
-						return false;
+					
+
+					if(_data_[i]){
+						var must = _data_[i].must;
+						if(must == 1 && val == ''){
+							alert("请填写"+ _data_[i].title)
+							flag = true;
+							return false;
+						}
+						_data_[i].value = val;
+					}else{
+						var must = _data_A[i-_data_.length].require;
+						if(must == 1 && val == ''){
+							alert("请填写"+ _data_A[i-_data_.length].title)
+							flag = true;
+							return false;
+						}
+						_data_A[i-_data_.length].value = val;
 					}
-
-
-					_data_[i].value = val;
+					
 
 				});
 				if(flag){
@@ -390,7 +398,8 @@ define(function(require, exports, module) {
 					url: '/index.php?mod=shenpi&op=index&act=application_add',
 					data: {
 						template_id : t.id,
-						form_content : modJsonToString(_data_)
+						form_content : modJsonToString(_data_),
+						approver_config : modJsonToString(_data_A)
 					},
 					catch: false,
 					dataType: 'json',
@@ -409,7 +418,7 @@ define(function(require, exports, module) {
 		},
 		show: function(id) {
 			this.id = id;
-			this.create(id);
+			this.create();
 		},
 		hidden : function(){
 			$('.layer-window [event-node="close_index_ajax"]').remove();

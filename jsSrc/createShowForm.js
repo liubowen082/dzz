@@ -38,7 +38,11 @@ var createFormList = function(dom,items,temp){
 			option_else : a.option_else
 		}));
 		
-		$('#' + id).data(a);
+		// $('#' + id).data(a);
+		if(a.user_format=='signle'){
+			$('#' + id).remove('[node-name="removeSearch"]')
+					   .remove('input')
+		}
 
 		if(a.option_else != 0 )
 			$('#'+id).find('label:last').after(temp[rel].other);
@@ -48,6 +52,59 @@ var createFormList = function(dom,items,temp){
 
 }
 
-return createFormList
+
+var createApproval = function(dom,items,temp){
+	temp = temp || moduleList;
+
+	$(items).each(function(i,a){
+		var rel = 'user';
+		var id = getId();
+/*
+    {
+        "level": 2,
+        "title": "二级审批",
+        "id": 1,
+        "name": "王思聪",
+        "require": 1,
+        "allow_select": 1
+    }
+
+*/		
+		console.log(a.allow_select)
+		var val = a.value.split('|');
+		var option = [];
+		
+		option.push(modTemp(temp[rel].option , {
+			id : val[0],
+			name : val[1]
+		}))
+
+		$(dom).append(modTemp(temp[rel].tpl,{
+			id:id,
+			isMust : a.require ? '<span style="color:red">*</span>' : '',
+			title : a.title,
+			value : a.value,
+			option : option,
+			allow_select : a.allow_select
+			// option_else : a.option_else
+		}));
+		
+		// $('#' + id).data(a);
+		if(a.allow_select == 1){
+			$('#' + id).find('[node-name="removeSearch"]').remove();
+			$('#' + id).find('input').remove();
+
+		}
+		
+	});
+
+	$(GLOBAL).trigger('onCreateApproval')
+
+}
+
+return {
+	createFormList : createFormList,
+	createApproval : createApproval
+}
 
 });
