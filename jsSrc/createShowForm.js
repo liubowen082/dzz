@@ -70,7 +70,6 @@ var createApproval = function(dom,items,temp){
     }
 
 */		
-		console.log(a.allow_select)
 		var val = a.value.split('|');
 		var option = [];
 		

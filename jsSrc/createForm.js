@@ -421,7 +421,7 @@ define(function(require, exports, module) {
 			this.create();
 		},
 		hidden : function(){
-			$('.layer-window [event-node="close_index_ajax"]').remove();
+			$('.layer-window [event-node="close_index_ajax"]').click();
 		}
 
 	}

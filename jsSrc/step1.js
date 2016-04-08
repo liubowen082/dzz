@@ -81,7 +81,7 @@ define(function(require, exports, module) {
 	});
 	$(createForm).on('onSubmitSuccess',function(){
 		// do
-		this.hide();
+		this.hidden();
 	})
 
 });
