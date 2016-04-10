@@ -215,8 +215,7 @@ define(function (require) {
 
             listBox.html(tpl.loading);
 
-            data = $.extend(parameter, args);
-            createHTML(data);
+            createHTML($.extend(parameter, args));
         });
     }
 
