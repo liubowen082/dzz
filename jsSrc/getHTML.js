@@ -44,22 +44,7 @@ define(function (require, exports, module) {
                         '</div>',
                         '<table class="ioffice-table">',
                             '<tbody>',
-                                '<tr>',
-                                    '<td class="td-title" valign="top">申请事由：</td>',
-                                    '<td>离职申请</td>',
-                                '</tr>',
-                                '<tr>',
-                                    '<td class="td-title" valign="top">离职日期：</td>',
-                                    '<td>2015-07-10</td>',
-                                '</tr>',
-                                '<tr>',
-                                    '<td class="td-title" valign="top">离职事由：</td>',
-                                    '<td>个人发展</td>',
-                                '</tr>',
-                                '<tr>',
-                                    '<td class="td-title" valign="top">离职原因：</td>',
-                                    '<td>思考良久，终究还是提出离职。感触良多，非常感谢公司这么久的培养，但由于个人希望转行，所以提此辞呈，不过将会按合同执行，烦请审批。</td>',
-                                '</tr>',
+                                '#{form_content}',
                                 '<tr>',
                                     '<td class="td-title" valign="top">申请人：</td>',
                                     '<td>',
@@ -176,6 +161,34 @@ define(function (require, exports, module) {
                             arr.push('');
                         }
                     });
+                    return arr.join('');
+                })(),
+                form_content:(function(){
+                    var json = eval(obj.form_content),
+                        arr = [];
+
+                    $.each(json, function (i, item) {
+                        if (item.value) {
+                            switch (item.input_type) {
+                                case 'date_between':
+                                    arr.push('<tr><td class="td-title" valign="top">' + item.title + '：</td><td>' + item.value.replace(/###/gi, '&nbsp;~&nbsp;') + '</td></tr>');
+                                    break;
+                                case 'checkbox':
+                                    arr.push('<tr><td class="td-title" valign="top">' + item.title + '：</td><td>' + item.value.replace(/###/gi,'，') + '</td></tr>');
+                                    break;
+                                case 'user':
+                                    arr.push('<tr><td class="td-title" valign="top">' + item.title + '：</td><td>' + item.value.replace(/\|/gi,'，') + '</td></tr>');
+                                    break;
+                                case'data_list':
+                                    arr.push('<tr><td class="td-title" valign="top">' + item.title + '：</td><td>' + item.value.replace(/\|/gi,'&nbsp;') + '</td></tr>');
+                                    break;
+                                default :
+                                    arr.push('<tr><td class="td-title" valign="top">' + item.title + '：</td><td>' + item.value + '</td></tr>');
+                                    break;
+                            }
+                        }
+                    });
+
                     return arr.join('');
                 })()
             });
