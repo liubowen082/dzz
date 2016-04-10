@@ -66,7 +66,7 @@ define(function (require) {
     }
 
     //发送请求方法
-    function senRequestHandle(url, args, cb, errrCb, type) {
+    function senRequestHandle(url, args, cb, errCb, type) {
         if (senRequest) {
             cacheRequest.push(arguments);
             return false;
@@ -82,7 +82,7 @@ define(function (require) {
                     cb && cb(json);
                 } else {
                     alert(json.msg || '提交失败，请稍后重试');
-                    errrCb && errrCb();
+                    errCb && errCb();
                 }
 
                 senRequest = false;
