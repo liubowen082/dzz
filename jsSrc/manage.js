@@ -14,14 +14,39 @@ define(function (require) {
         senRequest = false,
         cacheRequest = [];
 
-    var parameter = {};
+    var parameter = {},userdata = false;
 
     function createHTML(data) {
         getHTML(data, function (obj) {
-            if(obj.html != ''){
-                listBox.html(obj.html);
+            if(obj.html.application_list != ''){
+                listBox.html(obj.html.application_list);
             }else{
                 listBox.html(tpl.nodata);
+            }
+
+            if(!userdata){
+                userdata = true;
+                if (obj.html.approver_list.length != 0) {
+                    var arr_2 = ['<ul class="dropdown-box">', '<li><a href="javascript:;" node_args="approver_id=0" node_type="change_type">全部</a></li>'];
+                    $.each(obj.html.approver_list, function (i, item) {
+                        arr_2.push('<li><a href="javascript:;" node_type="change_type" node_args="approver_id=' + item.id + '">' + item.name + '</a></li>');
+                    });
+                    arr_2.push('</ul>');
+                    $('#manageaudit').html(arr_2.join(''));
+                } else {
+                    $('#manageaudit').parent().remove();
+                }
+
+                if (obj.html.creater_list.length != 0) {
+                    var arr_1 = ['<ul class="dropdown-box">', '<li><a href="javascript:;" node_args="creater_id=0" node_type="change_type">全部</a></li>'];
+                    $.each(obj.html.creater_list, function (i, item) {
+                        arr_1.push('<li><a href="javascript:;" node_type="change_type" node_args="creater_id=' + item.id + '">' + item.name + '</a></li>');
+                    });
+                    arr_1.push('</ul>');
+                    $('#manageuser').html(arr_1.join(''));
+                } else {
+                    $('#manger_user').parent().remove();
+                }
             }
         }, 'manage');
     }
@@ -41,27 +66,6 @@ define(function (require) {
             }
         }, function () {
             $('#typeClassify').parent().remove();
-        });
-
-        senRequestHandle('/index.php?mod=shenpi&op=index&act=user_getList', {}, function (json) {
-            if (json.data.length != 0) {
-                var arr_1 = ['<ul class="dropdown-box">', '<li><a href="javascript:;" node_args="creater_id=0" node_type="change_type">全部</a></li>'];
-                var arr_2 = ['<ul class="dropdown-box">', '<li><a href="javascript:;" node_args="approver_id=0" node_type="change_type">全部</a></li>'];
-                $.each(json.data, function (i, item) {
-                    arr_1.push('<li><a href="javascript:;" node_type="change_type" node_args="creater_id=' + item.uid + '">' + item.username + '</a></li>');
-                    arr_2.push('<li><a href="javascript:;" node_type="change_type" node_args="approver_id=' + item.uid + '">' + item.username + '</a></li>');
-                });
-                arr_1.push('</ul>');
-                arr_2.push('</ul>');
-                $('#manageuser').html(arr_1.join(''));
-                $('#manageaudit').html(arr_2.join(''));
-            } else {
-                $('#manger_user').parent().remove();
-                $('#manageaudit').parent().remove();
-            }
-        }, function () {
-            $('#manger_user').parent().remove();
-            $('#manageaudit').parent().remove();
         });
     }
 

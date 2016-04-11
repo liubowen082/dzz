@@ -70,6 +70,19 @@ define(function (require) {
             if (html[2]) {
                 $('#my_done_count').html(count[2]);
             }
+
+            if(html[3].creater_list){
+                if (html[3].creater_list.length != 0) {
+                    var arr = ['<ul class="dropdown-box">', '<li><a href="javascript:;" node_data="creater_id=0" node_type="change_type">全部</a></li>'];
+                    $.each(html[3].creater_list, function (i, item) {
+                        arr.push('<li><a href="javascript:;" node_type="change_type" node_data="creater_id=' + item.id + '">' + item.name + '</a></li>');
+                    });
+                    arr.push('</ul>');
+                    $('#office_user_drop').html(arr.join(''));
+                } else {
+                    $('#office_user').remove();
+                }
+            }
         });
     }
 
@@ -92,21 +105,6 @@ define(function (require) {
             }
         }, function () {
             $('#typeClassify').parent().remove();
-        });
-
-        senRequestHandle('/index.php?mod=shenpi&op=index&act=user_getList', {}, function (json) {
-            if (json.data.length != 0) {
-                var arr = ['<ul class="dropdown-box">', '<li><a href="javascript:;" node_data="creater_id=0" node_type="change_type">全部</a></li>'];
-                $.each(json.data, function (i, item) {
-                    arr.push('<li><a href="javascript:;" node_type="change_type" node_data="creater_id=' + item.uid + '">' + item.username + '</a></li>');
-                });
-                arr.push('</ul>');
-                $('#office_user_drop').html(arr.join(''));
-            } else {
-                $('#office_user').remove();
-            }
-        }, function () {
-            $('#office_user').remove();
         });
     }
 

@@ -84,7 +84,7 @@ define(function (require, exports, module) {
     }
 
     function createHTML(dataArr) {
-        var arr = [], lengthArr = [], getText = function (obj, i) {
+        var arr = [], lengthArr = [],o = {}, getText = function (obj, i) {
             return modTemp(tpl, {
                 agreeAndReject: (function () {
                     if (i == 0 && type == 'approve') {
@@ -167,6 +167,7 @@ define(function (require, exports, module) {
                     var json = eval(obj.form_content),
                         arr = [];
 
+                    console.log(i,json);
                     $.each(json, function (i, item) {
                         if (item.value) {
                             switch (item.input_type) {
@@ -177,10 +178,43 @@ define(function (require, exports, module) {
                                     arr.push('<tr><td class="td-title" valign="top">' + item.title + '：</td><td>' + item.value.replace(/###/gi,'，') + '</td></tr>');
                                     break;
                                 case 'user':
-                                    arr.push('<tr><td class="td-title" valign="top">' + item.title + '：</td><td>' + item.value.replace(/\|/gi,'，') + '</td></tr>');
+                                    var array = item.value.split('###'),names = '';
+                                    $.each(array,function(index,ele){
+                                        names += ele.split('|')[1];
+                                        if(index != array.length -1 ){
+                                            names += '，';
+                                        }
+                                    });
+                                    arr.push('<tr><td class="td-title" valign="top">' + item.title + '：</td><td>' + names + '</td></tr>');
                                     break;
                                 case'data_list':
-                                    arr.push('<tr><td class="td-title" valign="top">' + item.title + '：</td><td>' + item.value.replace(/\|/gi,'&nbsp;') + '</td></tr>');
+                                    var array = item.value.split('###'),all = 0;
+                                    $.each(array,function(index,ele){
+                                        var $arr = ele.split('|'),price = parseInt($arr[1],10);
+                                        if(index == 0){
+                                            arr.push('<tr><td class="td-title" valign="top">' + item.title + '：</td><td>' + ele.replace(/\|/gi,'&nbsp;') + '</td></tr>');
+                                            all += price;
+                                        }else{
+                                            arr.push('<tr><td class="td-title" valign="top"</td><td>' + ele.replace(/\|/gi,'&nbsp;') + '</td></tr>');
+                                            all += price;
+                                        }
+
+                                        if (index == array.length - 1 && index != 0) {
+                                            arr.push('<tr><td class="td-title" valign="top"</td><td>总计：' + all + '元</td></tr>');
+                                        }
+                                    });
+
+                                    break;
+                                case 'attach':
+                                    var array= item.value.split('###'),html = '';
+                                    $.each(array,function(index,ele){
+                                        var s = ele.split('|');
+                                        html += '<a href="'+s[1]+'">'+s[0]+'</a>';
+                                        if(index != array.length -1 ){
+                                            html += '，';
+                                        }
+                                    });
+                                    arr.push('<tr><td class="td-title" valign="top">' + item.title + '：</td><td>' + html + '</td></tr>');
                                     break;
                                 default :
                                     arr.push('<tr><td class="td-title" valign="top">' + item.title + '：</td><td>' + item.value + '</td></tr>');
@@ -204,22 +238,34 @@ define(function (require, exports, module) {
                         lengthArr[i] = item.length;
                     }
 
-                    $.each(item, function (index, ele) {
-                        htmls.push(getText(ele, i));
-                    });
-                    arr[i] = htmls.join('');
+                    if(i <3){
+                        $.each(item, function (index, ele) {
+                            htmls.push(getText(ele, i));
+                        });
+                        arr[i] = htmls.join('');
+                    }else if(i == 3){
+                        arr[i] = item;
+                    }
                 } else {
                     arr[i] = '';
                     lengthArr[i] = 0;
                 }
-            }else if(type == 'manage'){
-                arr.push(getText(item, i));
+            } else if (type == 'manage') {
+                if (i == 'application_list') {
+                    var htmls = [];
+                    $.each(item, function (index, ele) {
+                        htmls.push(getText(ele, i));
+                    });
+                    o[i] = htmls.join('');
+                } else {
+                    o[i] = item;
+                }
             }
         });
 
         if (type == 'manage') {
-            arr = arr.join('');
-            lengthArr = dataArr.length;
+            arr = o;
+            lengthArr = dataArr.application_list.length;
         }
 
         return {
