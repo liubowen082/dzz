@@ -44,22 +44,7 @@ define(function (require, exports, module) {
                         '</div>',
                         '<table class="ioffice-table">',
                             '<tbody>',
-                                '<tr>',
-                                    '<td class="td-title" valign="top">申请事由：</td>',
-                                    '<td>离职申请</td>',
-                                '</tr>',
-                                '<tr>',
-                                    '<td class="td-title" valign="top">离职日期：</td>',
-                                    '<td>2015-07-10</td>',
-                                '</tr>',
-                                '<tr>',
-                                    '<td class="td-title" valign="top">离职事由：</td>',
-                                    '<td>个人发展</td>',
-                                '</tr>',
-                                '<tr>',
-                                    '<td class="td-title" valign="top">离职原因：</td>',
-                                    '<td>思考良久，终究还是提出离职。感触良多，非常感谢公司这么久的培养，但由于个人希望转行，所以提此辞呈，不过将会按合同执行，烦请审批。</td>',
-                                '</tr>',
+                                '#{form_content}',
                                 '<tr>',
                                     '<td class="td-title" valign="top">申请人：</td>',
                                     '<td>',
@@ -99,7 +84,7 @@ define(function (require, exports, module) {
     }
 
     function createHTML(dataArr) {
-        var arr = [], lengthArr = [], getText = function (obj, i) {
+        var arr = [], lengthArr = [],o = {}, getText = function (obj, i) {
             return modTemp(tpl, {
                 agreeAndReject: (function () {
                     if (i == 0 && type == 'approve') {
@@ -177,6 +162,68 @@ define(function (require, exports, module) {
                         }
                     });
                     return arr.join('');
+                })(),
+                form_content:(function(){
+                    var json = eval(obj.form_content),
+                        arr = [];
+
+                    console.log(i,json);
+                    $.each(json, function (i, item) {
+                        if (item.value) {
+                            switch (item.input_type) {
+                                case 'date_between':
+                                    arr.push('<tr><td class="td-title" valign="top">' + item.title + '：</td><td>' + item.value.replace(/###/gi, '&nbsp;~&nbsp;') + '</td></tr>');
+                                    break;
+                                case 'checkbox':
+                                    arr.push('<tr><td class="td-title" valign="top">' + item.title + '：</td><td>' + item.value.replace(/###/gi,'，') + '</td></tr>');
+                                    break;
+                                case 'user':
+                                    var array = item.value.split('###'),names = '';
+                                    $.each(array,function(index,ele){
+                                        names += ele.split('|')[1];
+                                        if(index != array.length -1 ){
+                                            names += '，';
+                                        }
+                                    });
+                                    arr.push('<tr><td class="td-title" valign="top">' + item.title + '：</td><td>' + names + '</td></tr>');
+                                    break;
+                                case'data_list':
+                                    var array = item.value.split('###'),all = 0;
+                                    $.each(array,function(index,ele){
+                                        var $arr = ele.split('|'),price = parseInt($arr[1],10);
+                                        if(index == 0){
+                                            arr.push('<tr><td class="td-title" valign="top">' + item.title + '：</td><td>' + ele.replace(/\|/gi,'&nbsp;') + '</td></tr>');
+                                            all += price;
+                                        }else{
+                                            arr.push('<tr><td class="td-title" valign="top"</td><td>' + ele.replace(/\|/gi,'&nbsp;') + '</td></tr>');
+                                            all += price;
+                                        }
+
+                                        if (index == array.length - 1 && index != 0) {
+                                            arr.push('<tr><td class="td-title" valign="top"</td><td>总计：' + all + '元</td></tr>');
+                                        }
+                                    });
+
+                                    break;
+                                case 'attach':
+                                    var array= item.value.split('###'),html = '';
+                                    $.each(array,function(index,ele){
+                                        var s = ele.split('|');
+                                        html += '<a href="'+s[1]+'">'+s[0]+'</a>';
+                                        if(index != array.length -1 ){
+                                            html += '，';
+                                        }
+                                    });
+                                    arr.push('<tr><td class="td-title" valign="top">' + item.title + '：</td><td>' + html + '</td></tr>');
+                                    break;
+                                default :
+                                    arr.push('<tr><td class="td-title" valign="top">' + item.title + '：</td><td>' + item.value + '</td></tr>');
+                                    break;
+                            }
+                        }
+                    });
+
+                    return arr.join('');
                 })()
             });
         };
@@ -191,22 +238,34 @@ define(function (require, exports, module) {
                         lengthArr[i] = item.length;
                     }
 
-                    $.each(item, function (index, ele) {
-                        htmls.push(getText(ele, i));
-                    });
-                    arr[i] = htmls.join('');
+                    if(i <3){
+                        $.each(item, function (index, ele) {
+                            htmls.push(getText(ele, i));
+                        });
+                        arr[i] = htmls.join('');
+                    }else if(i == 3){
+                        arr[i] = item;
+                    }
                 } else {
                     arr[i] = '';
                     lengthArr[i] = 0;
                 }
-            }else if(type == 'manage'){
-                arr.push(getText(item, i));
+            } else if (type == 'manage') {
+                if (i == 'application_list') {
+                    var htmls = [];
+                    $.each(item, function (index, ele) {
+                        htmls.push(getText(ele, i));
+                    });
+                    o[i] = htmls.join('');
+                } else {
+                    o[i] = item;
+                }
             }
         });
 
         if (type == 'manage') {
-            arr = arr.join('');
-            lengthArr = dataArr.length;
+            arr = o;
+            lengthArr = dataArr.application_list.length;
         }
 
         return {
