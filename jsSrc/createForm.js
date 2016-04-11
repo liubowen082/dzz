@@ -10,6 +10,7 @@ define(function(require, exports, module) {
 	var uploadLoad = require('updataFile');
 	var modJsonToString = require('modJsonToString');
 	var modUpdatePic = require('modUpdatePic');
+	var userSuggest = require('userSuggest');
 	var modTemp = require('modTemp');
 
 
@@ -130,74 +131,8 @@ define(function(require, exports, module) {
 				})
 			})
 
-
-
 			// 人
-			$(t.layCon).on('click','[node-name="removeSearch"]',function(){
-				$(this).parent().remove();
-			})
-
-
-		
-			$(t.layCon).find('[node-name="user"]').autocomplete({
-				// autoFocus : true,
-        		scroll: true,
-				disabledType : true,
-				minLength : 0,
-				source: function(request, response) {
-				    $.ajax({
-				        url: "/index.php?mod=shenpi&op=index&act=user_getList",
-				        dataType: "json",
-				        data: {
-				            top: 10,
-				            key: request.term
-				        },
-				        success: function(json) {
-				        	if(json.status == 0){
-					             response($.map(json.data, function(item) {
-					                 return { label: item.nickname, value: item.uid ,img : item.avatar }
-					             }));
-					        }
-					    }
-				    });
-				},
-				select: function(event, ui) {
-					//提交搜索...
-					var obj = ui.item;
-					var pre = $(this).prev();
-					var tpl = '<li search_id="#{id}" search_name="#{name}" class="user-list"><div class="content"><span class="search-name">#{name}</div><a class="ico-remove" href="javascript:;" node-name="removeSearch"></a></li>';
-					$(pre).append(modTemp(tpl, {
-						name: obj.label,
-						id: obj.value,
-						img : obj.img,
-						note : obj.note
-					}))
-
-					$(this).val('');
-					return false
-
-				},
-				create: function() {
-				        $(this).data('ui-autocomplete')._renderItem = function(ul, item) {
-									return $("<li></li>")
-				        					.data("item.autocomplete", item)
-				        					.attr('search_id',item.value)
-				        					.append('<div class="face"><img src="'+item.img+'" width="20px" height="20px" /></div>')
-				        					.append('<div class="content"><a href="javascript:void(0)">'+ item.label +'</a></div></li>')
-										    .appendTo( ul );
-								} 
-				},
-				focus : function(event, ui){
-
-					$(this).val(ui.item.label)
-					return false;
-				},
-				delay: 200
-			});
-
-			$(t.layCon).find('[node-name="user"]').on('focus',function(){
-				$(this).autocomplete("search",'');
-			})
+			userSuggest(t.layCon)
 
 
 
