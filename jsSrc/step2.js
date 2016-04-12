@@ -295,8 +295,22 @@ define(function(require, exports, module) {
 
 	$('#saveFormConfigNext').on('click',function(){
 		sendFormConfig(function(){
-			window.location.href = '' + GLOBAL.id;
+			window.location.href = '/index.php?mod=shenpi&op=index&act=process_step3&id=' + GLOBAL.id;
 		})
+
+	})
+
+	$('#previewConfig').on('click',function(){
+		var obj = saveFormConfig();
+
+		var url = '/index.php?mod=shenpi&op=index&act=process_step2Preview';
+		var form = $('<form>');
+		form.attr('action',url).
+			attr('target','_blank').
+			attr('method','post').
+			append('<input value="' + GLOBAL.id + '"').
+			append('<input value="' + modJsonToString(obj) + '"').
+			submit();
 
 	})
 

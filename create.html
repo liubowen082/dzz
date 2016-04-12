@@ -18,174 +18,31 @@
     <link href="css/ioffice.css" rel="stylesheet"/>
 </head>
 <body>
-    <div class="layer-window ajax_detal_layer" style="display: block;">
-        <a href="javascript:;" class="layer-close icon-close" event-node="close_index_ajax" event-args="is_ajax=1"></a>
-        <div class="layer-view"><a href="javascript:;" class="prev icon-arrowleft disable" event-node="ajax_show_prev"></a><a href="javascript:;" class="next icon-arrowright disable" event-node="ajax_show_next"></a></div>
-        <div class="ajax_content">
-            <div class="ioffice-plus-wrap">
-                <form action="#" method="POST" model-node="add_office">
-                    <input type="hidden" name="process_id" value="1">
-                    <div class="ioffice-plus-title">请假</div>
-                    <div class="ioffice-plus">
-
-                        <dl>
-                            <dt><span style="color: red">*</span><input type="hidden" name="must[]" value="1">
-                                请假事由：
-                            </dt>
-                            <dd>
-                                <input type="text" class="q-txt" name="data1" placeholder="请填写请假事由">
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt><span style="color: red">*</span><input type="hidden" name="must[]" value="3">
-                                请假类型：
-                            </dt>
-                            <dd>
-
-                                <div class="item-rt">
-                                    <div class="select-list" model-node="select_div" model-args="input_name=data3">
-                                        <div class="select-title btn-join">
-                                            <span id="data3_span">
-                                                <span id="data3_title">请选择</span>
-                                                <input type="hidden" value="" id="data3" name="data3">
-                                            </span>
-                                            <i class="ico-caret-down"></i>
-                                        </div>
-                                        <div class="dropdown-menu" style="display: none">
-                                            <div class="dropdown-box">
-                                                <a event-args="id=事假&amp;name=事假" event-node="select_div_opt" href="javascript:;">事假</a><a event-args="id=病假&amp;name=病假" event-node="select_div_opt" href="javascript:;">病假</a><a event-args="id=年假&amp;name=年假" event-node="select_div_opt" href="javascript:;">年假</a><a event-args="id=婚假&amp;name=婚假" event-node="select_div_opt" href="javascript:;">婚假</a><a event-args="id=产假&amp;name=产假" event-node="select_div_opt" href="javascript:;">产假</a><a event-args="id=其他&amp;name=其他" event-node="select_div_opt" href="javascript:;">其他</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>详细说明：
-                            </dt>
-                            <dd>
-                                <textarea class="q-textarea" name="data5" placeholder="请填写详细说明"></textarea>
-
-
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>请假时间：
-                            </dt>
-                            <dd>
-
-                                <div class="period">
-                                    <div class="widget-date" model-node="date_widget_load">
-                                        <input name="data17_start" type="text" class="q-txt rcalendar_input" id="data17_start" value="" onclick="core.rcalendar(this, 'YmdHi');" readonly="readonly" placeholder="">
-                                        <i class="icon-clock2"></i>
-                                    </div>
-                                    <i class="vline">~</i>
-                                    <div class="widget-date" model-node="date_widget_load">
-                                        <input name="data17_end" type="text" class="q-txt rcalendar_input" id="data17_end" value="" onclick="core.rcalendar(this, 'YmdHi');" readonly="readonly" placeholder="">
-                                        <i class="icon-clock2"></i>
-                                    </div>
-                                </div>
-
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt><span style="color: red">*</span><input type="hidden" name="must[]" value="11">
-                                请假人：
-                            </dt>
-                            <dd>
-
-
-                                <div class="qg-userlist">
-                                    <div class="choose-user" model-node="search_widget" model-args="max=0&amp;model_name=SpaceUser&amp;app_name=core&amp;search_method=getSearchList&amp;default_ids=40624&amp;inputname=data11&amp;list_width=400&amp;search_tips=&amp;mulit=0&amp;blurCallback=&amp;callbackHtml=&amp;autostart=0&amp;search_ids=">
-                                        <ul model-node="search_list" class="user-list">
-                                            <li>
-                                                <div class="content"><a href="#uid=40624" title="许多">许多</a><span>(产品经理)</span></div>
-                                                <a search_id="40624" href="javascript:;" class="ico-remove"></a></li>
-                                        </ul>
-                                        <input type="hidden" id="search_ids_data11" name="data11" value="40624">
-                                        <input event-node="search_link" placeholder="请输入请假人姓名或者邮箱地址" type="text" class="q-txt" autocomplete="off" style="width: 400px;" id="search_link">
-                                    </div>
-                                </div>
-
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>知会人：
-                            </dt>
-                            <dd>
-
-
-                                <div class="qg-userlist">
-                                    <div class="choose-user" model-node="search_widget" model-args="max=0&amp;model_name=SpaceUser&amp;app_name=core&amp;search_method=getSearchList&amp;default_ids=&amp;inputname=data13&amp;list_width=400&amp;search_tips=&amp;mulit=0&amp;blurCallback=&amp;callbackHtml=&amp;autostart=0&amp;search_ids=">
-                                        <ul model-node="search_list" class="user-list">
-                                        </ul>
-                                        <input type="hidden" id="search_ids_data13" name="data13" value="">
-                                        <input event-node="search_link" placeholder="请输入知会人的姓名或者邮箱地址" type="text" class="q-txt" autocomplete="off" style="width: 400px;" id="Text1">
-                                    </div>
-                                </div>
-
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>附件：
-                            </dt>
-                            <dd>
-
-                                <div id="manual-fine-uploader" model-node="upload_widget" model-args="obj=ioffice&amp;max_size=209715200&amp;allow_exts=jpg,gif,png,jpeg,bmp,zip,rar,doc,xls,ppt,docx,xlsx,pptx,pdf,txt,dmg,dwg,gz,bz2,amr,apk,psd,ai,cdr,tif,xmind,mwb,rp,m4a&amp;is_show=0&amp;drop_area_id=&amp;ext_id=0&amp;inputname=data15&amp;upload_id=manual-fine-uploader">
-                                    <div class="qq-uploader">
-                                        <div class="qq-upload-drop-area" style="display: none;"><span>拖动文件到此完成上传</span></div>
-                                        <div class="qq-upload-button" style="position: relative; overflow: hidden; direction: ltr;">
-                                            <div class="qq-upload-text"><i class="icon-paperclip"></i><span>添加文件</span></div>
-                                            <div class="qq-drop-drag">或拖拽到此上传</div>
-                                            <input multiple="multiple" type="file" name="file" style="position: absolute; right: 0px; top: 0px; font-family: Arial; font-size: 118px; margin: 0px; padding: 0px; cursor: pointer; opacity: 0;">
-                                        </div>
-                                        <span class="qq-drop-processing"><span>请稍后再拖动文件...</span><span class="qq-drop-processing-spinner"></span></span><ul class="qq-upload-list"></ul>
-                                    </div>
-                                </div>
-                                <div class="qq-uploader" id="upload_list">
-                                    <ul class="qq-upload-list new-upload-list" style="display: none;">
-                                    </ul>
-                                </div>
-
-                                <input type="hidden" name="data15_ids" id="data15_ids" value="">
-                                <input type="hidden" name="attach[]" value="15">
-                            </dd>
-                        </dl>
-                        <!-- 审批人 -->
-                        <dl>
-                            <dt>直属领导：</dt>
-                            <dd>
-                                <div class="qg-userlist">
-                                    <div class="choose-user" model-node="search_widget" model-args="max=1&amp;model_name=SpaceUser&amp;app_name=core&amp;search_method=getSearchList&amp;default_ids=&amp;inputname=process_user_level1&amp;list_width=400&amp;search_tips=&amp;mulit=0&amp;blurCallback=&amp;callbackHtml=&amp;autostart=0&amp;search_ids=">
-                                        <ul model-node="search_list" class="user-list">
-                                        </ul>
-                                        <input type="hidden" id="search_ids_process_user_level1" name="process_user_level1" value="">
-                                        <input event-node="search_link" placeholder="" type="text" class="q-txt" autocomplete="off" style="width: 400px;" id="Text2">
-                                    </div>
-                                </div>
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>上级领导：</dt>
-                            <dd>
-                                <div class="qg-userlist">
-                                    <div class="choose-user" model-node="search_widget" model-args="max=1&amp;model_name=SpaceUser&amp;app_name=core&amp;search_method=getSearchList&amp;default_ids=&amp;inputname=process_user_level2&amp;list_width=400&amp;search_tips=&amp;mulit=0&amp;blurCallback=&amp;callbackHtml=&amp;autostart=0&amp;search_ids=">
-                                        <ul model-node="search_list" class="user-list">
-                                        </ul>
-                                        <input type="hidden" id="search_ids_process_user_level2" name="process_user_level2" value="">
-                                        <input event-node="search_link" placeholder="" type="text" class="q-txt" autocomplete="off" style="width: 400px;" id="Text3">
-                                    </div>
-                                </div>
-                            </dd>
-                        </dl>
-                    </div>
-                    <div class="ioffice-plus-btn">
-                        <a href="javascript:;" class="btn btn-green-big" event-node="submit_btn"><span class="js_submit_btn">创建</span></a><a href="#" class="btn btn-gray-big"><span>取消</span></a>
-                    </div>
-                </form>
-            </div>
+    <div class="layer-window ajax_detal_layer">
+    <div class="ajax_content">
+        <div class="ioffice-plus-wrap">
+            <form action="http://blkj.qimingdao.com/ioffice/Do/addOffice" method="POST">
+                <input type="hidden" name="id" value="#{id}">
+                <div class="ioffice-plus-title"> 我是title </div>
+                <div class="ioffice-plus" node-name="layer-window"></div>
+                <div class="ioffice-plus-btn"><a href="javascript:;" class="btn btn-green-big" node-name="js_submit_btn"><span class="js_submit_btn">创建</span></a><a href="http://blkj.qimingdao.com/ioffice/Index/index" class="btn btn-gray-big"><span>取消</span></a></div>
+            </form>
         </div>
     </div>
+</div>
 </body>
+
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/laydate/laydate.js"></script>
+<script src="js/sea2.3.0.js"></script>
+<script>seajs.config({base:'./jsSrc'})</script>
+<script type="text/javascript">
+    var GLOBAL = {};
+    GLOBAL.id = '1000';
+    GLOBAL.data = [{"title":"\u7533\u8bf7\u4e8b\u7531","placeholder":"\u8bf7\u586b\u5199\u5f53\u524d\u5ba1\u6279\u7684\u7533\u8bf7\u4e8b\u7531","must":"1","input_type":"text","format":"","notify":"","option":"","option_else":"0","candel":"0"},{"title":"\u5355\u884c\u6587\u672c","placeholder":"","must":"0","input_type":"text","format":"","notify":"0","option":"","candel":"1","option_else":"0"},{"title":"\u591a\u884c\u6587\u672c","placeholder":"","must":"0","input_type":"textarea","format":"","notify":"0","option":"","candel":"1","option_else":"0"},{"title":"\u4e0b\u62c9\u83dc\u5355","placeholder":"","must":"0","input_type":"select","format":"","notify":"0","option":"\u9009\u98791###\u9009\u98792","candel":"1","option_else":"0"},{"title":"\u65e5\u671f","placeholder":"","must":"0","input_type":"date","format":"Ymd","notify":"0","option":"","candel":"1","option_else":"0"},{"title":"\u65f6\u95f4\u6bb5","placeholder":"","must":"0","input_type":"date_between","format":"Ymd","notify":"0","option":"","candel":"1","option_else":"0"},{"title":"\u6e05\u5355","placeholder":"","must":"0","input_type":"data_list","format":"time","notify":"0","option":"\u91d1\u989d","candel":"1","option_else":"\u5143"},{"title":"\u7528\u6237\u9009\u62e9\u6846","placeholder":"","must":"0","input_type":"user","format":"mulit","notify":"0","option":"","candel":"1","option_else":"0"},{"title":"\u9644\u4ef6","placeholder":"","must":"0","input_type":"attach","format":"","notify":"0","option":"","candel":"1","option_else":"0"},{"title":"\u6570\u5b57","placeholder":"","must":"0","input_type":"number","format":"","notify":"0","option":"","candel":"1","option_else":"0"},{"title":"\u5355\u9879\u9009\u62e9","placeholder":"","must":"0","input_type":"radio","format":"","notify":"0","option":"\u9009\u98791###\u9009\u98792","candel":"1","option_else":"0"},{"title":"\u591a\u9879\u9009\u62e9","placeholder":"","must":"0","input_type":"checkbox","format":"","notify":"0","option":"\u9009\u98791###\u9009\u98792","candel":"1","option_else":"0"}];
+</script>
+<script type="text/javascript">
+    seajs.use('step2_preview');
+</script>
 </html>
