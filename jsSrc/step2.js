@@ -308,8 +308,8 @@ define(function(require, exports, module) {
 		form.attr('action',url).
 			attr('target','_blank').
 			attr('method','post').
-			append('<input value="' + GLOBAL.id + '"').
-			append('<input value="' + modJsonToString(obj) + '"').
+			append('<input value="' + GLOBAL.id + '" name="id">').
+			append('<input value="' + modJsonToString(obj) + '" name="data">').
 			submit();
 
 	})
