@@ -106,7 +106,7 @@ define(function (require, exports, module) {
                 creater_img: obj.avatar,
                 title_reason: '【'+ obj.template_title + '】',
                 title: obj.title,
-                print_link: 'http://blkj.qimingdao.com/ioffice/Index/print_office?office_id=' + obj.id,
+                print_link: './print.html?id=' + obj.id,
                 create_id: obj.creater_id,
                 id: obj.id,
                 edit: (function () {
@@ -167,7 +167,6 @@ define(function (require, exports, module) {
                     var json = eval(obj.form_content),
                         arr = [];
 
-                    console.log(i,json);
                     $.each(json, function (i, item) {
                         if (item.value) {
                             switch (item.input_type) {
