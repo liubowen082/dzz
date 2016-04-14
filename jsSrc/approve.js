@@ -210,7 +210,7 @@ define(function (require) {
 
         $(createForm).on('onSubmitSuccess', function () {
             createHTML();
-            this.hide();
+            this.hidden();
         })
 
     }
