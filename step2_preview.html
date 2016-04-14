@@ -32,7 +32,153 @@
 <script type="text/javascript">
     var GLOBAL = {};
     GLOBAL.id = '1000';
-    GLOBAL.data = [{"title":"\u7533\u8bf7\u4e8b\u7531","placeholder":"\u8bf7\u586b\u5199\u5f53\u524d\u5ba1\u6279\u7684\u7533\u8bf7\u4e8b\u7531","must":"1","input_type":"text","format":"","notify":"","option":"","option_else":"0","candel":"0"},{"title":"\u5355\u884c\u6587\u672c","placeholder":"","must":"0","input_type":"text","format":"","notify":"0","option":"","candel":"1","option_else":"0"},{"title":"\u591a\u884c\u6587\u672c","placeholder":"","must":"0","input_type":"textarea","format":"","notify":"0","option":"","candel":"1","option_else":"0"},{"title":"\u4e0b\u62c9\u83dc\u5355","placeholder":"","must":"0","input_type":"select","format":"","notify":"0","option":"\u9009\u98791###\u9009\u98792","candel":"1","option_else":"0"},{"title":"\u65e5\u671f","placeholder":"","must":"0","input_type":"date","format":"Ymd","notify":"0","option":"","candel":"1","option_else":"0"},{"title":"\u65f6\u95f4\u6bb5","placeholder":"","must":"0","input_type":"date_between","format":"Ymd","notify":"0","option":"","candel":"1","option_else":"0"},{"title":"\u6e05\u5355","placeholder":"","must":"0","input_type":"data_list","format":"time","notify":"0","option":"\u91d1\u989d","candel":"1","option_else":"\u5143"},{"title":"\u7528\u6237\u9009\u62e9\u6846","placeholder":"","must":"0","input_type":"user","format":"mulit","notify":"0","option":"","candel":"1","option_else":"0"},{"title":"\u9644\u4ef6","placeholder":"","must":"0","input_type":"attach","format":"","notify":"0","option":"","candel":"1","option_else":"0"},{"title":"\u6570\u5b57","placeholder":"","must":"0","input_type":"number","format":"","notify":"0","option":"","candel":"1","option_else":"0"},{"title":"\u5355\u9879\u9009\u62e9","placeholder":"","must":"0","input_type":"radio","format":"","notify":"0","option":"\u9009\u98791###\u9009\u98792","candel":"1","option_else":"0"},{"title":"\u591a\u9879\u9009\u62e9","placeholder":"","must":"0","input_type":"checkbox","format":"","notify":"0","option":"\u9009\u98791###\u9009\u98792","candel":"1","option_else":"0"}];
+    GLOBAL.data = [
+    {
+        "title": "申请事由",
+        "placeholder": "请填写当前审批的申请事由",
+        "must": "1",
+        "input_type": "text",
+        "format": "",
+        "notify": "",
+        "option": "",
+        "option_else": "0",
+        "candel": "0",
+        "value": "test"
+    },
+    {
+        "title": "单行文本",
+        "placeholder": "",
+        "must": "0",
+        "input_type": "text",
+        "format": "",
+        "notify": "0",
+        "option": "",
+        "candel": "1",
+        "option_else": "0",
+        "value": "test1"
+    },
+    {
+        "title": "多行文本",
+        "placeholder": "",
+        "must": "0",
+        "input_type": "textarea",
+        "format": "",
+        "notify": "0",
+        "option": "",
+        "candel": "1",
+        "option_else": "0",
+        "value": "test2"
+    },
+    {
+        "title": "下拉菜单",
+        "placeholder": "",
+        "must": "0",
+        "input_type": "select",
+        "format": "",
+        "notify": "0",
+        "option": "选项1###选项2",
+        "candel": "1",
+        "option_else": "0",
+        "value" : "选项1"
+    },
+    {
+        "title": "日期",
+        "placeholder": "",
+        "must": "0",
+        "input_type": "date",
+        "format": "YYYY-MM-DD",  //YYYY-MM-DD hh:mm:ss
+        "notify": "0",
+        "option": "",
+        "candel": "1",
+        "option_else": "0",
+        "value" : "2015-01-22 14:11"
+    },
+    {
+        "title": "时间段",
+        "placeholder": "",
+        "must": "0",
+        "input_type": "date_between",
+        "format": "Ymd",
+        "notify": "0",
+        "option": "",
+        "candel": "1",
+        "option_else": "0",
+        "value" : "2015-01-22 14:11###2015-01-23 14:11"
+    },
+    {
+        "title": "清单",
+        "placeholder": "",
+        "must": "0",
+        "input_type": "data_list",
+        "format": "time",
+        "notify": "0",
+        "option": "金额",
+        "candel": "1",
+        "option_else" : "元",
+        "value" : "清单1|100|2015-01-22###清单2|1000|2015-01-12"
+    },
+    {
+        "title": "用户选择框",
+        "placeholder": "",
+        "must": "0",
+        "input_type": "user",
+        "format": "mulit",
+        "notify": "0",
+        "option": "",
+        "candel": "1",
+        "option_else": "0",
+        "value" : "1|张三###2|李四"
+    
+    },
+    {
+        "title": "附件",
+        "placeholder": "",
+        "must": "0",
+        "input_type": "attach",
+        "format": "",
+        "notify": "0",
+        "option": "",
+        "candel": "1",
+        "option_else": "0",
+        "value" : "abd.jpg|abcde.jpg###符件2|url2"
+    },
+    {
+        "title": "数字",
+        "placeholder": "",
+        "must": "0",
+        "input_type": "number",
+        "format": "",
+        "notify": "0",
+        "option": "",
+        "candel": "1",
+        "option_else": "0",
+        "value" : 20
+    },
+    {
+        "title": "单项选择",
+        "placeholder": "",
+        "must": "0",
+        "input_type": "radio",
+        "format": "",
+        "notify": "0",
+        "option": "选项1",
+        "candel": "1",
+        "option_else": "0",
+        "value" : ""
+    },
+    {
+        "title": "多项选择",
+        "placeholder": "",
+        "must": "0",
+        "input_type": "checkbox",
+        "format": "",
+        "notify": "0",
+        "option": "选项1###选项2",
+        "candel": "1",
+        "option_else": "1",
+        "value" : "选项2"
+    }
+]
 </script>
 <script type="text/javascript">
     seajs.use('step2_preview');

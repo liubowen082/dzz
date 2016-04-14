@@ -64,14 +64,16 @@ define(function(require, exports, module) {
 			'name':'单项选择',
 			'tpl' : '<dl id="#{id}" class="ui-draggable" rel="radio" data-title="单项选择" data-placeholder="" data-must="0" data-select="选项" ><dt rel="radio">#{title||default:单项选择}</dt><dd><label><span><input type="radio" class="q-ck" disabled=""></span><em>选项</em></label></dd><dd><a class="icon-close" href="javascript:;"></a></dd></dl>',
 			'option':'<li class="js_opt"><span><input type="radio" checked="checked" class="q-ck" disabled="true"></span><input type="text" value="#{value||default:选项}" class="q-txt" name="select"><a href="javascript:;" class="ico-minus-sign" del></a> <a href="javascript:;" class="ico-plus-sign" add></a></li>',
-			'other':'<li class="js_other_li"><span class="add-other-select js_select_other">添加其他选项</span></li><li class="js_other" style="display:none"><span>其他：</span><input type="text" disabled="true" placeholder="用户自由填写其他内容" class="q-txt" name="select" other="true"><a href="javascript:;" class="ico-minus-sign" hidePrec></a></li>',
+			'other':'',
+			//<li class="js_other_li"><span class="add-other-select js_select_other">添加其他选项</span></li><li class="js_other" style="display:none"><span>其他：</span><input type="text" disabled="true" placeholder="用户自由填写其他内容" class="q-txt" name="select" other="true"><a href="javascript:;" class="ico-minus-sign" hidePrec></a></li>
 			'edit' : ['js_edit_title','js_edit_placeholder','js_edit_must' , 'js_edit_select']
 		},
 		'checkbox' : {
 			'name':'多项选择',
 			'tpl' : '<dl id="#{id}" class="ui-draggable" rel="checkbox" data-title="多项选择" data-placeholder="" data-must="0" data-select="选项"><dt rel="checkbox">#{title||default:多项选择}</dt><dd><label><span><input type="checkbox" class="q-ck" disabled=""></span><em>选项</em></label></dd><dd><a class="icon-close" href="javascript:;"></a></dd></dl>',
 			'option':'<li class="js_opt"><span><input type="checkbox" checked="checked" class="q-ck" disabled="true"></span><input type="text" value="#{value||default:选项}" class="q-txt" name="select"><a href="javascript:;" class="ico-minus-sign" del></a> <a href="javascript:;" class="ico-plus-sign" add></a></li>',
-			'other':'<li class="js_other_li"><span class="add-other-select js_select_other">添加其他选项</span></li><li class="js_other" style="display:none"><span>其他：</span><input type="text" disabled="true" placeholder="用户自由填写其他内容" class="q-txt" name="select" other="true"><a href="javascript:;" class="ico-minus-sign" hidePrec></a></li>',
+			'other':'',
+			//'<li class="js_other_li"><span class="add-other-select js_select_other">添加其他选项</span></li><li class="js_other" style="display:none"><span>其他：</span><input type="text" disabled="true" placeholder="用户自由填写其他内容" class="q-txt" name="select" other="true"><a href="javascript:;" class="ico-minus-sign" hidePrec></a></li>'
 			'edit' : ['js_edit_title','js_edit_placeholder','js_edit_must' , 'js_edit_select']
 		}
 	}

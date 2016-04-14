@@ -263,7 +263,6 @@ define(function(require, exports, module) {
 	var sendFormConfig = function(callback){
 		var callback = callback || function(){};
 		var obj = saveFormConfig();
-		console.log(obj)
 
 		var data = {
 			id : GLOBAL.id,
@@ -309,7 +308,7 @@ define(function(require, exports, module) {
 			attr('target','_blank').
 			attr('method','post').
 			append('<input value="' + GLOBAL.id + '" name="id">').
-			append('<input value="' + modJsonToString(obj) + '" name="data">').
+			append('<input value=\'' + modJsonToString(obj) + '\' name="data">').
 			submit();
 
 	})
@@ -324,10 +323,10 @@ GLOBAL.tid != '' && $.ajax({
 							catch : false,
 							dataType : 'json',
 							success : function(json){
-								console.log(json)
 								if(json.status == 0){
 									var data = json.data && json.data.form_config
-									data = eval('(' + data + ")")
+									data = eval('(' + data + ")");
+									console.log(data)
 									createFormList('#designFormin' , data);
 									
 								}else{

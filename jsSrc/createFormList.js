@@ -33,14 +33,17 @@ var createFormList = function(dom,items,temp){
 		if(a.input_type != 'radio' || a.input_type != 'checkbox'){
 			return;
 		}
-		$(optArr).each(function(i,a){
-			var clone = $('#'+id).find('label:first').clone();
-			clone.find('em').text(a)
-			$('#'+id).find('label:last').after(clone)
+		
+		setTimeout(function(){
+			$(optArr).each(function(i,a){
+				var clone = $('#'+id).find('label:first').clone();
+				clone.find('em').text(a)
+				$('#'+id).find('label:last').after(clone)
 
-		})
-		if(a.option_else != 0 )
-			$('#'+id).find('label:last').after('<label>&nbsp;其他：<input type="text" class="q-txt" disabled="true" style="width:100px"></label>');
+			})
+			if(a.option_else != 0 )
+				$('#'+id).find('label:last').after('<label>&nbsp;其他：<input type="text" class="q-txt" disabled="true" style="width:100px"></label>');
+		},100)
 	});
 
 	$(GLOBAL).trigger('onCreateFormItem')

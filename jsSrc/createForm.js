@@ -64,6 +64,39 @@ define(function(require, exports, module) {
 			})
 
 		},
+		getSValue: function() {
+			var t = this;
+			$.ajax({
+				url: '/index.php?mod=shenpi&op=index&act=application_detail',
+				data: {
+					id: t.sid
+				},
+				catch: false,
+				dataType: 'json',
+				type: 'get',
+				success: function(json) {
+					if (json.status == 0) {
+						$(document.body).append(modTemp(str, {
+							id: t.sid
+						}));
+
+						var data = eval('(' + json.data.form_config + ')');
+						createShowForm.createFormList($(t.layCon), data, moduleShowList);
+
+						var dataA = eval('(' + json.data.approver_config + ')');
+						createShowForm.createApproval($(t.layCon), dataA, moduleShowList);
+
+						_data_ = data;
+						_data_A = dataA
+						t.addEvent();
+
+					} else {
+						alert(json.msg)
+					}
+				}
+			})
+
+		},
 		create: function(data) {
 			if(!data){
 				this.get();
@@ -166,10 +199,10 @@ define(function(require, exports, module) {
 						return
 					} 
 
-					var tpl = '<span class="qq-upload-finished"></span><a href="#{url}" event-node="feed_ajax_detail" title="#{title}" target="_blank"><span class="qq-upload-icon"><i class="qg-ico16-file ico-#{type}"></i></span></a><a class="qq-upload-delete icon-close" node-name="fileDel" li-id="'+id+'"  href="javascript:;" li-file="#{title}|#{url}"></a><span class="qq-upload-size">(#{size})</span><span class="qq-upload-file"><a href="#{url}" event-node="feed_ajax_detail" title="#{title}" target="_blank">#{shortTitle}</a></span><span class="qq-upload-download"><a href="#{downUrl}" class="icon-download" target="_blank"></a></span><span class="qq-upload-status-text"></span>';
+					var tpl = '<span class="qq-upload-finished"></span><a href="#{url}" event-node="feed_ajax_detail" title="#{title}" target="_blank"><span class="qq-upload-icon"><i class="qg-ico16-file ico-#{type}"></i></span></a><a class="qq-upload-delete icon-close" node-name="fileDel" li-id="'+id+'"  href="javascript:;" li-file="#{title}|#{url}"></a><span class="qq-upload-size">#{size}</span><span class="qq-upload-file"><a href="#{url}" event-node="feed_ajax_detail" title="#{title}" target="_blank">#{shortTitle}</a></span><span class="qq-upload-download"><a href="#{downUrl}" class="icon-download" target="_blank"></a></span><span class="qq-upload-status-text"></span>';
 					$('#' + id).html(modTemp(tpl,{
 						url : data.path,
-						size : data.size,
+						size : "(" + data.size + ')',
 						downUrl : data.path,
 						title : data.name,
 						shortTitle : data.name.replace(/^(.{5})(.*)(.{5}\..*)$/,'$1'+'...'+'$3'),
@@ -328,11 +361,16 @@ define(function(require, exports, module) {
 					return;
 				}
 
+				var url = '/index.php?mod=shenpi&op=index&act=application_add';
+				if(t.sid){
+					url = '/index.php?mod=shenpi&op=index&act=application_update';
+				}
+
 				var tm = this;
 				$.ajax({
-					url: '/index.php?mod=shenpi&op=index&act=application_add',
+					url: url,
 					data: {
-						template_id : t.id,
+						template_id : t.sid,
 						form_content : modJsonToString(_data_),
 						approver_config : modJsonToString(_data_A)
 					},
@@ -351,11 +389,19 @@ define(function(require, exports, module) {
 			})
 
 		},
-		show: function(id) {
+		show: function(id,sid) {
 			this.id = id;
-			this.create();
+			if(sid){
+				this.sid = sid;
+				this.getSValue()
+			}else{
+				this.create();
+			}
+			
 		},
 		hidden : function(){
+			this.id = null;
+			this.sid = null;
 			$('.layer-window [event-node="close_index_ajax"]').click();
 		}
 

@@ -15,28 +15,139 @@ var createFormList = function(dom,items,temp){
 		var rel = a.input_type;
 		var id = getId();
 
+		var value = {
+			value : a.value
+		}
+
 		// radio  和 checkbox生成选项
 		if(a.input_type == 'select' || a.input_type == 'radio' || a.input_type == 'checkbox'){
 			var optArr = a.option.split('###');
 			var option = [];
 			var name = getId();
-			$(optArr).each(function(i,a){
+			$(optArr).each(function(i,b){
+				var val = a.value ? a.value.split('###') : [];
 				option.push(modTemp(temp[rel].option , {
-					optionTitle : a,
-					name : name
+					optionTitle : b,
+					name : name,
+					checked : $.inArray(b,val) >= 0 ? 'checked="checked"' : '',
+					value : a.value
 				}))
 
 			})
 		}
-		$(dom).append(modTemp(temp[rel].tpl,{
+
+		if(a.input_type == 'date_between'){
+			var valueArr = a.value.split('###');
+			value.valueStart = valueArr[0];
+			value.valueEnd = valueArr[1]
+		}else if(a.input_type == 'data_list'){
+			// 清单
+			// "value" : "清单1|100|2015-01-22###清单2|1000|2015-01-12"
+			var valueArr = !a.value || a.value=='' ? [] : a.value.split('###');
+
+			var valueStr = [];
+			$(valueArr).each(function(m,n){
+				var val = n.split('|');
+				console.log(val)
+
+				if(m == 0){
+					valueStr.push(modTemp(temp[rel].value,{
+						value1 : val[0],
+						value2 : val[1],
+						value3 : val[2],
+						option_else : a.option_else,
+						option : a.option
+					}))
+				}else{
+
+					valueStr.push(modTemp(temp[rel].valueOther,{
+						value1 : val[0],
+						value2 : val[1],
+						value3 : val[2],
+						option_else : a.option_else,
+						option : a.option
+					}))
+
+				}
+
+			});
+			if(valueArr.length == 0){
+				valueStr.push(modTemp(temp[rel].value,{
+						option_else : a.option_else,
+						option : a.option
+					}))
+			}
+
+			// console.log(valueStr.join(''))
+			value = {
+				value : valueStr.join('')
+			};
+
+		}else if(a.input_type == 'user'){
+			// 人
+
+			var val = a.value.split('###');
+			var option = [];
+			$(val).each(function(m,n){
+				var nStr = n.split('|');
+				option.push(modTemp(temp[rel].option,{
+					id : nStr[0],
+					name : nStr[1]
+				}))
+			})
+			value = {
+				option : option.join('')
+			}
+		}else if(a.input_type == "attach"){
+			//附件
+			var valueList = [];
+			var valArr = a.value && a.value.split('###');
+			console.log(valArr)
+
+			$(valArr).each(function(m,n){
+				var val = n.split('|');
+
+				valueList.push(modTemp(temp[rel].value,{
+						url : val[1],
+						size : '',
+						downUrl : val[1],
+						title : val[0],
+						shortTitle : val[0].replace(/^(.{5})(.*)(.{5}\..*)$/,'$1'+'...'+'$3'),
+						type : val[0].replace(/.*\.(.*)/,'$1'),
+						id : getId(),
+						listId : getId()
+					}))
+			})
+			value = {
+				valueList : valueList.join('')
+			}
+
+
+
+		}else if(a.input_type == "raido"){
+
+
+
+
+		}else if(a.input_type == "checkbox"){
+
+		}else if(a.input_type == "select"){
+
+		}
+
+
+
+		value = $.extend({
 			id:id,
 			isMust : a.must ? '<span style="color:red">*</span>' : '',
 			title:a.title,
-			value : a.value,
 			option : $.isArray(option) ? option.join('') : a.option,
 			format : 'YYYY-MM-DD hh:mm:ss' || a.format,
 			option_else : a.option_else
-		}));
+		},value)
+
+
+		$(dom).append(modTemp(temp[rel].tpl,value));
 		
 		// $('#' + id).data(a);
 		if(a.user_format=='signle'){
@@ -44,8 +155,8 @@ var createFormList = function(dom,items,temp){
 					   .remove('input')
 		}
 
-		if(a.option_else != 0 )
-			$('#'+id).find('label:last').after(temp[rel].other);
+		if((a.input_type == "radio" || a.input_type == "checkbox") && a.option_else != 0 )
+			$('#'+id).find('label:last').after(modTemp(temp[rel].other,value));
 	});
 
 	$(GLOBAL).trigger('onCreateSubmitFormItem')
@@ -59,17 +170,7 @@ var createApproval = function(dom,items,temp){
 	$(items).each(function(i,a){
 		var rel = 'user';
 		var id = getId();
-/*
-    {
-        "level": 2,
-        "title": "二级审批",
-        "id": 1,
-        "name": "王思聪",
-        "require": 1,
-        "allow_select": 1
-    }
-
-*/		
+	
 		var val = a.value.split('|');
 		var option = [];
 		
