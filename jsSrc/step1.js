@@ -70,7 +70,7 @@ define(function(require, exports, module) {
 	// $('[event-node="ajax_detail"]').on('click',function(){
 
 
-	// 	createForm.show(11,11);
+	// 	createForm.show(11);
 	// 	// window.history.pushState({
 	// 	// 		title : $(this),attr('title'),
 	// 	// 		href : $(this).attr('href')

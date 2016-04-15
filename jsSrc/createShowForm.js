@@ -9,6 +9,7 @@ var modTemp = require('modTemp');
 var getId = require('getId');// id生成器
 
 var createFormList = function(dom,items,temp){
+
 	temp = temp || moduleList;
 
 	$(items).each(function(i,a){
@@ -37,7 +38,7 @@ var createFormList = function(dom,items,temp){
 		}
 
 		if(a.input_type == 'date_between'){
-			var valueArr = a.value.split('###');
+			var valueArr = a.value ?  a.value.split('###') : [];
 			value.valueStart = valueArr[0];
 			value.valueEnd = valueArr[1]
 		}else if(a.input_type == 'data_list'){
@@ -48,7 +49,6 @@ var createFormList = function(dom,items,temp){
 			var valueStr = [];
 			$(valueArr).each(function(m,n){
 				var val = n.split('|');
-				console.log(val)
 
 				if(m == 0){
 					valueStr.push(modTemp(temp[rel].value,{
@@ -86,7 +86,7 @@ var createFormList = function(dom,items,temp){
 		}else if(a.input_type == 'user'){
 			// 人
 
-			var val = a.value.split('###');
+			var val = a.value ? a.value.split('###') : [];
 			var option = [];
 			$(val).each(function(m,n){
 				var nStr = n.split('|');
@@ -101,8 +101,7 @@ var createFormList = function(dom,items,temp){
 		}else if(a.input_type == "attach"){
 			//附件
 			var valueList = [];
-			var valArr = a.value && a.value.split('###');
-			console.log(valArr)
+			var valArr = a.value ? a.value.split('###') : [];
 
 			$(valArr).each(function(m,n){
 				var val = n.split('|');
@@ -122,25 +121,15 @@ var createFormList = function(dom,items,temp){
 				valueList : valueList.join('')
 			}
 
-
-
-		}else if(a.input_type == "raido"){
-
-
-
-
-		}else if(a.input_type == "checkbox"){
-
-		}else if(a.input_type == "select"){
-
+		}else if(a.input_type == 'select'){
+			 
+				value.value = a.value || '请选择';
 		}
-
-
 
 		value = $.extend({
 			id:id,
 			isMust : a.must ? '<span style="color:red">*</span>' : '',
-			title:a.title,
+			title : a.title,
 			option : $.isArray(option) ? option.join('') : a.option,
 			format : 'YYYY-MM-DD hh:mm:ss' || a.format,
 			option_else : a.option_else

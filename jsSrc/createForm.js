@@ -80,14 +80,14 @@ define(function(require, exports, module) {
 							id: t.sid
 						}));
 
-						var data = eval('(' + json.data.form_config + ')');
+						var data = eval('(' + json.data.form_content + ')');
 						createShowForm.createFormList($(t.layCon), data, moduleShowList);
 
-						var dataA = eval('(' + json.data.approver_config + ')');
+						var dataA = eval('(' + json.data.approver_result + ')');
 						createShowForm.createApproval($(t.layCon), dataA, moduleShowList);
 
 						_data_ = data;
-						_data_A = dataA
+						_data_A = dataA;
 						t.addEvent();
 
 					} else {
@@ -361,19 +361,22 @@ define(function(require, exports, module) {
 					return;
 				}
 
+				var sendData = {
+						form_content : modJsonToString(_data_),
+						approver_config : modJsonToString(_data_A)
+					}
 				var url = '/index.php?mod=shenpi&op=index&act=application_add';
 				if(t.sid){
 					url = '/index.php?mod=shenpi&op=index&act=application_update';
+					sendData.id = t.sid;
+				}else{
+					sendData.template_id = t.id
 				}
 
 				var tm = this;
 				$.ajax({
 					url: url,
-					data: {
-						template_id : t.sid,
-						form_content : modJsonToString(_data_),
-						approver_config : modJsonToString(_data_A)
-					},
+					data: sendData,
 					catch: false,
 					dataType: 'json',
 					type: 'post',
