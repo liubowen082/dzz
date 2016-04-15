@@ -97,12 +97,16 @@ define(function(require, exports, module) {
 			})
 
 		},
-		create: function(data) {
+		create: function(data,sid) {
 			if(!data){
 				this.get();
 			}else{
-				createShowForm.createFormList($(this.layCon), data, moduleShowList);
+				this.sid = sid && sid !='' ? sid : null;
+				createShowForm.createFormList($(this.layCon), data.form_content, moduleShowList);
+				createShowForm.createApproval($(this.layCon), data.approver_result, moduleShowList);
+
 				_data_ = data;
+				_data_A = dataA;
 				this.addEvent();
 			}
 			
@@ -245,11 +249,6 @@ define(function(require, exports, module) {
 				var ss = str.replace(reg,'')
 				$('#' + id).remove();
 			})
-
-			
-  
-
-
 
 			// 清单
 			$(t.layCon).on('click' , '[node-name="data_list_add"]' , function(){
@@ -394,7 +393,7 @@ define(function(require, exports, module) {
 		},
 		show: function(id,sid) {
 			this.id = id;
-			if(sid){
+			if(sid && sid != ''){
 				this.sid = sid;
 				this.getSValue()
 			}else{

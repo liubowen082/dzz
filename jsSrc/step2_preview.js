@@ -9,8 +9,8 @@ define(function(require, exports, module) {
 	var createForm = require('createForm');
 
 
-	createForm.layCon = '[node-name="layer-window"]'
-	createForm.create(GLOBAL.data);
+	createForm.layCon = '[node-name="layer-window"]';
+	createForm.create(GLOBAL.data,GLOBAL.id,GLOBAL.sid);
 
 	$(createForm).on('onSubmitSuccess',function(){
 		alert('提交成功!')
