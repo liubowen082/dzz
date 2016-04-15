@@ -309,6 +309,7 @@ define(function(require, exports, module) {
 			attr('method','post').
 			append('<input value="' + GLOBAL.id + '" name="id">').
 			append('<input value=\'' + modJsonToString(obj) + '\' name="data">').
+			append('<input value=\'' + GLOBAL.title + '\' name="title">').
 			submit();
 
 	})
@@ -326,7 +327,7 @@ GLOBAL.tid != '' && $.ajax({
 								if(json.status == 0){
 									var data = json.data && json.data.form_config
 									data = eval('(' + data + ")");
-									console.log(data)
+									GLOBAL.title = json.data.title;
 									createFormList('#designFormin' , data);
 									
 								}else{
