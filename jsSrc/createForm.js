@@ -362,7 +362,7 @@ define(function(require, exports, module) {
 
 				var sendData = {
 						form_content : modJsonToString(_data_),
-						approver_config : modJsonToString(_data_A)
+						approver_result : modJsonToString(_data_A)
 					}
 				var url = '/index.php?mod=shenpi&op=index&act=application_add';
 				if(t.sid){
