@@ -10,7 +10,7 @@ define(function(require, exports, module) {
 
 
 	createForm.layCon = '[node-name="layer-window"]';
-	createForm.create(GLOBAL.data,GLOBAL.id,GLOBAL.sid);
+	createForm.show(GLOBAL.id,GLOBAL.sid,GLOBAL.data);
 
 	$(createForm).on('onSubmitSuccess',function(){
 		alert('提交成功!')

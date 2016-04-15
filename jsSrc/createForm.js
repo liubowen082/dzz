@@ -23,7 +23,7 @@ define(function(require, exports, module) {
 	var _data_ = [] , _data_A = [];
 
 
-	var str = '<div class="layer-window ajax_detal_layer"><a href="javascript:;" class="layer-close icon-close" event-node="close_index_ajax"></a><div class="ajax_content"><div class="ioffice-plus-wrap"><form action="http://blkj.qimingdao.com/ioffice/Do/addOffice" method="POST"><input type="hidden" name="id" value="#{id}"><div class="ioffice-plus-title">#{title}</div><div class="ioffice-plus" node-name="layer-window"></div><div class="ioffice-plus-btn"><a href="javascript:;" class="btn btn-green-big" node-name="js_submit_btn"><span class="js_submit_btn">创建</span></a><a href="http://blkj.qimingdao.com/ioffice/Index/index" class="btn btn-gray-big"><span>取消</span></a></div></form></div></div></div>';
+	var str = '<div class="layer-window ajax_detal_layer"><a href="javascript:;" class="layer-close icon-close" event-node="close_index_ajax"></a><div class="ajax_content"><div class="ioffice-plus-wrap"><form action="#" method="POST"><div class="ioffice-plus-title" id="createTitle"></div><div class="ioffice-plus" node-name="layer-window"></div><div class="ioffice-plus-btn"><a href="javascript:;" class="btn btn-green-big" node-name="js_submit_btn"><span class="js_submit_btn">创建</span></a><a href="#" class="btn btn-gray-big"><span>取消</span></a></div></form></div></div></div>';
 
 
 
@@ -42,11 +42,9 @@ define(function(require, exports, module) {
 				type: 'get',
 				success: function(json) {
 					if (json.status == 0) {
-						$(document.body).append(modTemp(str, {
-							id: t.id
-						}));
 
-
+						$('#createTitle').html(json.data.title)
+						
 						var data = eval('(' + json.data.form_config + ')');
 						createShowForm.createFormList($(t.layCon), data, moduleShowList);
 
@@ -76,10 +74,8 @@ define(function(require, exports, module) {
 				type: 'get',
 				success: function(json) {
 					if (json.status == 0) {
-						$(document.body).append(modTemp(str, {
-							id: t.sid
-						}));
-
+						
+						$('#createTitle').html(json.data.title)
 						var data = eval('(' + json.data.form_content + ')');
 						createShowForm.createFormList($(t.layCon), data, moduleShowList);
 
@@ -97,20 +93,10 @@ define(function(require, exports, module) {
 			})
 
 		},
-		create: function(data,sid) {
-			if(!data){
-				this.get();
-			}else{
-				this.sid = sid && sid !='' ? sid : null;
-				createShowForm.createFormList($(this.layCon), data.form_content, moduleShowList);
-				createShowForm.createApproval($(this.layCon), data.approver_result, moduleShowList);
+		// create: function(data,sid) {
 
-				_data_ = data;
-				_data_A = dataA;
-				this.addEvent();
-			}
 			
-		},
+		// },
 
 		// checkData: function(type) {
 		// 	switch (type) {
@@ -391,15 +377,23 @@ define(function(require, exports, module) {
 			})
 
 		},
-		show: function(id,sid) {
+		show: function(id,sid,data) {
 			this.id = id;
+			this.sid = sid && sid !='' ? sid : null;
+			if($(this.layCon).length == 0)
+				$(document.body).append(str);
+
 			if(sid && sid != ''){
 				this.sid = sid;
 				this.getSValue()
+			}else if(data){
+				$('#createTitle').html(GLOBAL.title)
+				createShowForm.createFormList($(this.layCon), data, moduleShowList);
+				_data_ = data;
 			}else{
-				this.create();
+				this.get();
 			}
-			
+
 		},
 		hidden : function(){
 			this.id = null;
