@@ -288,7 +288,7 @@ define(function(require, exports, module) {
 
 	$('#saveFormConfig').on('click',function(){
 		sendFormConfig(function(){
-			alert('保存成功')
+			ui.success('保存成功');
 		})
 	});
 
