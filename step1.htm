@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="{DZZ_SHENPI_STATIC_PATH}css/qm.css" rel="stylesheet"/>
+
+    <link href="{DZZ_SHENPI_STATIC_PATH}css/ioffice.css" rel="stylesheet"/>
+</head>
+<body>
+
+<ul class="dropdown-box">
+        <li><a href="javascript:;" title="申请-审批-企明岛" event-node="ajax_detail">报销</a></li>
+</ul>
+
+	<div class="qm-main ">
+        <div class="ioffice-header">
+            <div class="ioffice-header-crumb">
+                <a href="#" class="icon-back">返回</a>
+            </div>
+            <div class="ioffice-tab">
+                <a href="javascript:;" class="current"><span class="number">1</span>选择模板</a><span class="ico-angle-right"></span><a href="javascript:;"><span class="number">2</span>设计表单</a><span class="ico-angle-right"></span><a href="javascript:;"><span class="number">3</span>设置流程</a>
+            </div>
+        </div>
+        <div class="template-wrap">
+            <div class="template-main">
+                <div class="template-mainin">
+                    <div class="template-side">
+                        <ul id="templateSide">
+                            <li class="current" data-id="" data-i="-1"><a href="javascript:;">空白模板</a></li>
+                            <!-- <li model-node="office_tpl" model-args="id=3"><a href="javascript:;">报销</a></li>
+                            <li model-node="office_tpl" model-args="id=2"><a href="javascript:;">出差</a></li>
+                            <li model-node="office_tpl" model-args="id=1"><a href="javascript:;">请假</a></li>
+                            <li model-node="office_tpl" model-args="id=5"><a href="javascript:;">预支款</a></li>
+                            <li model-node="office_tpl" model-args="id=6"><a href="javascript:;">离职</a></li>
+                            <li model-node="office_tpl" model-args="id=8"><a href="javascript:;">test</a></li> -->
+                        </ul>
+                    </div>
+
+                    <div class="template-form" id="templateCon">
+                        <div class="template-none">
+                            <h4>空白表单</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="template-btn">
+                <a href="/index.php?mod=shenpi&op=index&act=process_step2" class="btn btn-green" id="gotoNext"><span>选择此模板</span></a>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="{DZZ_SHENPI_STATIC_PATH}js/jquery-1.11.1.min.js"></script>
+<script src="{DZZ_SHENPI_STATIC_PATH}js/jquery-ui.min.js"></script>
+<script src="{DZZ_SHENPI_STATIC_PATH}js/laydate/laydate.js"></script>
+<script src="{DZZ_SHENPI_STATIC_PATH}js/sea2.3.0.js"></script>
+<script>seajs.config({base:'{DZZ_SHENPI_STATIC_PATH}jsSrc'})</script>
+<script type="text/javascript">
+    var GLOBAL = {};
+    GLOBAL.id = {$id};
+    GLOBAL.tid = '';
+</script>
+<script type="text/javascript">
+    seajs.use('step1');
+</script>
+
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="{DZZ_SHENPI_STATIC_PATH}css/qm.css" rel="stylesheet"/>
+    <link href="{DZZ_SHENPI_STATIC_PATH}css/ioffice.css" rel="stylesheet"/>
+<style type="text/css">
+
+.custom-item-avatar {
+	width:10%;
+}
+
+.icon-close-avatar {
+	float:right;	
+	margin-top:15px;
+}
+
+</style>
+
+</head>
+<body>
+	  <div class="qm-main ">
+        <div class="ioffice-header">
+            <div class="ioffice-header-crumb">
+                <a href="#" class="icon-back">返回</a>
+            </div>
+            <div class="ioffice-tab">添加管理员</div>
+        </div>
+        <div class="custom-main">
+            <div class="custom-list clearfix">
+                <div class="custom-item custom-item-avatar">
+                    <a href="javascript:;" class="custom-plus"><span class="icon-plus"></span></a>
+                </div>
+        		<!--{loop $userList $user}-->
+	                <div class="custom-item custom-item-avatar" id="div-custom-item-{$user['id']}">
+	                    <dl>
+	                        <dt class="title">
+	                            <h4>{$user['name']}</h4>
+		                        <a href="javascript:;" class="icon-close icon-close-avatar" data-id="{$user['id']}"></a>
+	                        </dt>
+	                        <dd class="txt">
+	                            <img alt="" src="http://114.215.157.142:8024/avatar.php?uid={$user['user_id']}&size=large">
+	                        </dd>
+	                    </dl>
+	                </div>
+                <!--{/loop}-->
+            </div>
+        </div>
+    </div>
+     <script src="{DZZ_SHENPI_STATIC_PATH}js/jquery-1.11.1.min.js"></script>
+	<script src="{DZZ_SHENPI_STATIC_PATH}js/jquery-ui.min.js"></script>
+	<script src="{DZZ_SHENPI_STATIC_PATH}js/sea2.3.0.js"></script>
+	<script>seajs.config({base:'{DZZ_SHENPI_STATIC_PATH}jsSrc'})</script>
+	<script type="text/javascript">
+    	seajs.use('managerList');
+	</script>
+</body>
+</html>

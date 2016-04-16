@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="{DZZ_SHENPI_STATIC_PATH}css/qm.css" rel="stylesheet"/>
+    <link href="{DZZ_SHENPI_STATIC_PATH}css/ioffice.css" rel="stylesheet"/>
+</head>
+<body>
+<div id="progress"><span></span></div>
+<div class="qm-main">
+    <div class="ioffice-header">
+        <div class="ioffice-header-handle">
+            <a href="/index.php?mod=shenpi&op=index&act=process_index" rel="iofficeDiy" class="guide diy">自定义审批</a>
+        </div>
+        <div class="ioffice-header-crumb">
+            <a href="./index.html" class="icon-back">返回</a>
+        </div>
+        <div class="ioffice-tab">管理</div>
+    </div>
+    <div class="ioffice-main" id="mainBox">
+        <div class="ioffice-title">
+            <a href="/index.php?mod=shenpi&op=index&act=application_output" class="filter"><span class="icon-export"></span>导出</a>
+
+            <div class="filter-list left">
+                <div class="filter-item">
+                    申请人：
+                    <a href="javascript:;" node_type="selectBtn" show_box="manageuser">
+                        <span id="manger_user">全部</span>
+                        <span class="ico-angle-down"></span>
+                    </a>
+                </div>
+                <div class="filter-item">
+                    时间：
+                    <a href="javascript:;"node_type="selectBtn" show_box="managetime">
+                        <span id="manger_time">全部</span>
+                        <span class="ico-angle-down"></span>
+                    </a>
+                </div>
+                <div class="filter-item">
+                    类型：
+                    <a href="javascript:;" node_type="selectBtn" show_box="manageprocess">
+                        <span id="manger_process">全部</span>
+                        <span class="ico-angle-down"></span>
+                    </a>
+                </div>
+                <div class="filter-item">
+					审批人：
+                    <a href="javascript:;" node_type="selectBtn" show_box="manageaudit">
+                        <span id="manger_audit">全部</span>
+                        <span class="ico-angle-down"></span>
+                    </a>
+                </div>
+                <div class="filter-item">
+                    状态：
+                    <a href="javascript:;" node_type="selectBtn" show_box="managestatus">
+                        <span id="manger_status">全部</span>
+                        <span class="ico-angle-down"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="ioffice-list show_manage_office_list" id="show_manage_office_list">
+			<div class="loading" style="text-align:center;padding:20px;" id="loadMore"><span class="loader ico-spinner2"></span></div>
+		</div>
+    </div>
+	<div style="max-height: 300px; overflow-y: auto; top: 106px; left: 120px; display:none;" id="manageuser" class="dropdown-menu dl-menu-toggle">
+        <ul style="max-height:400px" class="dropdown-box"></ul>
+	</div>
+	<div style="overflow-y: auto; top: 106px; left: 256.65px;display:none;" id="managetime" class="dropdown-menu dl-menu-toggle">
+		<ul class="dropdown-box">
+			<li><a node_args="date_type=0" node_type="change_type" href="javascript:;">全部</a></li>
+			<li><a node_args="date_type=1" node_type="change_type" href="javascript:;">本周</a></li>
+			<li><a node_args="date_type=2" node_type="change_type" href="javascript:;">上周</a></li>
+			<li><a node_args="date_type=3" node_type="change_type" href="javascript:;">本月</a></li>
+			<li><a node_args="date_type=4" node_type="change_type" href="javascript:;">上月</a></li>
+		</ul>
+	</div>
+	<div style="overflow-y: auto; top: 106px; left: 381.3px;display:none;" id="manageprocess" class="dropdown-menu dl-menu-toggle">
+		<ul class="dropdown-box">
+			<li><a node_args="ctype=process&amp;pass_id=0" node_type="change_type" href="javascript:;">全部</a></li>
+			<li>
+					<a node_args="ctype=process&amp;pass_id=3" node_type="change_type" href="javascript:;">报销</a>
+				</li><li>
+					<a node_args="ctype=process&amp;pass_id=2" node_type="change_type" href="javascript:;">出差</a>
+				</li><li>
+					<a node_args="ctype=process&amp;pass_id=1" node_type="change_type" href="javascript:;">请假</a>
+				</li><li>
+					<a node_args="ctype=process&amp;pass_id=5" node_type="change_type" href="javascript:;">预支款</a>
+				</li><li>
+					<a node_args="ctype=process&amp;pass_id=6" node_type="change_type" href="javascript:;">离职</a>
+				</li>
+		</ul>
+	</div>
+	<div style="max-height: 300px; overflow-y: auto; top: 106px; left: 505.95px; display: none;" id="manageaudit" class="dropdown-menu dl-menu-toggle">
+		<ul class="dropdown-box">
+			<li><a node_args="ctype=audit&amp;pass_id=0" node_type="change_type" href="javascript:;">全部</a></li>
+			<li>
+				<a node_args="ctype=audit&amp;pass_id=40609" node_type="change_type" href="javascript:;">方大头</a>
+			</li><li>
+				<a node_args="ctype=audit&amp;pass_id=40605" node_type="change_type" href="javascript:;">王思冲</a>
+			</li><li>
+				<a node_args="ctype=audit&amp;pass_id=40616" node_type="change_type" href="javascript:;">钱任</a>
+			</li><li>
+				<a node_args="ctype=audit&amp;pass_id=40624" node_type="change_type" href="javascript:;">许多</a>
+			</li>    
+		</ul>
+	</div>
+	<div style="overflow-y: auto; top: 106px; left: 642.6px;display:none" id="managestatus" class="dropdown-menu dl-menu-toggle">
+		<ul class="dropdown-box">
+			<li><a node_args="status=0" node_type="change_type" href="javascript:;">全部</a></li>
+			<li>
+				<a node_args="status=1" node_type="change_type" href="javascript:;">待审批</a>
+			</li>
+			<li>
+				<a node_args="status=2" node_type="change_type" href="javascript:;">已通过</a>
+			</li>
+			<li>
+				<a node_args="status=3" node_type="change_type" href="javascript:;">已驳回</a>
+			</li>
+			<li>
+				<a node_args="status=4" node_type="change_type" href="javascript:;">待核销</a>
+			</li>
+			 <li>
+				<a node_args="status=5" node_type="change_type" href="javascript:;">已核销</a>
+			</li>
+		</ul>
+	</div>	
+</div>
+<script src="{DZZ_SHENPI_STATIC_PATH}js/jquery-1.11.1.min.js"></script>
+<script src="{DZZ_SHENPI_STATIC_PATH}js/jquery-ui.min.js"></script>
+<script src="{DZZ_SHENPI_STATIC_PATH}js/sea2.3.0.js"></script>
+<script>seajs.config({base: '{DZZ_SHENPI_STATIC_PATH}jsSrc'})</script>
+<script type="text/javascript">
+    var GLOBAL = {};
+    GLOBAL.id = '1000';
+    GLOBAL.tid = '';
+</script>
+<script type="text/javascript">
+    seajs.use('manage');
+</script>
+</body>
+</html>

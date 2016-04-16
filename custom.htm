@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="{DZZ_SHENPI_STATIC_PATH}css/qm.css" rel="stylesheet"/>
+    <link href="{DZZ_SHENPI_STATIC_PATH}css/ioffice.css" rel="stylesheet"/>
+</head>
+<body>
+	<div class="qm-main ">
+		<div class="ioffice-header">
+			<div class="ioffice-header-crumb">
+				<a href="#" class="icon-back">返回</a>
+			</div>
+			<div class="ioffice-tab">自定义审批</div>
+		</div>
+		<div class="custom-main">
+			<div class="custom-list clearfix">
+					<div class="custom-item">
+						<a href="javascript:;" event-node="add_process" class="custom-plus"><span
+							class="icon-plus"></span></a>
+					</div>
+					<!--{loop $process_list $process}-->
+					<div class="custom-item">
+						<dl>
+							<dt class="title">
+								<div class="handle">
+									<ul>
+										<li><a href="javascript:;" class="custom-edite" data-id="{$process['id']}" data-title="{$process['title']}"><span class="ico-pencil2"></span>修改名称</a></li>
+										<li><a href="#" class="custom-update" data-id="{$process['id']}"><span class="ico-pencil5"></span>编辑流程</a></li>
+										<!--{if $process['status'] == self::PROCESS_STATUS_USED}-->
+											<li>
+												<a href="javascript:;" class="custom-stop" data-id="{$process['id']}" >
+													<span class="ico-play32"></span>停用流程
+												</a>
+											</li>
+										<!--{elseif $process['status'] == self::PROCESS_STATUS_STOP}-->
+											<li>
+												<a href="javascript:;" class="custom-start" data-id="{$process['id']}" >
+													<span class="ico-play32"></span>启用流程
+												</a>
+											</li>
+										<!--{/if}-->
+										<li><a href="javascript:;" class="custom-delete" data-id="{$process['id']}" ><span
+												class="ico-remove-sign"></span>删除</a></li>
+	
+									</ul>
+								</div>
+								<h4 id="pname_{$process['id']}">{$process['title']}</h4>
+								<!--{if $process['status'] == self::PROCESS_STATUS_USED}-->
+									<span class="btn-390">
+								<!--{elseif $process['status'] == self::PROCESS_STATUS_STOP}-->
+									<span class="btn-f9">
+								<!--{else}-->
+									<span class="btn-f60">
+								<!--{/if}-->
+								{echo self::$_statusMap[$process['status']]}
+								</span>
+	
+							</dt>
+							<dd class="txt">
+								<ul>
+									<!--{loop $process['approver_config'] $index $approver}-->
+										<!--{if ! empty(approver) && $index < 3}-->
+											<li><span>{$approver['title']}：</span>{$this->_uerNames[$approver['id']]}</li>
+										<!--{/if}-->
+									<!--{/loop}-->
+										<!--{if $process['checker_id'] != 0}-->
+											<li><span>核销人：</span>{$this->_uerNames[$process['checker_id']]}</li>
+										<!--{/if}-->
+								</ul>
+							</dd>
+						</dl>
+					</div>
+				<!--{/loop}-->
+			</div>
+		</div>
+	</div>
+	<script src="{DZZ_SHENPI_STATIC_PATH}js/jquery-1.11.1.min.js"></script>
+	<script src="{DZZ_SHENPI_STATIC_PATH}js/jquery-ui.min.js"></script>
+	<script src="{DZZ_SHENPI_STATIC_PATH}js/sea2.3.0.js"></script>
+	<script>seajs.config({base:'{DZZ_SHENPI_STATIC_PATH}jsSrc'})</script>
+	<script type="text/javascript">
+    	seajs.use('custome');
+		userSuggest($('.choose-user'));
+	</script>
+</body>
+</html>
