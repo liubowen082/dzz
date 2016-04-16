@@ -111,7 +111,7 @@ define(function (require, exports, module) {
                 id: obj.id,
                 edit: (function () {
                     if (obj.status == 1 || obj.status == 4) {
-                        return '<a target="_blank" href="http://blkj.qimingdao.com/ioffice/Index/edit?office_id=' + obj.id + '"><span class="ico-pencil2"></span>编辑</a>';
+                        return '<a target="_blank" href="/index.php?mod=shenpi&op=index&act=application_edit&id=' + obj.id + '"><span class="ico-pencil2"></span>编辑</a>';
                     } else {
                         return '';
                     }

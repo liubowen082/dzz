@@ -24,7 +24,7 @@ define(function(require, exports, module) {
 				        success: function(json) {
 				        	if(json.status == 0){
 					             response($.map(json.data, function(item) {
-					                 return { label: item.nickname, value: item.uid ,img : item.avatar }
+					                 return { label: item.username, value: item.uid ,img : item.avatar }
 					             }));
 					        }
 					    }
