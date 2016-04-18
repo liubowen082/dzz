@@ -11,7 +11,7 @@ define(function(require, exports, module) {
 	var getId = require('getId');// id生成器
 
 	// 设置编辑组件
-	function setEditMod (list , index , id , data){
+	function setEditMod (list , index , id , data , rel){
 
 		$('.js_design_tab').removeClass('current').eq(index).addClass('current');
 		$('[node-name="design-boxin"]').hide().eq(index).show();
@@ -34,29 +34,46 @@ define(function(require, exports, module) {
 					$('.js_edit_data_option').find('input:eq(1)').val(arr[1])
 
 				}
-				if(i == 'select'){
-					var arr = data.select.split("###");
-					var len = arr.length - 1;
-					var html = [];
-					var flag = false;
-					$(arr).each(function(i,a){
-						if(a == 'othersIsOpen'){
-							html.push(list.other);
-							flag = true;
-						}else{
-							html.push(modTemp(list.option || '' ,{value : a}))
-						}
-						
-					});
-					if(!flag){
-						html.push(list.other)
-					}
-					var el = $('#designBoxin .js_edit_'+ i).find('.form-select-option').html('')
-												  .html(html.join(''));
-					el.find('[add]:not(:last)').hide();
 
-					flag && el.find('li:last').show().prev().hide();
-				}
+				// if(i == 'select'){
+				// 	var arr = data.select.split("###");
+				// 	var len = arr.length - 1;
+				// 	var html = [];
+				// 	var flag = false;
+
+				// 	$(arr).each(function(i,a){
+				// 		if(a == 'othersIsOpen'){
+				// 			html.push(list.other);
+				// 			flag = true;
+				// 		}else{
+				// 			html.push(modTemp(list.option || '' ,{value : a}))
+				// 		}
+						
+				// 	});
+				// 	if(!flag){
+				// 		html.push(list.other)
+				// 	}
+				// 	var el = $('#designBoxin .js_edit_'+ i).find('.form-select-option').html('')
+				// 								  .html(html.join(''));
+				// 	el.find('[add]:not(:last)').hide();
+
+				// 	flag && el.find('li:last').show().prev().hide();
+				// }
+
+			}
+
+
+			if(rel == "radio" || rel == "checkbox" || rel == "select"){
+
+					var arr = data.option.split("###");
+					var html = [];
+					$(arr).each(function(m,n){
+						html.push(modTemp(list.option || '' ,{value : n}))
+					})
+
+					$('#designBoxin .form-select-option').
+							html(html.join('')) //.find('.ico-plus-sign:not(:first)').hide();
+					// $('#designBoxin .form-select-option').find('.ico-minus-sign:first').hide();
 
 			}
 			
@@ -124,18 +141,32 @@ define(function(require, exports, module) {
 
 	// 选项
 	$('#designBoxin .js_edit_select').on('click','[add]',function(){
-		var clone = $(this).parent().clone();
-		var index = $(this).parent().index();
-		clone.find('input:text').val('选项');
-		$(this).parent().after(clone);
-		$(this).hide();
-		$(this).parent().parent().find('input:text').change();
+
+
+		var id = $('#designBoxin').attr('editid');
+
+		var rel = $('#' + id).attr('rel')
+
+		$(this).parent().after(modTemp(moduleList[rel].option,{
+			value: '选项',
+		}))
 
 		// 单项&多项
+		var index = $(this).parent().index();
 		var id = $('#designBoxin').attr('editid');
-		var clone = $('#'+id).find('label:first').clone();
-		clone.find('em').text('选项')
-		$('#'+id).find('label').eq(index).after(clone)
+
+		var els = $('.form-select-option input[type="text"]');
+		var option = [];
+		$(els).each(function(i,a){
+			option.push($(a).val())
+
+		})
+
+		var clone = modTemp(moduleList[rel].optionTpl || '',{
+			title: '选项',
+		});
+
+		$('#'+id).data('option',option.join('###')).find('label').eq(index).after(clone)
 
 	})
 	$('#designBoxin .js_edit_select').on('click','[del]',function(){
@@ -149,38 +180,53 @@ define(function(require, exports, module) {
 
 
 		var id = $('#designBoxin').attr('editid');
+
+		var els = $('.form-select-option input[type="text"]');
+		var option = [];
+		$(els).each(function(i,a){
+			option.push($(a).val())
+
+		})
 		// 单项&多项
-		 $('#'+id).find('label').eq(index).remove();
+		 $('#'+id).data('option',option.join('###')).find('label').eq(index).remove();
 	});
 
 	$('#designBoxin .js_edit_select').on('keyup','input:text',function(){
 		var index = $(this).parent().index();
 		var id = $('#designBoxin').attr('editid');
+
+		var els = $('.form-select-option input[type="text"]');
+		var option = [];
+		$(els).each(function(i,a){
+			option.push($(a).val())
+
+		})
+
 		// 单项&多项
-		 $('#'+id).find('label').eq(index).find('em').html($(this).val());
+		 $('#'+id).data('option',option.join('###')).find('label').eq(index).find('em').html($(this).val());
 	})
 
 	//选项用户自定义
-	$('#designBoxin .js_edit_select').on('click','.js_other_li',function(){
-		$(this).hide().next().show();
+	// $('#designBoxin .js_edit_select').on('click','.js_other_li',function(){
+	// 	$(this).hide().next().show();
 
-		var id = $('#designBoxin').attr('editid');
-		// 单项&多项
-		$('#'+id).find('label:last').after('<label>&nbsp;其他：<input type="text" class="q-txt" disabled="true" style="width:100px"></label>');
-
-
-		setDomData('select');  // 手动调用重绘数据
+	// 	var id = $('#designBoxin').attr('editid');
+	// 	// 单项&多项
+	// 	$('#'+id).find('label:last').after('<label>&nbsp;其他：<input type="text" class="q-txt" disabled="true" style="width:100px"></label>');
 
 
-	})
-	$('#designBoxin .js_edit_select').on('click','[hidePrec]',function(){
-		$(this).parent().hide().prev().show();
-		var id = $('#designBoxin').attr('editid');
-		// 单项&多项
-		$('#'+id).find('label:last').remove();
-		setDomData('select')// 手动调用重绘数据
-		return false
-	})
+	// 	setDomData('select');  // 手动调用重绘数据
+
+
+	// })
+	// $('#designBoxin .js_edit_select').on('click','[hidePrec]',function(){
+	// 	$(this).parent().hide().prev().show();
+	// 	var id = $('#designBoxin').attr('editid');
+	// 	// 单项&多项
+	// 	$('#'+id).find('label:last').remove();
+	// 	setDomData('select')// 手动调用重绘数据
+	// 	return false
+	// })
 
 
 	
@@ -197,8 +243,13 @@ define(function(require, exports, module) {
 		var rel = $(this).attr('rel');
 		var id = getId();
 
-		$('#designFormin').append(modTemp(moduleList[rel].tpl,{id:id,title : moduleList[rel].name}));
-
+		$('#designFormin').append(modTemp(moduleList[rel].tpl,
+			{id:id,
+			 title : moduleList[rel].name,
+			 option : modTemp(moduleList[rel].optionTpl || '',{
+			 	title : '选项'
+			 })
+			}));
 
 		$('#' + id).click();
 		// $('div.ui-droppable').sortable('refresh')
@@ -210,8 +261,18 @@ define(function(require, exports, module) {
 		$(this).parent().find('dl').removeClass('current')
 		$(this).addClass('current');
 		var rel = $(this).attr('rel');
+		var obj = $(this).data();
 
-		setEditMod(moduleList[rel], 1 , $(this).attr('id') , $(this).data())
+		var option = [];
+		if(rel == 'radio' || rel == "checkbox"){
+			$(this).find('label em').each(function(i,a){
+				option.push($(a).html())
+
+			})
+			obj.option = option.join('###');
+		}
+
+		setEditMod(moduleList[rel], 1 , $(this).attr('id') , obj ,rel)
 
 	}).on('click','.icon-close',function(){
 		$(this).parent().parent().remove();
@@ -231,12 +292,12 @@ define(function(require, exports, module) {
 
 			_obj['input_type'] = $(a).attr('rel');
 
-			var _arr = _obj.select ?  _obj.select.split('###') : [];
-			if(_arr[_arr.length - 1] == 'othersIsOpen'){
-				_obj['option_else'] = 1;
-				_arr.pop();
-			}
-			_obj['option'] = _arr.join('###');
+			// var _arr = _obj.select ?  _obj.select.split('###') : [];
+			// if(_arr[_arr.length - 1] == 'othersIsOpen'){
+			// 	_obj['option_else'] = 1;
+			// 	_arr.pop();
+			// }
+			// _obj['option'] = _arr.join('###');
 
 			delete(_obj.select);
 			delete(_obj.sortableItem);
@@ -552,6 +613,4 @@ $(".design-formin > dl" ).disableSelection();
 
 
 })
-
-
 

@@ -46,8 +46,9 @@ define(function(require, exports, module) {
 						$('#createTitle').html(json.data.title)
 						
 						var data = eval('(' + json.data.form_config + ')');
+						console.log(data)
 						createShowForm.createFormList($(t.layCon), data, moduleShowList);
-						
+
 						var dataA = eval('(' + json.data.approver_config + ')');
 						createShowForm.createApproval($(t.layCon), dataA, moduleShowList);
 
@@ -145,7 +146,8 @@ define(function(require, exports, module) {
 			$(window).click('click', function() {
 					$(t.layCon).find('[node-name="select_div"] .dropdown-menu').hide();
 				})
-				// 时间
+			
+			// 时间
 			$(t.layCon).find('[node-name="date_input"]').on('click', function() {
 				var format = $(this).attr('format');
 				laydate({

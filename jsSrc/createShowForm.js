@@ -132,9 +132,10 @@ var createFormList = function(dom,items,temp){
 			isMust : a.must ? '<span style="color:red">*</span>' : '',
 			title : a.title,
 			option : $.isArray(option) ? option.join('') : a.option,
-			format : 'YYYY-MM-DD hh:mm:ss' || a.format,
+			format : a.format || 'YYYY-MM-DD hh:mm:ss',
 			option_else : a.option_else,
-			user_format : a.user_format
+			user_format : a.user_format,
+			placeholder : a.placeholder
 		},value)
 
 
