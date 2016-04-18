@@ -98,6 +98,8 @@ var createFormList = function(dom,items,temp){
 			value = {
 				option : option.join('')
 			}
+
+			console.log(option.join(''))
 		}else if(a.input_type == "attach"){
 			//附件
 			var valueList = [];

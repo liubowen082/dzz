@@ -5,6 +5,6 @@
 */
 define(function(require, exports, module) {
 	return function (){
-		return 'id'+ new Date().getTime();
+		return 'id'+ new Date().getTime() + parseInt(Math.random() * 10000);
 	}
 });

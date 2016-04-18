@@ -25,10 +25,10 @@ var createFormList = function(dom,items,temp){
 
 		delete(a.option)
 
-		$(dom).append(modTemp(temp[rel].tpl,{id:id,title:a.title}));
-		
-		$('#' + id).data(a)
+		$(dom).append(modTemp(temp[rel].tpl,{id:id,title: a.title}));
 
+		$('#' + id).data(a)
+		// console.log($('#'+id).data())
 		// radio  和 checkbox生成选项
 		if(a.input_type != 'radio' || a.input_type != 'checkbox'){
 			return;

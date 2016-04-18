@@ -13,6 +13,8 @@ define(function(require, exports, module) {
 	// 设置编辑组件
 	function setEditMod (list , index , id , data){
 
+		console.log(id)
+
 		$('.js_design_tab').removeClass('current').eq(index).addClass('current');
 		$('[node-name="design-boxin"]').hide().eq(index).show();
 
@@ -228,6 +230,7 @@ define(function(require, exports, module) {
 		designFormin.each(function(i,a){
 			var _obj = $(a).data();
 
+
 			_obj['input_type'] = $(a).attr('rel');
 
 			var _arr = _obj.select ?  _obj.select.split('###') : [];
@@ -263,11 +266,11 @@ define(function(require, exports, module) {
 	var sendFormConfig = function(callback){
 		var callback = callback || function(){};
 		var obj = saveFormConfig();
-
 		var data = {
 			id : GLOBAL.id,
 			form_config : modJsonToString(obj)
 		}
+		console.log(obj)
 
 		$.ajax({
 
