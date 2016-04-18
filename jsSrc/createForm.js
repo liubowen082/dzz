@@ -47,7 +47,7 @@ define(function(require, exports, module) {
 						
 						var data = eval('(' + json.data.form_config + ')');
 						createShowForm.createFormList($(t.layCon), data, moduleShowList);
-
+						
 						var dataA = eval('(' + json.data.approver_config + ')');
 						createShowForm.createApproval($(t.layCon), dataA, moduleShowList);
 
