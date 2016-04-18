@@ -42,7 +42,7 @@ define(function(require, exports, module) {
 		},
 		'user' : {
 			'name':'人名输入框',
-			'tpl' : '<dl id="#{id}" rel="user"><dt>#{isMust} #{title||default:人名输入框}</dt><dd><div class="qg-userlist"><div class="choose-user"><ul class="user-list">#{option}</ul><input type="text" class="q-txt" node-name="user"></div></div></dd></dl>',
+			'tpl' : '<dl id="#{id}" rel="user"><dt>#{isMust} #{title||default:人名输入框}</dt><dd><div class="qg-userlist"><div class="choose-user"><ul class="user-list">#{option}</ul><input type="text" class="q-txt" node-name="user" user_format="#{user_format}"></div></div></dd></dl>',
 			'option' : '<li search_id="#{id}" search_name="#{name}" class="user-list"><div class="content"><span class="search-name">#{name}</span></div><a class="ico-remove" href="javascript:;" node-name="removeSearch"></a></li>'
 		},
 		'attach' : {

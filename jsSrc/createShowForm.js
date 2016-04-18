@@ -99,7 +99,6 @@ var createFormList = function(dom,items,temp){
 				option : option.join('')
 			}
 
-			console.log(option.join(''))
 		}else if(a.input_type == "attach"){
 			//附件
 			var valueList = [];
@@ -134,7 +133,8 @@ var createFormList = function(dom,items,temp){
 			title : a.title,
 			option : $.isArray(option) ? option.join('') : a.option,
 			format : 'YYYY-MM-DD hh:mm:ss' || a.format,
-			option_else : a.option_else
+			option_else : a.option_else,
+			user_format : a.user_format
 		},value)
 
 

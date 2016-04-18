@@ -13,8 +13,6 @@ define(function(require, exports, module) {
 	// 设置编辑组件
 	function setEditMod (list , index , id , data){
 
-		console.log(id)
-
 		$('.js_design_tab').removeClass('current').eq(index).addClass('current');
 		$('[node-name="design-boxin"]').hide().eq(index).show();
 

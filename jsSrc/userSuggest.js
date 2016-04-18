@@ -34,6 +34,10 @@ define(function(require, exports, module) {
 					//提交搜索...
 					var obj = ui.item;
 					var pre = $(this).prev();
+					if( $(this).prev().children().length > 0 && $(this).attr('user_format') == "signle"){
+						$(this).val('');
+						return 
+					}
 					if($(this).prev().find('[search_id="' + obj.value + '"]').length > 0){
 						$(this).val('');
 						return false;
@@ -61,6 +65,11 @@ define(function(require, exports, module) {
 								} 
 				},
 				focus : function(event, ui){
+
+					$(this).val(ui.item.label)
+					return false;
+				},
+				click : function(event, ui){
 
 					$(this).val(ui.item.label)
 					return false;
