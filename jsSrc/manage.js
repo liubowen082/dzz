@@ -34,7 +34,7 @@ define(function (require) {
                     arr_2.push('</ul>');
                     $('#manageaudit').html(arr_2.join(''));
                 } else {
-                    $('#manageaudit').parent().remove();
+                    $('#manageaudit').html('');
                 }
 
                 if (obj.html.creater_list.length != 0) {
@@ -45,7 +45,7 @@ define(function (require) {
                     arr_1.push('</ul>');
                     $('#manageuser').html(arr_1.join(''));
                 } else {
-                    $('#manger_user').parent().remove();
+                    $('#manger_user').html('');
                 }
             }
         }, 'manage');
@@ -65,7 +65,7 @@ define(function (require) {
                 $('#typeClassify').parent().remove();
             }
         }, function () {
-            $('#typeClassify').parent().remove();
+            $('#typeClassify').html('');
         });
     }
 
