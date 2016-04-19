@@ -34,7 +34,7 @@ define(function (require) {
                     arr_2.push('</ul>');
                     $('#manageaudit').html(arr_2.join(''));
                 } else {
-                    $('#manageaudit').html('');
+                    $('#manageaudit').parent().parent().remove();
                 }
 
                 if (obj.html.creater_list.length != 0) {
@@ -45,7 +45,7 @@ define(function (require) {
                     arr_1.push('</ul>');
                     $('#manageuser').html(arr_1.join(''));
                 } else {
-                    $('#manger_user').html('');
+                    $('#manger_user').parent().parent().remove();
                 }
             }
         }, 'manage');
