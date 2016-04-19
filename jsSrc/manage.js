@@ -62,6 +62,7 @@ define(function (require) {
                 arr.push('</ul>');
                 $('#manageprocess').html(arr.join(''));
             } else {
+                console.log(777777777);
                 $('#typeClassify').html('');
             }
         }, function () {
