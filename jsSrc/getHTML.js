@@ -279,7 +279,6 @@ define(function (require, exports, module) {
             dataType: 'json',
             success: function (json) {
                 if (json.status == 0) {
-                    console.log(json.data);
                     cb && cb(createHTML(json.data));
                 } else {
                     alert(json.msg || '请求异常请稍后再试');

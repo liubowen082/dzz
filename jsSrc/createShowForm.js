@@ -175,7 +175,7 @@ var createApproval = function(dom,items,temp){
 	$(items).each(function(i,a){
 		var rel = 'user';
 		var id = getId();
-
+		console.log(a)
 		
 		var option = [];
 		if(a.value && a.value != ''){
@@ -187,12 +187,13 @@ var createApproval = function(dom,items,temp){
 		}
 
 		$(dom).append(modTemp(temp[rel].tpl,{
-				id:id,
+				id : id,
 				isMust : a.require ? '<span style="color:red">*</span>' : '',
 				title : a.title,
 				value : a.value,
 				option : option,
-				allow_select : a.allow_select
+				allow_select : a.allow_select,
+				user_format : 'signle'  // 单
 				// option_else : a.option_else
 			}));
 		
