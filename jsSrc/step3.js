@@ -141,7 +141,7 @@ define(function (require) {
                 }
             },
             fail: function () {
-                alert('服务端异常，请稍后重试');
+                ui.error('服务端异常，请稍后重试');
                 senRequest = false;
             }
         });

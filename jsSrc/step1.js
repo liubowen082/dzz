@@ -30,7 +30,7 @@ define(function(require, exports, module) {
 			if(json.status === 0){
 				createModule(json.data)
 			}else{
-				alert('模板列表获取失败')
+				ui.error('模板列表获取失败')
 			}
 		}
 

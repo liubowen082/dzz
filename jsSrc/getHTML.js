@@ -281,7 +281,7 @@ define(function (require, exports, module) {
                 if (json.status == 0) {
                     cb && cb(createHTML(json.data));
                 } else {
-                    alert(json.msg || '请求异常请稍后再试');
+                    ui.error(json.msg || '请求异常请稍后再试');
                 }
             },
             fail: function () {
@@ -304,7 +304,7 @@ define(function (require, exports, module) {
         getData(args, function (obj) {
             cb && cb(obj);
         }, function () {
-            alert('服务端异常，请稍后重试');
+            ui.error('服务端异常，请稍后重试');
         });
     }
 

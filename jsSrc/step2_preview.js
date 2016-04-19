@@ -13,7 +13,7 @@ define(function(require, exports, module) {
 	createForm.show(GLOBAL.id,GLOBAL.sid,GLOBAL.data);
 
 	$(createForm).on('onSubmitSuccess',function(){
-		alert('提交成功!')
+		ui.error('提交成功!')
 	});
 
 

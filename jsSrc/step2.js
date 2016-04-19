@@ -342,7 +342,7 @@ define(function(require, exports, module) {
 				if(json.status == 0){
 					callback();
 				}else{
-					alert(json.msg)
+					ui.error(json.msg)
 				}
 			}
 		})
@@ -393,7 +393,7 @@ GLOBAL.tid != '' && $.ajax({
 									createFormList('#designFormin' , data);
 									
 								}else{
-									alert('模板列表获取失败')
+									ui.error('模板列表获取失败')
 								}
 							}
 

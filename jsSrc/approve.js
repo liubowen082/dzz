@@ -32,7 +32,7 @@ define(function (require) {
                 if (json.status == 0) {
                     cb && cb(json);
                 } else {
-                    alert(json.msg || '提交失败，请稍后重试');
+                    ui.error(json.msg || '提交失败，请稍后重试');
                     errCb && errCb();
                 }
                 senRequest = false;
@@ -41,7 +41,7 @@ define(function (require) {
                 }
             },
             fail: function () {
-                alert('服务端异常，请稍后重试');
+                ui.error('服务端异常，请稍后重试');
                 senRequest = false;
             }
         });
@@ -406,7 +406,7 @@ define(function (require) {
             var office_tips = $('#office_tips'), v = $.trim(office_tips.val());
 
             if (v == '') {
-                alert('请添加详细说明');
+                ui.error('请添加详细说明');
                 return false;
             }
 

@@ -57,7 +57,7 @@ define(function(require, exports, module) {
 						t.addEvent();
 
 					} else {
-						alert(json.msg)
+						ui.error(json.msg)
 					}
 				}
 			})
@@ -88,7 +88,7 @@ define(function(require, exports, module) {
 						t.addEvent();
 
 					} else {
-						alert(json.msg)
+						ui.error(json.msg)
 					}
 				}
 			})
@@ -212,7 +212,7 @@ define(function(require, exports, module) {
 				})
 				$(upload).on('onLoadFailure',function(e,json){
 					var name = json.name;
-					alert(name + json.result.msg)
+					ui.error(name + json.result.msg)
 					$('#'+json.id).remove();
 					
 				})
@@ -353,7 +353,7 @@ define(function(require, exports, module) {
 					if(_data_[i]){
 						var must = _data_[i].must;
 						if(must == 1 && val == ''){
-							alert("请填写"+ _data_[i].title)
+							ui.error("请填写"+ _data_[i].title)
 							flag = true;
 							return false;
 						}
@@ -361,7 +361,7 @@ define(function(require, exports, module) {
 					}else{
 						var must = _data_A[i-_data_.length].require;
 						if(must == 1 && val == ''){
-							alert("请填写"+ _data_A[i-_data_.length].title)
+							ui.error("请填写"+ _data_A[i-_data_.length].title)
 							flag = true;
 							return false;
 						}
@@ -397,7 +397,7 @@ define(function(require, exports, module) {
 						if (json.status == 0) {
 							$(t).trigger('onSubmitSuccess',{id:t.id,data:_data_});
 						} else {
-							alert(json.msg)
+							ui.error(json.msg)
 						}
 					}
 				})

@@ -85,7 +85,7 @@ define(function (require) {
                 if (json.status == 0) {
                     cb && cb(json);
                 } else {
-                    alert(json.msg || '提交失败，请稍后重试');
+                    ui.error(json.msg || '提交失败，请稍后重试');
                     errCb && errCb();
                 }
 
@@ -95,7 +95,7 @@ define(function (require) {
                 }
             },
             fail: function () {
-                alert('服务端异常，请稍后重试');
+                ui.error('服务端异常，请稍后重试');
                 senRequest = false;
             }
         });
