@@ -24,7 +24,7 @@ define(function (require) {
 		+'				<div class="choose-user choose-user-approver">'
 		+'					<ul class="user-list">'
 		+'					</ul>'
-		+'					<input type="text" class="q-txt" style="width:120px" node-name="user" placeholder="输入姓名选择审批人">'
+		+'					<input type="text" class="q-txt" style="width:120px" node-name="user" placeholder="输入姓名选择审批人" user_format="signle">'
 		+'				</div>'
 		+'			</div>'
 		+'			<div class="process-tips">'

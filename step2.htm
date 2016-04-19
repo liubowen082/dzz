@@ -20,7 +20,7 @@
                 <a href="javascript:;" onclick="ioffice.delProcess(9)">删除此审批</a>
             </div>
             <div class="ioffice-header-crumb">
-                <a href="javascript:window.location.href='/index.php?mod=shenpi&op=index&act=process_step1&id='+GLOBAL.id;" class="icon-back">返回</a>
+                <a href="javascript:window.location.href='/index.php?mod=shenpi&op=index&act=process_index" class="icon-back">返回</a>
             </div>
             <div class="ioffice-tab">
                 <a href="javascript:;"><span class="number">1</span>选择模板</a><span class="ico-angle-right"></span><a href="javascript:;" class="current"><span class="number">2</span>设计表单</a><span class="ico-angle-right"></span><a href="javascript:;"><span class="number">3</span>设置流程</a>
@@ -173,7 +173,7 @@
                             <a href="javascript:;" class="btn btn-blue right ml15" id="saveFormConfigNext"><span>保存并设置流程</span></a>
                             <a href="javascript:;" class="btn btn-blue right ml15" id="saveFormConfig"><span>保存</span></a>
                             <a href="javascript:;" class="btn btn-gray right ml15" id="previewConfig"><span>预览</span></a>
-                            <a href="javascript:;" class="btn btn-gray left"><span>重新选择模板</span></a>
+                            <a href="javascript:;" class="btn btn-gray left" id="resetStep1"><span>重新选择模板</span></a>
                         </div>
                     </div>
                     <div class="design-form">
@@ -197,7 +197,8 @@
 
 </script>
 <script type="text/javascript">
-    seajs.use('step2')
+    seajs.use('step2');
+    
 
 </script>
 </html>
