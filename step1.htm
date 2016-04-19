@@ -40,7 +40,6 @@
                 </div>
             </div>
             <div class="template-btn">
-                <a href="javascript:window.location.href='/index.php?mod=shenpi&op=index&act=process_step2&id='+GLOBAL.id;" class="btn btn-gray" id="backtoNext"><span>返回设计表单</span></a>
                 <a href="/index.php?mod=shenpi&op=index&act=process_step2" class="btn btn-green" id="gotoNext"><span>选择此模板</span></a>
             </div>
         </div>
@@ -58,6 +57,21 @@
 </script>
 <script type="text/javascript">
     seajs.use('step1');
+    isReset();
+    function isReset()
+    {
+         if (GetQueryString('type') == '-1' && $("#backtoNext").length == 0) {
+        	 var btn = '<a href="/index.php?mod=shenpi&op=index&act=process_step2&id='+GLOBAL.id+'" class="btn btn-gray" id="backtoNext"><span>返回设计表单</span></a>';
+        	 $("#gotoNext").before(btn);
+         }
+    }
+    
+    function GetQueryString(name)
+    {
+         var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+         var r = window.location.search.substr(1).match(reg);
+         if(r!=null)return  unescape(r[2]); return null;
+    }
     
 </script>
 
