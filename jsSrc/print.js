@@ -46,6 +46,16 @@ define(function (require) {
                         }
                     });
                     arr.push('<tr><td style="text-align:right;font-size:14px;line-height:18px;padding:6px 10px;width:120px;border-right:#000 solid 1px;border-bottom:#000 solid 1px;" valign="top">' + item.title + '：</td><td style="font-size:14px;line-height:18px;padding:6px 10px;border-bottom:#000 solid 1px;">' + names + '</td></tr>');
+                } else if (item.input_type == 'attach') {
+                    var array= item.value.split('###'),html = '';
+                    $.each(array,function(index,ele){
+                        var s = ele.split('|');
+                        html += '<a href="'+s[1]+'">'+s[0]+'</a>';
+                        if(index != array.length -1 ){
+                            html += '，';
+                        }
+                    });
+                    arr.push('<tr><td style="text-align:right;font-size:14px;line-height:18px;padding:6px 10px;width:120px;border-right:#000 solid 1px;border-bottom:#000 solid 1px;" valign="top">' + item.title + '：</td><td style="font-size:14px;line-height:18px;padding:6px 10px;border-bottom:#000 solid 1px;">' + html + '</td></tr>');
                 } else if (item.input_type == 'checkbox') {
                     arr.push('<tr><td style="text-align:right;font-size:14px;line-height:18px;padding:6px 10px;width:120px;border-right:#000 solid 1px;border-bottom:#000 solid 1px;" valign="top">' + item.title + '：</td><td style="font-size:14px;line-height:18px;padding:6px 10px;border-bottom:#000 solid 1px;">' + item.value.replace(/###/gi, '，') + '</td></tr>');
                 } else if (item.input_type == 'date_between') {
