@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="{DZZ_SHENPI_STATIC_PATH}css/qm.css" rel="stylesheet"/>
+    <link href="{DZZ_SHENPI_STATIC_PATH}css/ioffice.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="layer-window ajax_detal_layer">
+    <div class="ajax_content">
+        <div class="ioffice-plus-wrap">
+            <form action="http://blkj.qimingdao.com/ioffice/Do/addOffice" method="POST">
+                <div class="ioffice-plus-title" id="createTitle"> 我是title </div>
+                <div class="ioffice-plus" node-name="layer-window"></div>
+                <div class="ioffice-plus-btn"><a href="javascript:;" class="btn btn-green-big" node-name="js_submit_btn"><span class="js_submit_btn">创建</span></a><a href="http://blkj.qimingdao.com/ioffice/Index/index" class="btn btn-gray-big"><span>取消</span></a></div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="{DZZ_SHENPI_STATIC_PATH}js/jquery-1.11.1.min.js"></script>
+<script src="{DZZ_SHENPI_STATIC_PATH}js/jquery-ui.min.js"></script>
+<script src="{DZZ_SHENPI_STATIC_PATH}js/laydate/laydate.js"></script>
+<script src="{DZZ_SHENPI_STATIC_PATH}js/sea2.3.0.js"></script>
+<script>seajs.config({base:'{DZZ_SHENPI_STATIC_PATH}jsSrc'})</script>
+<script type="text/javascript">
+    var GLOBAL = {};
+    GLOBAL.id = {$templateId};  // 模板id
+    GLOBAL.sid = {$id}; //申请id
+    GLOBAL.data = {$data};
+</script>
+<script type="text/javascript">
+    seajs.use('step2_preview');
+</script>
+</html>

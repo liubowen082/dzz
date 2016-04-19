@@ -10,11 +10,11 @@ define(function(require, exports, module) {
 	var moduleList = {
 		'textMust' : {
 			'name':'申请事由',
-			'tpl' : '<dl><dt>#{isMust} #{title}：</dt><dd><input type="text" class="q-txt" placeholder="请填写事由" value="#{value}" ></dd></dl>'
+			'tpl' : '<dl><dt>#{isMust} #{title}：</dt><dd><input type="text" class="q-txt" placeholder="请填写事由" value="#{value}"></dd></dl>'
 		},
 		'text' : {
 			'name':'单行文本',
-			'tpl' : '<dl rel="text"><dt>#{isMust} #{title||default:单行文本}</dt><dd><input type="text" class="q-txt" value="#{value}" placeholder="#{placeholder}"></dd></dl>'
+			'tpl' : '<dl rel="text"><dt>#{isMust} #{title||default:单行文本}</dt><dd><input type="text" class="q-txt" value="#{value}"></dd></dl>'
 		},
 		'textarea' : {
 			'name':'多行文本',
@@ -28,11 +28,11 @@ define(function(require, exports, module) {
 		},
 		'date' : {
 			'name':'日期',
-			'tpl' : '<dl rel="date" id="#{id}"><dt>#{isMust} #{title||default:日期}</dt><dd><div class="widget-date"><input type="text" class="q-txt rcalendar_input" value="#{value}" readonly="readonly" format="#{format}" node-name="date_input" placeholder="#{placeholder}"><i class="icon-clock2"></i></div></dd></dl>'
+			'tpl' : '<dl rel="date" id="#{id}"><dt>#{isMust} #{title||default:日期}</dt><dd><div class="widget-date"><input type="text" class="q-txt rcalendar_input" value="#{value}" readonly="readonly" format="#{format}" node-name="date_input"><i class="icon-clock2"></i></div></dd></dl>'
 		},
 		'date_between' : {
 			'name':'时间段',
-			'tpl' : '<dl id="#{id}" rel="date_between"><dt>#{isMust} #{title||default:时间段}</dt><dd><div class="period"><div class="widget-date" model-node="date_widget_load"><input name="data17_start" type="text" class="q-txt rcalendar_input" readonly="readonly" placeholder="" node-name="date_input" value="#{valueStart}" format="#{format}" placeholder="#{placeholder}"><i class="icon-clock2"></i></div><i class="vline">~</i><div class="widget-date" model-node="date_widget_load"><input type="text" class="q-txt rcalendar_input" readonly="readonly" placeholder="" value="#{valueEnd}" format="#{format}" node-name="date_input"><i class="icon-clock2"></i></div></div></dd></dl>'
+			'tpl' : '<dl id="#{id}" rel="date_between"><dt>#{isMust} #{title||default:时间段}</dt><dd><div class="period"><div class="widget-date" model-node="date_widget_load"><input name="data17_start" type="text" class="q-txt rcalendar_input" readonly="readonly" placeholder="" node-name="date_input" value="#{valueStart}" format="#{format}"><i class="icon-clock2"></i></div><i class="vline">~</i><div class="widget-date" model-node="date_widget_load"><input type="text" class="q-txt rcalendar_input" readonly="readonly" placeholder="" value="#{valueEnd}" format="#{format}" node-name="date_input"><i class="icon-clock2"></i></div></div></dd></dl>'
 		},
 		'data_list' : { // 清单
 			'name':'清单',
@@ -42,7 +42,7 @@ define(function(require, exports, module) {
 		},
 		'user' : {
 			'name':'人名输入框',
-			'tpl' : '<dl id="#{id}" rel="user"><dt>#{isMust} #{title||default:人名输入框}</dt><dd><div class="qg-userlist"><div class="choose-user"><ul class="user-list">#{option}</ul><input type="text" class="q-txt" node-name="user" user_format="#{user_format}"></div></div></dd></dl>',
+			'tpl' : '<dl id="#{id}" rel="user"><dt>#{isMust} #{title||default:人名输入框}</dt><dd><div class="qg-userlist"><div class="choose-user"><ul class="user-list">#{option}</ul><input type="text" class="q-txt" node-name="user"></div></div></dd></dl>',
 			'option' : '<li search_id="#{id}" search_name="#{name}" class="user-list"><div class="content"><span class="search-name">#{name}</span></div><a class="ico-remove" href="javascript:;" node-name="removeSearch"></a></li>'
 		},
 		'attach' : {
@@ -52,7 +52,7 @@ define(function(require, exports, module) {
 		},
 		'number' : {
 			'name':'数字',
-			'tpl' : '</dl><dl id="#{id}" rel="number"><dt>#{isMust} #{title||default:数字}</dt><dd><input type="text" class="q-txt" value="#{value}" placeholder="#{placeholder}"></dd></dl>'
+			'tpl' : '</dl><dl id="#{id}" rel="number"><dt>#{isMust} #{title||default:数字}</dt><dd><input type="text" class="q-txt" value="#{value}"></dd></dl>'
 		},
 		'radio' : {
 			'name':'单项选择',

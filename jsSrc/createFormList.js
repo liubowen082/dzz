@@ -15,35 +15,44 @@ var createFormList = function(dom,items,temp){
 		var rel = a.input_type;
 		var id = getId();
 		
-		if(a.option_else != 0 ){
-			a.select = a.option + '###othersIsOpen'
-		}else{
-			a.select = a.option
+		// if(a.option_else != 0 ){
+		// 	a.select = a.option + '###othersIsOpen'
+		// }else{
+		// 	a.select = a.option
+		// }
+
+		var optArr = a.option!='' ? a.option.split('###') : [];
+		var option = [];
+		var value = {};
+		if(a.input_type != 'radio' || a.input_type != 'checkbox'){
+			$(optArr).each(function(i,a){
+				option.push(modTemp(temp[rel].optionTpl || '',{
+					title : a
+				}))
+			})
 		}
 
-		var optArr = a.option.split('###');
+		if(a.input_type == 'data_list'){
+			option= a.data_option.split('|');
+			value.value1 = option[0]
+			value.value2 = option[1]
+		}
+		var obj = {
+			id:id,
+			title: a.title,
+			option : option.join(''),
+			placeholder : a.placeholder
 
-		delete(a.option)
+		};
 
-		$(dom).append(modTemp(temp[rel].tpl,{id:id,title:a.title}));
+		obj = $.extend(obj,value);
 		
+
+		$(dom).append(modTemp(temp[rel].tpl,obj));
+
 		$('#' + id).data(a)
 
-		// radio  和 checkbox生成选项
-		if(a.input_type != 'radio' || a.input_type != 'checkbox'){
-			return;
-		}
-		
-		setTimeout(function(){
-			$(optArr).each(function(i,a){
-				var clone = $('#'+id).find('label:first').clone();
-				clone.find('em').text(a)
-				$('#'+id).find('label:last').after(clone)
 
-			})
-			if(a.option_else != 0 )
-				$('#'+id).find('label:last').after('<label>&nbsp;其他：<input type="text" class="q-txt" disabled="true" style="width:100px"></label>');
-		},100)
 	});
 
 	$(GLOBAL).trigger('onCreateFormItem')

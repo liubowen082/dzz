@@ -7,7 +7,6 @@ define(function(require, exports, module) {
 
 			$(layCon).on('click','[node-name="removeSearch"]',function(){
 				$(this).parent().remove();
-				$(layCon).find('[node-name="user"]').show();
 			})
 			$(layCon).find('[node-name="user"]').autocomplete({
 				// autoFocus : true,
@@ -35,10 +34,6 @@ define(function(require, exports, module) {
 					//提交搜索...
 					var obj = ui.item;
 					var pre = $(this).prev();
-					if( $(this).prev().children().length > 0 && $(this).attr('user_format') == "signle"){
-						$(this).val('');
-						return 
-					}
 					if($(this).prev().find('[search_id="' + obj.value + '"]').length > 0){
 						$(this).val('');
 						return false;
@@ -50,11 +45,6 @@ define(function(require, exports, module) {
 						img : obj.img,
 						note : obj.note
 					}))
-
-					if( $(this).prev().children().length > 0 && $(this).attr('user_format') == "signle"){
-						$(this).val('').hide();
-						return 
-					}
 
 					$(this).val('');
 					return false
@@ -71,11 +61,6 @@ define(function(require, exports, module) {
 								} 
 				},
 				focus : function(event, ui){
-
-					$(this).val(ui.item.label)
-					return false;
-				},
-				click : function(event, ui){
 
 					$(this).val(ui.item.label)
 					return false;

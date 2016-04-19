@@ -55,8 +55,8 @@ define(function(require, exports, module) {
 
 	});
 
-	$('#gotoNext').on('click', function() {
-		var url = $(this).attr('href') + '&id=' + GLOBAL.id + '&tid=' + GLOBAL.tid;
+	$('#gotoNext').on('click',function(){
+		var url = $(this).attr('href') + '?id=' + GLOBAL.id + '&tid=' + GLOBAL.tid;
 		$(this).attr('href' , url) 
 	})
 

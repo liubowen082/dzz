@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="{DZZ_SHENPI_STATIC_PATH}css/qm.css" rel="stylesheet"/>
+    <link href="{DZZ_SHENPI_STATIC_PATH}css/ioffice.css" rel="stylesheet"/>
+</head>
+<body>
+	<div class="qm-main ">
+        <div class="ioffice-header">
+            <div class="ioffice-header-handle">
+                <a href="javascript:;" id='a-process-delete' data-id="{$process['id']}">删除此审批</a>
+            </div>
+            <div class="ioffice-header-crumb">
+                <a href="javascript:window.location.href='/index.php?mod=shenpi&op=index&act=process_step2&id={$process['id']}';" class="icon-back">返回</a>
+            </div>
+            <div class="ioffice-tab">
+                <a href="javascript:;"><span class="number">1</span>选择模板</a><span class="ico-angle-right"></span><a href="javascript:;"><span class="number">2</span>设计表单</a><span class="ico-angle-right"></span><a href="javascript:;" class="current"><span class="number">3</span>设置流程</a>
+            </div>
+        </div>
+        <div class="process-main">
+            <form method="POST" action="/index.php?mod=shenpi&op=index&act=process_saveChecker" id="formSaveChecker">
+                
+                <div class="process-list clearfix">
+	            	<!--{loop $approver_config $index $approver}-->
+			        <div class="process-item js_item" id="div_process_user{$approver['id']}" hash="1">
+						<dl>
+							<dt class="title">
+								<h4>{$approver['title']}</h4>
+							</dt>
+							<dd class="txt">
+								<div class="process-title">名称：</div>
+								<div class="process-input">
+									<input type="hidden" name="hash[]" value="{$index + 1}">
+									<input type="text" class="q-txt" value="{$approver['title']}" name="name_process_user[]">
+								</div>
+								<div class="process-title">默认审批人：</div>
+								<div class="qg-userlist">
+									<div class="choose-user choose-user-approver">
+										<ul class="user-list">
+											<!--{if $approver['id'] != 0}-->
+											<li search_id="{$approver['id']}" search_name="{$approver['name']}" class="user-list"><div
+													class="content">
+													<span class="search-name">{$approver['name']}</span>
+												</div> <a class="ico-remove" href="javascript:;"
+												node-name="removeSearch"> </a></li>
+											<!--{/if}-->
+										</ul>
+										<input type="text" class="q-txt" style="width:120px" node-name="user" placeholder="输入姓名选择审批人" user_format="signle">
+									</div>
+								</div>
+								<div class="process-tips">
+									<label>
+										<input type="checkbox" class="q-ck" name="select_process_user_must[]" checked="checked" value="{$approver['require']}">必填</label><br>
+									<label>
+										<input type="checkbox" class="q-ck" name="select_process_user[]" checked="checked" value="{$approver['allow_select']}">允许申请人自己选择审批人</label>
+								</div>
+							</dd>
+						</dl>
+					</div>
+	                
+					<!--{/loop}-->
+                    <div class="process-item js_add_process" id = "div_add_process">
+                        <a href="javascript:;" class="process-plus" data-id="1"><span class="icon-plus"></span></a>
+                    </div>
+                </div>
+                <div class="process-check">
+                    <div class="check-plus">
+                    	<!--
+                        <a href="javascript:;" id='a-display-checker'><span class="ico-plus"></span>增加核销人员</a>
+                    	-->
+                    </div>
+                    <div class="check-form">
+                        <div class="qg-userlist">
+                            <div class="choose-user choose-user-checker">
+                                <ul model-node="search_list" class="user-list">
+                                <!--{if $process['checker_id'] != 0}-->
+										<li search_id="{$process['checker_id']}" search_name="{$process['checker_name']}" class="user-list"><div
+												class="content">
+												<span class="search-name">{$process['checker_name']}</span>
+											</div> <a class="ico-remove" href="javascript:;"
+											node-name="removeSearch"> </a></li>
+								<!--{/if}-->
+                                </ul>
+                                <input type="text" id="search_ids_check_uid" class="q-txt" node-name="user" placeholder="请选择核销人员，默认为空" user_format="signle">
+                            </div>
+                        </div>
+                        <!--
+                        <a href="javascript:;" class="btn btn-green"><span>确定</span></a><a href="javascript:;" class="btn btn-gray" onclick="ioffice.hideCheck()"><span>取消</span></a>
+                    	-->
+                    </div>
+                    <div class="check-note">当审批完成后，需要人员对这些申请单进行核对时增加核销人员。</div>
+                    <div class="check-note">例如：报销，月底账务可能需要知道月初时已经处理过哪些报销单了，那么就需要将财务设置为核销人员。</div>
+                </div>
+                <div class="process-btn">
+                    <a href="javascript:;" class="btn btn-blue-big" id="btn-approver-save"><span>完成</span></a>
+                    <input type="hidden" name="id" value="{$id}">
+                    <input type="text" style="display: none">
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="{DZZ_SHENPI_STATIC_PATH}js/jquery-1.11.1.min.js"></script>
+	<script src="{DZZ_SHENPI_STATIC_PATH}js/jquery-ui.min.js"></script>
+	<script src="{DZZ_SHENPI_STATIC_PATH}js/sea2.3.0.js"></script>
+	<script>seajs.config({base:'{DZZ_SHENPI_STATIC_PATH}jsSrc'})</script>
+	<script type="text/javascript">
+    	seajs.use('step3');
+	</script>
+	<div id="div-user"></div>
+</body>
+</html>
