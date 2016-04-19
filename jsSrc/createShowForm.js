@@ -43,8 +43,12 @@ var createFormList = function(dom,items,temp){
 			value.valueEnd = valueArr[1]
 		}else if(a.input_type == 'data_list'){
 			// 清单
-			// "value" : "清单1|100|2015-01-22###清单2|1000|2015-01-12"
+			// a.value = "清单1|100|2015-01-22###清单2|1000|2015-01-12"
+			var option = a.data_option.split('|');
+
+
 			var valueArr = !a.value || a.value=='' ? [] : a.value.split('###');
+
 
 			var valueStr = [];
 			$(valueArr).each(function(m,n){
@@ -53,19 +57,23 @@ var createFormList = function(dom,items,temp){
 				if(m == 0){
 					valueStr.push(modTemp(temp[rel].value,{
 						value1 : val[0],
-						value2 : val[1],
+						value2 : val[1] || option[0],
 						value3 : val[2],
+						option1 : option[1],
 						option_else : a.option_else,
-						option : a.option
+						option : a.option,
+						data_option : a.data_option
 					}))
 				}else{
 
 					valueStr.push(modTemp(temp[rel].valueOther,{
 						value1 : val[0],
-						value2 : val[1],
+						value2 : val[1] || option[0],
 						value3 : val[2],
+						option1 : option[1],
 						option_else : a.option_else,
-						option : a.option
+						option : a.option,
+						data_option : a.data_option
 					}))
 
 				}
@@ -74,7 +82,10 @@ var createFormList = function(dom,items,temp){
 			if(valueArr.length == 0){
 				valueStr.push(modTemp(temp[rel].value,{
 						option_else : a.option_else,
-						option : a.option
+						option : a.option,
+						value2 : option[0],
+						option1 : option[1],
+						data_option : a.data_option
 					}))
 			}
 

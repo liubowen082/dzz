@@ -146,7 +146,7 @@ define(function(require, exports, module) {
 			$(window).click('click', function() {
 					$(t.layCon).find('[node-name="select_div"] .dropdown-menu').hide();
 				})
-			
+
 			// 时间
 			$(t.layCon).find('[node-name="date_input"]').on('click', function() {
 				var format = $(this).attr('format');
@@ -241,24 +241,48 @@ define(function(require, exports, module) {
 			// 清单
 			$(t.layCon).on('click' , '[node-name="data_list_add"]' , function(){
 
-				var str = '<div class="data-list js_list"><input type="text" class="q-txt" placeholder="名称" style="width:150px"><input type="text" class="q-txt" placeholder="#{option}" style="width:60px" event-node="data_list_edit"><span class="vline">#{option_else}</span><div class="widget-date" model-node="date_widget_load"><input type="text" class="q-txt rcalendar_input" id="" value="" onclick="laydate()" readonly="readonly" placeholder=""><i class="icon-clock2"></i></div><span class="js_add icon-close" node-name="data_list_remove"></span></div>'
+				var str = moduleShowList.data_list.valueOther;
 
 				// option="#{option}" option_else="#{option_else}"
 
 				var option = $(this).attr('option');
+				var data_option = $(this).attr('data_option').split('|');
 				var option_else = $(this).attr('option_else');
-				$(this).parent().after(modTemp(str,{
+				console.log($(this).parent().parent().find('.js_total'))
+
+				$(this).parent().parent().find('.js_total').before(modTemp(str,{
 					option : option,
-					option_else : option_else
+					option_else : option_else,
+					value2 : data_option[0],
+					option1 : data_option[1]
 				}))
 
 
 			})
 			$(t.layCon).on('click','[node-name="data_list_remove"]' , function(){
-				$(this).parent().remove()
+				var par = $(this).parent();
+				var pre = par.prev();
+				par.remove();
+				pre.find('[node-name="data-list-num"]').blur();
 			});
 
 
+			$(t.layCon).on('blur','[node-name="data-list-num"]',function(){
+				var parent = $(this).parent().parent();
+
+				var list = $(parent).find('[node-name="data-list-num"]');
+				var num = 0;
+
+				$(list).each(function(i,a){
+					var val = $(a).val();
+					num += (Number(val) || 0)
+				})
+				$(parent).find('[node-name="data-list-all"]').html(num)
+
+
+			})
+
+			// 保存
 			$('[node-name="js_submit_btn"]').on('click',function(){
 
 				var dl = $(t.layCon).find('dl');
