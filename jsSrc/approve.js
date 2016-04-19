@@ -188,9 +188,9 @@ define(function (require) {
 
             //调用创建审批的方法
             createForm.show(template_id);
-            window.history.pushState({
-                title: target.attr('title')
-            }, '', url+ '?template_id=' + template_id);
+            // window.history.pushState({
+            //     title: target.attr('title')
+            // }, '', url+ '?template_id=' + template_id);
             create_menu_btn.hide();
 
             return false;
