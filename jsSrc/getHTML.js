@@ -106,7 +106,7 @@ define(function (require, exports, module) {
                 creater_img: obj.avatar,
                 title_reason: '【'+ obj.template_title + '】',
                 title: obj.title,
-                print_link: './print.html?id=' + obj.id,
+                print_link: './index.php?mod=shenpi&op=index&act=application_printPreview&id=' + obj.id,
                 create_id: obj.creater_id,
                 id: obj.id,
                 edit: (function () {
