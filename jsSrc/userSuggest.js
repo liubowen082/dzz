@@ -56,7 +56,7 @@ define(function(require, exports, module) {
 						return 
 					}
 
-					$(this).val('');
+					$(this).val('').blur();
 					return false
 
 				},

@@ -234,7 +234,8 @@ define(function(require, exports, module) {
 
 				var delStr = $(this).attr('li-file').replace('|','\\|');
 				var reg = new RegExp('(###|^)'+ delStr +'(###|$)','g')
-				var ss = str.replace(reg,'')
+				var ss = str.replace(reg,'');
+				input.val(ss)
 				$('#' + id).remove();
 			})
 
