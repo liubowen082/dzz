@@ -175,24 +175,27 @@ var createApproval = function(dom,items,temp){
 	$(items).each(function(i,a){
 		var rel = 'user';
 		var id = getId();
-	
-		var val = a.value.split('|');
-		var option = [];
+
 		
-		option.push(modTemp(temp[rel].option , {
-			id : val[0],
-			name : val[1]
-		}))
+		var option = [];
+		if(a.value && a.value != ''){
+			var val = a.value.split('|');
+			option.push(modTemp(temp[rel].option , {
+				id : val[0],
+				name : val[1]
+			}))
+		}
 
 		$(dom).append(modTemp(temp[rel].tpl,{
-			id:id,
-			isMust : a.require ? '<span style="color:red">*</span>' : '',
-			title : a.title,
-			value : a.value,
-			option : option,
-			allow_select : a.allow_select
-			// option_else : a.option_else
-		}));
+				id:id,
+				isMust : a.require ? '<span style="color:red">*</span>' : '',
+				title : a.title,
+				value : a.value,
+				option : option,
+				allow_select : a.allow_select
+				// option_else : a.option_else
+			}));
+		
 		
 		// $('#' + id).data(a);
 		if(a.allow_select == 0){
