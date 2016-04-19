@@ -166,7 +166,6 @@ define(function (require) {
                 offset = target.offset();
 
             var left = offset.left - showBox.width() + outW;
-            console.log(left);
 
             showBox.css({
                 top: offset.top + outH + 'px',
