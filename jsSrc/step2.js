@@ -614,7 +614,7 @@ $("#resetStep1").click(function() {
 			''
 			+'<div class="M-content">'
 			+'	<div class="hd">'
-			+'		<a class="icon-close" href="javascript:;"></a>'
+			+'		<a class="icon-close" href="javascript:ui.box.close();"></a>'
 			+'		<div class="M-title">重新选择模板</div>'
 			+'	</div>'
 			+'	<div class="bd" id="layer-content">'

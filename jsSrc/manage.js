@@ -165,9 +165,11 @@ define(function (require) {
                 outW = target.outerWidth(),
                 offset = target.offset();
 
+            var left = offset.left - showBox.width() + outW;
+
             showBox.css({
                 top: offset.top + outH + 'px',
-                left: offset.left - showBox.width() + outW + 'px'
+                left: (left >= 0 ? left : 1) + 'px'
             });
 
             if (cache.box && cache.box.attr('id') != id) {
