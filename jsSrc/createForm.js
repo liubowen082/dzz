@@ -304,6 +304,7 @@ define(function(require, exports, module) {
 						break;
 						case 'radio' : 
 							var val = $(a).find('input:radio:checked').val();
+							val = val || ''
 						break;
 						case 'checkbox':
 							var arr = [];

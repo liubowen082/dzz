@@ -195,7 +195,7 @@ var createApproval = function(dom,items,temp){
 		}));
 		
 		// $('#' + id).data(a);
-		if(a.allow_select == 1){
+		if(a.allow_select == 0){
 			$('#' + id).find('[node-name="removeSearch"]').remove();
 			$('#' + id).find('input').remove();
 
