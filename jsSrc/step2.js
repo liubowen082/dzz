@@ -609,7 +609,31 @@ $('.design-formin').sortable({
 			});
 $(".design-formin > dl" ).disableSelection();
 
-
+$("#resetStep1").click(function() {
+	ui.box.show(
+			''
+			+'<div class="M-content">'
+			+'	<div class="hd">'
+			+'		<a class="icon-close" href="javascript:;"></a>'
+			+'		<div class="M-title">重新选择模板</div>'
+			+'	</div>'
+			+'	<div class="bd" id="layer-content">'
+			+'		<div class="pop-create-group">'
+			+'			<dl>'
+			+'				<dt class="txt">'
+			+'					<i class="ico-question-sign"></i>新模板将会覆盖当前表单内容，确认要重新选择模板？'
+			+'				</dt>'
+			+'				<dd class="action">'
+			+'					<a class="btn btn-blue mr10" href="/index.php?mod=shenpi&op=index&act=process_step1&id='+GLOBAL.id+'"><span>确定</span></a>'
+			+'					<a class="btn btn-gray" href="javascript:ui.box.close();"><span>取消</span></a>'
+			+'				</dd>'
+			+'			</dl>'
+			+'		</div>'
+			+'	</div>'
+			+'</div>'
+			+''
+	);
+});
 
 
 })
