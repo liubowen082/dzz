@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>加班餐</title>
+<style type="text/css">
+    ul{
+        margin:0;
+        padding:0;
+    }
+    li{
+        list-style-type:none
+    }
+</style>
+</head>
+<body>
+<div id='print_box'><div class="loading" style="text-align:center;padding:20px;" id="loadMore"><span class="loader ico-spinner2"></span></div></div>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/sea2.3.0.js"></script>
+<script>seajs.config({base: './jsSrc'})</script>
+<script type="text/javascript">
+var GLOBAL = {};
+    GLOBAL.id = '1000';
+    GLOBAL.tid = '';
+</script>Mr.noboy799
+<script type="text/javascript">
+    seajs.use('print');
+</script>
+<div style="text-align:center;width:100%;margin-top:20px">
+<a onclick="print_office()" style="background:#8cc152;border:1px solid #8cc152;color:#fff;margin:0 0 0 10px;padding:8px 15px;text-decoration:none;line-height:20px;font-size:14px;border-radius:5px;" href="javascript:void(0);">打印</a>
+&nbsp;&nbsp;
+<a onclick="history.go(-1)" style=" background:#ccc;border:1px solid #ccc;color:#fff;margin:0 0 0 10px;padding:8px 15px;text-decoration:none;line-height:20px;font-size:14px;border-radius:5px;" href="javascript:void(0);">取消</a>
+</div>
+</body>
+</html>

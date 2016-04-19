@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="css/qm.css" rel="stylesheet"/>
+    <link href="css/ioffice.css" rel="stylesheet"/>
+</head>
+<body>
+<!--导航条-->
+<div id="progress"><span></span></div>
+<!--测试用，可删除 start-->
+<!--<div id="init_load" class="qm-sidebar ">
+    <div class="qm-avatar">
+        <div model-node="guide" class="guide-handler guide-active" id="guideProfile">
+            <div class="guide-point">
+                <div class="point-outer"></div>
+                <div class="point-inner"></div>
+            </div>
+        </div>
+        <a rel="guideProfile" class="guide" href="http://blkj.qimingdao.com/core/Profile/index?uid=40624" title="许多">
+            <img class="img-circle" src="http://blkj.qimingdao.com/avatar-40624-1-1434014741.jpg">
+        </a>
+    </div>
+    <div id="tree_menu" model-node="tree_menu" class="menu-top menu_drop_list">
+        <a class="" app_name="core" href="http://blkj.qimingdao.com/core/Index/find">
+            <span class="figure"><i class="icon-find"></i></span>
+            <span class="text">发现</span>
+        </a> <a class="" app_name="task" href="http://blkj.qimingdao.com/task/Index/index">
+        <span class="figure"><i class="icon-task"></i></span>
+        <span class="text">任务</span>
+        <span class="num"><span class="num-txt">9</span><span class="num-arrow"></span></span></a> <a class=""
+                                                                                                      app_name="wiki"
+                                                                                                      href="http://blkj.qimingdao.com/wiki/Index/index">
+        <span class="figure"><i class="icon-wiki"></i></span>
+        <span class="text">文档</span>
+    </a> <a class="" app_name="calendar" href="http://blkj.qimingdao.com/calendar/Index/index">
+        <span class="figure"><i class="icon-calendar"></i></span>
+        <span class="text">日历</span>
+    </a> <a class="" app_name="project" href="http://blkj.qimingdao.com/project/Index/index">
+        <span class="figure"><i class="icon-project"></i></span>
+        <span class="text">项目</span>
+    </a> <a class="current" app_name="ioffice" href="http://blkj.qimingdao.com/ioffice/Index/index">
+        <span class="figure"><i class="icon-ioffice"></i></span>
+        <span class="text">审批</span>
+        <span class="num"><span class="num-txt">1</span><span class="num-arrow"></span></span></a></div>
+    <div class="menu-bottom">
+        <div model-node="guide" class="guide-handler guide-active" id="guideSpit">
+            <div class="guide-point">
+                <div class="point-outer"></div>
+                <div class="point-inner"></div>
+            </div>
+        </div>
+        <a rel="guideSpit" class="guide menu-spit" event-node="core_spit" href="javascript:;">吐槽<i
+                class="icon-talk"></i></a>
+        <a app_name="notify" imuid="" event-node="webim_open" class="menu-msg" href="javascript:;"><i
+                class="icon-alarm"></i>
+            <span class="js_newmsg_tips "></span>
+        </a>
+    </div>
+    <div class="menu-spit">
+
+    </div>
+    <div model-node="menuFull" class="menu-full">
+        <a href="javascript:;">
+            <span class="figure"><i class="icon-apps"></i></span>
+            <span class="text">更多</span>
+        </a>
+    </div>
+    <div class="menu-full-drop">
+        <ul class="menu_drop_list">
+            <li class="menu-exit">
+                <a href="http://blkj.qimingdao.com/core/Account/index">
+                    <span class="figure"><i class="icon-setup"></i></span>
+                    <span class="text">设置</span>
+                </a>
+                <a event-node="logout" href="javascript:;">
+                    <span class="figure"><i class="icon-minussign"></i></span>
+                    <span class="text">退出</span>
+                </a>
+            </li>
+
+            <li class="menu-space">
+                <a href="https://blkj.qimingdao.com/core/Manage/index">
+                    <span class="figure"><i class="icon-cube"></i></span>
+                    <span class="text">管理</span>
+                </a>
+            </li>
+
+
+            <li>
+                <a app_name="contact" href="http://blkj.qimingdao.com/contact/Index/index">
+                    <span class="figure"><i class="icon-contact"></i></span>
+                    <span class="text">成员</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://blkj.qimingdao.com/ioffice/Punch/index">
+                    <span class="figure"><i class="icon-punch"></i></span>
+                    <span class="text">考勤</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>-->
+<!--测试用，可删除 end-->
+<div class="qm-main" id="main_box">
+    <div class="ioffice-header">
+        <div class="ioffice-header-handle">
+            <a id="btn_create" href="javascript:;" class="guide"><span class="ico-plus"></span></a>
+            <a href="./manage.html"><span class="icon-setup"></span></a>
+            <a href="javascript:;" class="icon-apps" id="navTop" style="display: none"></a>
+            <!--<a href="javascript:;" id="fullScreen"><i class="icon-expand"></i></a>-->
+        </div>
+        <div class="ioffice-header-title">
+            <h4>审批</h4>
+        </div>
+    </div>
+    <div style="top: 55.5px; left: 1660.9px; display: none;" id="create_menu" class="dropdown-menu dl-menu-toggle" node_type="layer">
+        <ul class="dropdown-box">
+            <li><a title="申请-审批-企明岛" node_type="reimburse" href="javascript:;">报销</a></li>
+            <li><a title="申请-审批-企明岛" node_type="trip" href="javascript:;">出差</a></li>
+            <li><a title="申请-审批-企明岛" node_type="leave" href="javascript:;">请假</a></li>
+            <li><a title="申请-审批-企明岛" node_type="advance" href="javascript:;">预支款</a></li>
+            <li><a title="申请-审批-企明岛" node_type="quit" href="javascript:;">离职</a></li>
+        </ul>
+    </div>
+    <div class="ioffice-main">
+		<div id="approve_need_me" style="display:none;">
+			<div class="ioffice-title">
+				<h4>待我审批（<span node_type="count">1</span>）</h4>
+			</div>
+			<div class="ioffice-list" node_type="list"></div>
+		</div>
+        <div class="ioffice-title">
+            <a href="javascript:;" class="filter" id="js_filter">筛选</a>
+
+            <div class="filter-list right" style="display: none;" id="filter_list">
+                <div class="filter-item" style="cursor: pointer; display: none;" id="office_user">
+                    申请人：
+                    <a href="javascript:;" id="userClassify">
+                        <span id="office_user_btn">全部</span>
+                        <span class="ico-angle-down"></span>
+                    </a>
+                </div>
+                <div class="filter-item">
+                    时间段：
+                    <a href="javascript:;" id="timeClassify">
+                        <span id="office_time">全部</span>
+                        <span class="ico-angle-down"></span>
+					</a>
+                </div>
+                <div class="filter-item">
+                    类型：
+                    <a href="javascript:;" id="typeClassify">
+                        <span id="office_process">全部</span>
+                        <span class="ico-angle-down"></span>
+					</a>
+                </div>
+                <a href="/index.php?mod=shenpi&op=index&act=application_output">导出</a>
+            </div>
+
+            <h4 class="join_my current" stype="1"><a href="javascript:;" event-node="change_type" event-args="ctype=type&amp;pass_id=1">我申请的（<label id="my_office_count">0</label>）</a></h4>
+            &nbsp;&nbsp;
+            <h4 class="join_my " stype="2"><a href="javascript:;" event-node="change_type" event-args="ctype=type&amp;pass_id=0">我审批的（<label id="my_done_count">0</label>）</a></h4>
+            <h4 class="join_my  " stype="3" style="display: none"><a href="javascript:;" event-node="change_type" event-args="ctype=type&amp;pass_id=2">待核销的（<label id="my_check_count">0</label>）</a></h4>
+        </div>
+        <div class="ioffice-list show_office_list" id="show_office_list"></div>
+    </div>
+    <div style="top: 56.5px; left: 1543.45px;display:none;" id="drop-navtop" class="dropdown-menu" node_type="layer">
+        <div class="dropdown-arrow txt-left">
+            <div class="arrline">◆</div>
+            <div class="downline">◆</div>
+        </div>
+        <div class="drop-nav-top">
+            <ul class="menu_drop_list">
+                <li>
+                    <a app_name="core" href="http://blkj.qimingdao.com/core/Index/find">
+                        <span class="figure"><i class="icon-find"></i></span>
+                        <span class="text">发现</span>
+                    </a>
+                </li>
+                <li>
+                    <a app_name="task" href="http://blkj.qimingdao.com/task/Index/index">
+                        <span class="figure"><i class="icon-task"></i></span>
+                        <span class="text">任务</span>
+                        <span class="num"><span class="num-txt">9</span><span class="num-arrow"></span></span></a>
+                </li>
+                <li>
+                    <a app_name="wiki" href="http://blkj.qimingdao.com/wiki/Index/index">
+                        <span class="figure"><i class="icon-wiki"></i></span>
+                        <span class="text">文档</span>
+                    </a>
+                </li>
+                <li>
+                    <a app_name="calendar" href="http://blkj.qimingdao.com/calendar/Index/index">
+                        <span class="figure"><i class="icon-calendar"></i></span>
+                        <span class="text">日历</span>
+                    </a>
+                </li>
+                <li>
+                    <a app_name="project" href="http://blkj.qimingdao.com/project/Index/index">
+                        <span class="figure"><i class="icon-project"></i></span>
+                        <span class="text">项目</span>
+                    </a>
+                </li>
+                <li>
+                    <a app_name="ioffice" href="http://blkj.qimingdao.com/ioffice/Index/index">
+                        <span class="figure"><i class="icon-ioffice"></i></span>
+                        <span class="text">审批</span>
+                        <span class="num"><span class="num-txt">1</span><span class="num-arrow"></span></span></a>
+                </li>
+                <li>
+                    <a app_name="contact" href="http://blkj.qimingdao.com/contact/Index/index">
+                        <span class="figure"><i class="icon-contact"></i></span>
+                        <span class="text">成员</span>
+                    </a>
+                </li>
+                <li class="menu-space">
+                    <a href="https://blkj.qimingdao.com/core/Manage/index">
+                        <span class="figure"><i class="icon-cube"></i></span>
+                        <span class="text">管理</span>
+                    </a>
+                </li>
+                <li class="menu-exit">
+                    <a href="http://blkj.qimingdao.com/core/Login/logout">
+                        <span class="figure"><i class="icon-export"></i></span>
+                        <span class="text">退出</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+	<div style="overflow-y: auto; top: 222px; left: 1486.7px; display: none;" id="office_time_drop" class="dropdown-menu dl-menu-toggle" node_type="layer">
+		<ul class="dropdown-box">
+			<li><a node_data="date_type=0"  href="javascript:;">全部</a></li>
+			<li><a node_data="date_type=1"  href="javascript:;">本周</a></li>
+			<li><a node_data="date_type=2"  href="javascript:;">上周</a></li>
+			<li><a node_data="date_type=3"  href="javascript:;">本月</a></li>
+			<li><a node_data="date_type=4"  href="javascript:;">上月</a></li>
+		</ul>
+	</div>
+	<div style="overflow-y: auto; top: 222px; left: 1611.35px; display: none;" id="office_process_drop" class="dropdown-menu dl-menu-toggle" node_type="layer">
+		<ul class="dropdown-box"></ul>
+	</div>
+	<div style="overflow-y: auto; top: 100px; left: 1306.05px; display: none;" id="office_user_drop" class="dropdown-menu dl-menu-toggle" node_type="layer">
+		<ul style="max-height:400px" class="dropdown-box">
+			<li><a event-args="ctype=user&amp;pass_id=0" event-node="change_type" href="javascript:;">全部</a></li>
+			<li><a event-args="ctype=user&amp;pass_id=40606" event-node="change_type" href="javascript:;">方杰</a></li>
+		</ul>
+	</div>
+</div>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/sea2.3.0.js"></script>
+<script>seajs.config({base: './jsSrc'})</script>
+<script type="text/javascript">
+    var GLOBAL = {};
+    GLOBAL.id = '1000';
+    GLOBAL.tid = '';
+</script>
+<script type="text/javascript">
+    seajs.use('approve');
+</script>
+</body>
+</html>
