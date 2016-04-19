@@ -119,7 +119,6 @@ define(function (require, exports, module) {
                 approve_line:(function(){
                     var approver_result = eval(obj.approver_result),arr = [];
                     $.each(approver_result, function (i, item) {
-                        console.log(item.name);
                         arr.push('<tr><td class="td-title">' + item.title + ' :</td><td><a href="/user.php?uid=' + item.id + '" event-node="face_card" uid="' + item.id + '">&nbsp;' + item.name || '空缺' + '&nbsp;</a></td></tr>');
                     });
                     return arr.join('');
@@ -280,6 +279,7 @@ define(function (require, exports, module) {
             dataType: 'json',
             success: function (json) {
                 if (json.status == 0) {
+                    console.log(json.data);
                     cb && cb(createHTML(json.data));
                 } else {
                     alert(json.msg || '请求异常请稍后再试');
