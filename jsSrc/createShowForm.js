@@ -111,7 +111,7 @@ var createFormList = function(dom,items,temp){
 			}
 
 		}else if(a.input_type == "attach"){
-			a.value = "afd.jpg|adsfdsf.jpg"
+			// a.value = "afd.jpg|adsfdsf.jpg"
 			//附件
 			var valueList = [];
 			var valArr = a.value ? a.value.split('###') : [];
