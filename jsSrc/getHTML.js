@@ -64,7 +64,7 @@ define(function (require, exports, module) {
                                         '<dt class="dynamic-icon"><span class="handle-plus"><i class="icon-plus"></i></span></dt>',
                                         '<dd>',
                                             '<div class="comment-bg">',
-                                                '<div class="comment-name"><a uid="6" href="http://blkj.qimingdao.com/core/Profile/index?uid=40624">#{creater_name}</a> 创建了申请</div>',
+                                                '<div class="comment-name"><a href="/user.php?uid=#{create_id}">#{creater_name}</a> 创建了申请</div>',
                                                 '<div class="comment-info"><div class="time">#{create_time}</div></div>',
                                             '</div>',
                                         '</dd>',
@@ -119,8 +119,7 @@ define(function (require, exports, module) {
                 approve_line:(function(){
                     var approver_result = eval(obj.approver_result),arr = [];
                     $.each(approver_result, function (i, item) {
-                        //' + item.remark + '
-                        arr.push('<tr><td class="td-title">' + item.title + ' :</td><td><a href="/user.php?uid=' + item.id + '" event-node="face_card" uid="' + item.id + '">&nbsp;' + item.name + '&nbsp;</a></td></tr>');
+                        arr.push('<tr><td class="td-title">' + item.title + ' :</td><td><a href="/user.php?uid=' + item.id + '" event-node="face_card" uid="' + item.id + '">&nbsp;' + item.name || '空缺' + '&nbsp;</a></td></tr>');
                     });
                     return arr.join('');
                 })(),
