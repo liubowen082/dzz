@@ -71,7 +71,7 @@ define(function (require) {
                 $('#my_done_count').html(count[2]);
             }
 
-            if(html[3].creater_list){
+            if (html[3].creater_list) {
                 if (html[3].creater_list.length != 0) {
                     var arr = ['<ul class="dropdown-box">', '<li><a href="javascript:;" node_data="creater_id=0" node_type="change_type">全部</a></li>'];
                     $.each(html[3].creater_list, function (i, item) {
@@ -184,7 +184,7 @@ define(function (require) {
                 data = target.attr('node_data'),
                 template_id = queryToJson(data).template_id;
 
-            var url = o.scheme + ':' + o.slash + o.host +'/'+ o.path;
+            var url = o.scheme + ':' + o.slash + o.host + '/' + o.path;
 
             //调用创建审批的方法
             createForm.show(template_id);
