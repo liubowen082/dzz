@@ -9,7 +9,7 @@ define(function (require) {
     var queryToJson = require('queryToJson');
     var tpl = require('approveTpl');
     var createForm = require('createForm');
-    var jsonToString = require('modJsonToString');
+    var jsonToQuery = require('jsonToQuery');
 
     var senRequest = false,
         index = 1,
@@ -359,8 +359,8 @@ define(function (require) {
                     box.html(tpl.nodata);
                 }
             }, '', function (args) {
-                console.log(jsonToString(args));
-                $('#exprot').attr('href','/index.php?mod=shenpi&op=index&act=application_output&' + jsonToString(args));
+                console.log(jsonToQuery(args));
+                $('#export').attr('href','/index.php?mod=shenpi&op=index&act=application_output&' + jsonToQuery(args));
             });
         });
 
@@ -380,8 +380,8 @@ define(function (require) {
                     box.html(tpl.nodata);
                 }
             }, '', function (args) {
-                console.log(jsonToString(args));
-                $('#exprot').attr('href','/index.php?mod=shenpi&op=index&act=application_output&' + jsonToString(args));
+                console.log(jsonToQuery(args));
+                $('#export').attr('href','/index.php?mod=shenpi&op=index&act=application_output&' + jsonToQuery(args));
             });
         });
 
@@ -404,8 +404,8 @@ define(function (require) {
                     box.html(tpl.nodata);
                 }
             }, '', function (args) {
-                console.log(jsonToString(args));
-                $('#exprot').attr('href','/index.php?mod=shenpi&op=index&act=application_output&' + jsonToString(args));
+                console.log(jsonToQuery(args));
+                $('#export').attr('href','/index.php?mod=shenpi&op=index&act=application_output&' + jsonToQuery(args));
             });
         });
     }
