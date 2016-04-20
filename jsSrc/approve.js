@@ -359,6 +359,7 @@ define(function (require) {
                     box.html(tpl.nodata);
                 }
             }, '', function (args) {
+                console.log(jsonToString(args));
                 $('#exprot').attr('href','/index.php?mod=shenpi&op=index&act=application_output&' + jsonToString(args));
             });
         });
@@ -379,6 +380,7 @@ define(function (require) {
                     box.html(tpl.nodata);
                 }
             }, '', function (args) {
+                console.log(jsonToString(args));
                 $('#exprot').attr('href','/index.php?mod=shenpi&op=index&act=application_output&' + jsonToString(args));
             });
         });
@@ -402,6 +404,7 @@ define(function (require) {
                     box.html(tpl.nodata);
                 }
             }, '', function (args) {
+                console.log(jsonToString(args));
                 $('#exprot').attr('href','/index.php?mod=shenpi&op=index&act=application_output&' + jsonToString(args));
             });
         });
