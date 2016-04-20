@@ -102,9 +102,11 @@ define(function (require) {
                 $('#create_menu').html(arr_1.join(''));
             } else {
                 $('#typeClassify').parent().remove();
+                $('#btn_create').remove();
             }
         }, function () {
             $('#typeClassify').parent().remove();
+            $('#btn_create').remove();
         });
     }
 
