@@ -39,7 +39,7 @@ define(function (require, exports, module) {
                     '<div class="ioffice-info">',
                         '<div class="handle js_handle_8">',
                             '#{edit}',
-                            '<a node_args="id=#{id}" node_type="del_process" href="javascript:;"><span class="ico-remove"></span>删除 </a>',
+                            '#{del}',
                             '<a href="#{print_link}"><span class="ico-print4"></span>打印</a>',
                         '</div>',
                         '<table class="ioffice-table">',
@@ -88,7 +88,7 @@ define(function (require, exports, module) {
             console.log(obj);
             return modTemp(tpl, {
                 agreeAndReject: (function () {
-                    if (i == 0 && type == 'approve') {
+                    if (obj.visibleBtn.approve == 1) {
                         return '<div class="handle office_status_8 status"><a href="javascript:;" class="btn btn-green" node_type="agree" node_args="status=2&amp;id=' + obj.id + '">同意</a><a href="javascript:;" class="btn btn-gray" node_type="reject" node_args="status=3&amp;id=' + obj.id + '">驳回</a></div>';
                     } else {
                         var status = {
@@ -110,8 +110,15 @@ define(function (require, exports, module) {
                 print_link: './index.php?mod=shenpi&op=index&act=application_printPreview&id=' + obj.id,
                 create_id: obj.creater_id,
                 id: obj.id,
+                del:(function(){
+                    if (obj.visibleBtn.del == 1) {
+                        return '<a node_args="id=' + obj.id + '" node_type="del_process" href="javascript:;"><span class="ico-remove"></span>删除 </a>';
+                    }else{
+                        return '';
+                    }
+                })(),
                 edit: (function () {
-                    if (obj.status == 1 || obj.status == 4) {
+                    if (obj.visibleBtn.edit == 1) {
                         return '<a target="_blank" href="/index.php?mod=shenpi&op=index&act=application_edit&id=' + obj.id + '"><span class="ico-pencil2"></span>编辑</a>';
                     } else {
                         return '';
