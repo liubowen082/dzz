@@ -290,7 +290,7 @@ define(function (require, exports, module) {
         });
     }
 
-    module.exports = function (data, cb, _type) {
+    module.exports = function (data, cb, _type, getArgs) {
 
         type = _type || 'approve';
 
@@ -300,6 +300,8 @@ define(function (require, exports, module) {
         }else{
             var args = type == 'approve' ? $.extend(parameter, data) : data;
         }
+
+        getArgs && getArgs(args);
 
         getData(args, function (obj) {
             cb && cb(obj);

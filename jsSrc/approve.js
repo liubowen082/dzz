@@ -16,6 +16,17 @@ define(function (require) {
 
     var creater_id = 0;
 
+    function parseURL(url) {
+        var parse_url = /^(?:([A-Za-z]+):(\/{0,3}))?([0-9.\-A-Za-z]+\.[0-9A-Za-z]+)?(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/;
+        var names = ['url', 'scheme', 'slash', 'host', 'port', 'path', 'query', 'hash'];
+        var results = parse_url.exec(url);
+        var that = {};
+        for (var i = 0, len = names.length; i < len; i += 1) {
+            that[names[i]] = results[i] || '';
+        }
+        return that;
+    }
+
     //发送请求方法
     function senRequestHandle(url, args, cb, errCb, type) {
         if (senRequest) {
@@ -169,16 +180,7 @@ define(function (require) {
     //创建申请按钮
     function addCreateBtnEvt() {
         var create_menu_btn = $('#create_menu'),
-            o = (function (url) {
-                var parse_url = /^(?:([A-Za-z]+):(\/{0,3}))?([0-9.\-A-Za-z]+\.[0-9A-Za-z]+)?(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/;
-                var names = ['url', 'scheme', 'slash', 'host', 'port', 'path', 'query', 'hash'];
-                var results = parse_url.exec(url);
-                var that = {};
-                for (var i = 0, len = names.length; i < len; i += 1) {
-                    that[names[i]] = results[i] || '';
-                }
-                return that;
-            })(window.location.href);
+            o = parseURL(window.location.href);
 
         create_menu_btn.delegate('a', 'click', function () {
 
@@ -190,9 +192,9 @@ define(function (require) {
 
             //调用创建审批的方法
             createForm.show(template_id);
-            window.history.pushState({
-                 title: target.attr('title')
-            }, '', url+ '?template_id=' + template_id);
+            // window.history.pushState({
+            //     title: target.attr('title')
+            // }, '', url+ '?template_id=' + template_id);
             create_menu_btn.hide();
 
             return false;
@@ -213,7 +215,7 @@ define(function (require) {
         $(createForm).on('onSubmitSuccess', function () {
             createHTML();
             this.hidden();
-        })
+        });
 
     }
 
@@ -355,6 +357,8 @@ define(function (require) {
                 } else {
                     box.html(tpl.nodata);
                 }
+            }, '', function (args) {
+                console.log(args);
             });
         });
 
@@ -373,6 +377,8 @@ define(function (require) {
                 } else {
                     box.html(tpl.nodata);
                 }
+            }, '', function (args) {
+                console.log(args);
             });
         });
 
@@ -394,6 +400,8 @@ define(function (require) {
                 } else {
                     box.html(tpl.nodata);
                 }
+            }, '', function (args) {
+                console.log(args);
             });
         });
     }
