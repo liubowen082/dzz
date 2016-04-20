@@ -85,7 +85,6 @@ define(function (require, exports, module) {
 
     function createHTML(dataArr) {
         var arr = [], lengthArr = [],o = {}, getText = function (obj, i) {
-            console.log(obj);
             return modTemp(tpl, {
                 agreeAndReject: (function () {
                     if (obj.visibleBtn.approve == 1) {
