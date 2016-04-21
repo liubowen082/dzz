@@ -459,7 +459,7 @@ define(function (require) {
             var target = $(this), args = queryToJson(target.attr('node_args'));
 
             ui.confirm(target, '确定要删除吗', function () {
-                senRequestHandle('/index.php?mod=shenpi&op=index&act=process_delete', args, function () {
+                senRequestHandle('/index.php?mod=shenpi&op=index&act=application_delete', args, function () {
                     target.closest('.ioffice-item').remove();
                 });
             });
