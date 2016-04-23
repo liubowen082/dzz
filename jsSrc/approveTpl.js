@@ -16,6 +16,9 @@ define(function () {
         },
         reject: function (arg) {
             return '<div class="M-content"><div class="hd"><a href="javascript:;" class="icon-close" onclick="ui.box.close();"></a><div class="M-title">驳回</div></div><div id="layer-content" class="bd"><div class="pop-leave"><textarea placeholder="详细说明（选填）" id="office_tips" class="q-textarea"></textarea><div class="action clearfix"><a href="javascript:;" onclick="window.agree_reject_handle(this)" class="btn btn-green mr10" arg="' + arg + '"><span>驳回</span></a><a onclick="ui.box.close();" href="javascript:" class="btn btn-gray"><span>取消</span></a></div></div></div></div>'
+        },
+        check: function (arg) {
+            return '<div class="M-content"><div class="hd"><a href="javascript:;" class="icon-close" onclick="ui.box.close();"></a><div class="M-title">核销</div></div><div id="layer-content" class="bd"><div class="pop-leave"><textarea placeholder="详细说明（选填）" id="office_tips" class="q-textarea"></textarea><div class="action clearfix"><a href="javascript:;" onclick="window.check_handle(this)" class="btn btn-green mr10" arg="' + arg + '"><span>核销</span></a><a onclick="ui.box.close();" href="javascript:" class="btn btn-gray"><span>取消</span></a></div></div></div></div>'
         }
     };
 });

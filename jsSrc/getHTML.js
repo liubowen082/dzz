@@ -89,6 +89,8 @@ define(function (require, exports, module) {
                 agreeAndReject: (function () {
                     if (obj.visibleBtn.approve == 1) {
                         return '<div class="handle office_status_8 status"><a href="javascript:;" class="btn btn-green" node_type="agree" node_args="status=2&amp;id=' + obj.id + '">同意</a><a href="javascript:;" class="btn btn-gray" node_type="reject" node_args="status=3&amp;id=' + obj.id + '">驳回</a></div>';
+                    } else if(obj.visibleBtn.check == 1) {
+                    	return '<div class="handle office_status_8 status"><a href="javascript:;" class="btn btn-green" node_type="check" node_args="status=2&amp;id=' + obj.id + '">核销</a></div>';
                     } else {
                         var status = {
                             0: '<span class="btn-f60">待审批</span>',
