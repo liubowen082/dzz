@@ -359,7 +359,7 @@ define(function (require) {
                     box.html(tpl.nodata);
                 }
             }, '', function (args) {
-                $('#export').attr('href','/index.php?mod=shenpi&op=index&act=application_output&' + jsonToQuery(args));
+                $('#export').attr('href','/index.php?mod=shenpi&op=index&act=application_indexOutput&' + jsonToQuery(args));
             });
         });
 
@@ -379,7 +379,7 @@ define(function (require) {
                     box.html(tpl.nodata);
                 }
             }, '', function (args) {
-                $('#export').attr('href','/index.php?mod=shenpi&op=index&act=application_output&' + jsonToQuery(args));
+                $('#export').attr('href','/index.php?mod=shenpi&op=index&act=application_indexOutput&' + jsonToQuery(args));
             });
         });
 
@@ -402,7 +402,7 @@ define(function (require) {
                     box.html(tpl.nodata);
                 }
             }, '', function (args) {
-                $('#export').attr('href','/index.php?mod=shenpi&op=index&act=application_output&' + jsonToQuery(args));
+                $('#export').attr('href','/index.php?mod=shenpi&op=index&act=application_indexOutput&' + jsonToQuery(args));
             });
         });
     }
@@ -430,7 +430,7 @@ define(function (require) {
 
             senRequestHandle('/index.php?mod=shenpi&op=index&act=application_approve', args, function () {
                 target.attr('loading', 'false');
-                $('[node_id="' + args.id + '"]', approveBox).find('.office_status_8').replaceWith(tpl.approve(args.status == 2 ? '待审批' : '已驳回'));
+                $('[node_id="' + args.id + '"]', approveBox).find('.office_status_8').replaceWith(tpl.approve(args.status == 2 ? '已通过' : '已驳回'));
                 ui.box.close();
             }, function () {
                 ui.box.close();
@@ -456,7 +456,7 @@ define(function (require) {
 
             senRequestHandle('/index.php?mod=shenpi&op=index&act=application_check', args, function () {
                 target.attr('loading', 'false');
-                $('[node_id="' + args.id + '"]', approveBox).find('.office_status_8').replaceWith(tpl.check('已核销'));
+                $('[node_id="' + args.id + '"]', approveBox).find('.office_status_8').replaceWith(tpl.checked('已核销'));
                 ui.box.close();
             }, function () {
                 ui.box.close();
