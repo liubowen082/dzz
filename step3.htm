@@ -24,16 +24,17 @@
                 
                 <div class="process-list clearfix">
 	            	<!--{loop $approver_config $index $approver}-->
-			        <div class="process-item js_item" id="div_process_user{$approver['id']}" hash="1">
+			        <div class="process-item js_item" id="div_process_user{echo ($index + 1)}" hash="1">
 						<dl>
 							<dt class="title">
+								<div class="handle"><a href="javascript:window.closeDiv({echo ($index + 1)});" class="icon-close delProcessUser" data-id="{echo ($index + 1)}"></a></div>'
 								<h4>{$approver['title']}</h4>
 							</dt>
 							<dd class="txt">
 								<div class="process-title">名称：</div>
 								<div class="process-input">
-									<input type="hidden" name="hash[]" value="{echo ($index + 1)}">
-									<input type="text" class="q-txt" value="{$approver['title']}" name="name_process_user[]">
+									<input type="hidden" name="hash[{$index}]" value="{echo ($index + 1)}">
+									<input type="text" class="q-txt" value="{$approver['title']}" name="name_process_user[{$index}]">
 								</div>
 								<div class="process-title">默认审批人：</div>
 								<div class="qg-userlist">
@@ -52,9 +53,17 @@
 								</div>
 								<div class="process-tips">
 									<label>
-										<input type="checkbox" class="q-ck" name="select_process_user_must[]" checked="checked" value="{$approver['require']}">必填</label><br>
+										<input type="checkbox" class="q-ck" name="select_process_user_must[{$index}]" 
+										<!--{if $approver['require']}-->
+										{echo 'checked'}
+										<!--{/if}--> 
+										value="{$approver['require']}">必填</label><br>
 									<label>
-										<input type="checkbox" class="q-ck" name="select_process_user[]" checked="checked" value="{$approver['allow_select']}">允许申请人自己选择审批人</label>
+										<input type="checkbox" class="q-ck" name="select_process_user[{$index}]" 
+										<!--{if $approver['allow_select']}-->
+										{echo 'checked'}
+										<!--{/if}--> 
+										value="{$approver['allow_select']}">允许申请人自己选择审批人</label>
 								</div>
 							</dd>
 						</dl>

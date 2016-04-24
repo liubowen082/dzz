@@ -108,8 +108,16 @@
     <div class="ioffice-header">
         <div class="ioffice-header-handle">
             <a id="btn_create" href="javascript:;" class="guide"><span class="ico-plus"></span></a>
+            <!--{if $isManager}-->
             <a href="/index.php?mod=shenpi&op=index&act=application_manageIndex"><span class="icon-setup"></span></a>
+			<!--{else}-->
+            <a href="javascript:ui.error('您不是审批管理员，不能访问！');"><span class="icon-setup"></span></a>
+			<!--{/if}-->
+			<!--{if $isAdmin}-->
             <a href="/index.php?mod=shenpi&op=index&act=manager_index"><span class="icon-contact"></span></a>
+			<!--{else}-->
+            <a href="javascript:ui.error('您不是系统管理员，不能访问！');"><span class="icon-contact"></span></a>
+			<!--{/if}-->
             <a href="javascript:;" class="icon-apps" id="navTop" style="display: none"></a>
             <!--<a href="javascript:;" id="fullScreen"><i class="icon-expand"></i></a>-->
         </div>

@@ -3,6 +3,10 @@ define(function (require) {
 
 	var userSuggest = require('userSuggest');
 	
+	window.closeDiv = function(numLevel) {
+		$("#div_process_user" + numLevel).remove();
+	};
+	
     function getApproverTpl(numLevel) {
 
     	level = transfer(numLevel + '');
@@ -11,13 +15,14 @@ define(function (require) {
 		+'<div class="process-item js_item" id="div_process_user'+ numLevel +'" hash="1">'
 		+'	<dl>'
 		+'		<dt class="title">'
+		+'          <div class="handle"><a href="javascript:window.closeDiv('+ numLevel +');" class="icon-close delProcessUser" data-id="'+numLevel+'"></a></div>'
 		+'			<h4>'+ level +'级审批</h4>'
 		+'		</dt>'
 		+'		<dd class="txt">'
 		+'			<div class="process-title">名称：</div>'
 		+'			<div class="process-input">'
-		+'				<input type="hidden" name="hash[]" value="'+ numLevel +'">'
-		+'				<input type="text" class="q-txt" value="'+ level +'级审批" name="name_process_user[]">'
+		+'				<input type="hidden" name="hash['+(numLevel-1)+']" value="'+ numLevel +'">'
+		+'				<input type="text" class="q-txt" value="'+ level +'级审批" name="name_process_user['+(numLevel-1)+']">'
 		+'			</div>'
 		+'			<div class="process-title">默认审批人：</div>'
 		+'			<div class="qg-userlist">'
@@ -29,9 +34,9 @@ define(function (require) {
 		+'			</div>'
 		+'			<div class="process-tips">'
 		+'				<label>'
-		+'					<input type="checkbox" class="q-ck" name="select_process_user_must[]" checked="checked" value="1">必填</label><br>'
+		+'					<input type="checkbox" class="q-ck" name="select_process_user_must['+(numLevel-1)+']" checked="checked" value="1">必填</label><br>'
 		+'				<label>'
-		+'					<input type="checkbox" class="q-ck" name="select_process_user[]" checked="checked" value="1">允许申请人自己选择审批人</label>'
+		+'					<input type="checkbox" class="q-ck" name="select_process_user['+(numLevel-1)+']" checked="checked" value="1">允许申请人自己选择审批人</label>'
 		+'			</div>'
 		+'		</dd>'
 		+'	</dl>'
