@@ -199,10 +199,11 @@ var createApproval = function(dom,items,temp){
 		
 		
 		// $('#' + id).data(a);
-		if(a.allow_select == 0){
+		if(a.allow_select == 1){
 			$('#' + id).find('[node-name="removeSearch"]').remove();
-			$('#' + id).find('input').remove();
-
+		}
+		if($.trim(a.value) != ''){
+			 $('#' + id).find('input').hide();
 		}
 		
 	});

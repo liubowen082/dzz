@@ -23,7 +23,7 @@ define(function(require, exports, module) {
 	var _data_ = [] , _data_A = [];
 
 
-	var str = '<div class="layer-window ajax_detal_layer"><a href="javascript:;" class="layer-close icon-close" event-node="close_index_ajax"></a><div class="ajax_content"><div class="ioffice-plus-wrap"><form action="#" method="POST"><div class="ioffice-plus-title" id="createTitle"></div><div class="ioffice-plus" node-name="layer-window"></div><div class="ioffice-plus-btn"><a href="javascript:;" class="btn btn-green-big" node-name="js_submit_btn"><span class="js_submit_btn">创建</span></a><a href="#" class="btn btn-gray-big"><span>取消</span></a></div></form></div></div></div>';
+	var str = '<div class="layer-window ajax_detal_layer"><a href="javascript:;" class="layer-close icon-close" event-node="close_index_ajax"></a><div class="ajax_content"><div class="ioffice-plus-wrap"><form action="#" method="POST"><div class="ioffice-plus-title" id="createTitle"></div><div class="ioffice-plus" node-name="layer-window"></div><div class="ioffice-plus-btn"><a href="javascript:;" class="btn btn-green-big" node-name="js_submit_btn"><span class="js_submit_btn">创建</span></a><a href="javascript:;" class="btn btn-gray-big" node-name="js_close_btn"><span>取消</span></a></div></form></div></div></div>';
 
 
 
@@ -281,6 +281,11 @@ define(function(require, exports, module) {
 				$(parent).find('[node-name="data-list-all"]').html(num)
 
 
+			})
+
+			// 关闭
+			$('[node-name="js_close_btn"]').on('click',function(){
+				t.hidden();
 			})
 
 			// 保存

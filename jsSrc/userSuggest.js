@@ -6,8 +6,12 @@ define(function(require, exports, module) {
 	return function(layCon){
 
 			$(layCon).on('click','[node-name="removeSearch"]',function(){
+				var par = $(this).parent();
+
+				par.parent().next().show();
+				// $(layCon).find('[node-name="user"]').show();
 				$(this).parent().remove();
-				$(layCon).find('[node-name="user"]').show();
+				
 			})
 			$(layCon).find('[node-name="user"]').autocomplete({
 				// autoFocus : true,
