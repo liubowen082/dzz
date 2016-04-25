@@ -250,6 +250,32 @@ define(function (require) {
             });
         };
 
+        window.check_handle = function (ele) {
+            var target = $(ele), args = queryToJson(target.attr('arg'));
+            var office_tips = $('#office_tips'), v = $.trim(office_tips.val());
+
+            if (v == '') {
+                ui.error('请添加详细说明');
+                return false;
+            }
+
+            if (target.attr('loading') == 'true') {
+                return false;
+            }
+            target.attr('loading', 'true');
+
+            args.remark = v;
+
+            senRequestHandle('/index.php?mod=shenpi&op=index&act=application_check', args, function () {
+                target.attr('loading', 'false');
+                $('[node_id="' + args.id + '"]', mainBox).find('.office_status_8').replaceWith(tpl.checked('已核销'));
+                ui.box.close();
+            }, function () {
+                ui.box.close();
+                target.attr('loading', 'false');
+            });
+        };
+        
         //同意功能
         mainBox.delegate('a[node_type="agree"]', 'click', function (e) {
             var target = $(e.target), args = target.attr('node_args');
@@ -263,6 +289,14 @@ define(function (require) {
             var target = $(e.target), args = target.attr('node_args');
 
             ui.box.show(tpl.reject(args));
+            return false;
+        });
+
+        //核销功能
+        mainBox.delegate('a[node_type="check"]', 'click', function (e) {
+            var target = $(e.target), args = target.attr('node_args');
+
+            ui.box.show(tpl.check(args));
             return false;
         });
     }
