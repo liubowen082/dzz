@@ -47,7 +47,6 @@ var createFormList = function(dom,items,temp){
 
 		obj = $.extend(obj,value);
 		
-
 		$(dom).append(modTemp(temp[rel].tpl,obj));
 
 		$('#' + id).data(a)

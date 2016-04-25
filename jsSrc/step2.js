@@ -242,14 +242,22 @@ define(function(require, exports, module) {
 
 		var rel = $(this).attr('rel');
 		var id = getId();
-
-		$('#designFormin').append(modTemp(moduleList[rel].tpl,
-			{id:id,
+		var obj = {id:id,
 			 title : moduleList[rel].name,
 			 option : modTemp(moduleList[rel].optionTpl || '',{
 			 	title : '选项'
 			 })
-			}));
+			};
+		var value = {};
+
+		if(rel == 'data_list'){
+			value.value1 = 0
+			value.value2 = '元'
+		}
+		obj = $.extend(obj,value);
+
+		$('#designFormin').append(modTemp(moduleList[rel].tpl,
+			obj));
 
 		$('#' + id).click();
 		// $('div.ui-droppable').sortable('refresh')
