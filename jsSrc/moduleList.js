@@ -42,7 +42,7 @@ define(function(require, exports, module) {
 		},
 		'data_list' : { // 清单
 			'name':'清单',
-			'tpl' : '<dl id="#{id}" class="ui-draggable" rel="data_list"  data-title="清单" data-data_format="time" data-data_option="金额|元"><dt rel="date_between">#{title||default:清单}</dt><dd><input type="text" class="q-txt" style="width:150px;" placeholder="名称" disabled="">&nbsp;&nbsp;<input type="text" class="q-txt" placeholder="金额" style="width:60px;" disabled="" value="#{value1}">&nbsp;<span class="js_else">#{value2}</span>&nbsp;&nbsp;<input type="text" class="q-txt" placeholder="时间" style="width:150px;" disabled="">&nbsp;&nbsp;<span class="ico-plus"></span><br>总计：<span class="js_else">元</span></dd><dd><a class="icon-close" href="javascript:;"></a></dd>',
+			'tpl' : '<dl id="#{id}" class="ui-draggable" rel="data_list"  data-title="清单" data-data_format="time" data-data_option="0|元"><dt rel="date_between">#{title||default:清单}</dt><dd><input type="text" class="q-txt" style="width:150px;" placeholder="名称" disabled="">&nbsp;&nbsp;<input type="text" class="q-txt" placeholder="0" style="width:60px;" disabled="" value="#{value1}">&nbsp;<span class="js_else">#{value2}</span>&nbsp;&nbsp;<input type="text" class="q-txt" placeholder="时间" style="width:150px;" disabled="">&nbsp;&nbsp;<span class="ico-plus"></span><br>总计：<span class="js_else">元</span></dd><dd><a class="icon-close" href="javascript:;"></a></dd>',
 			'edit' : ['js_edit_title','js_edit_data_format','js_edit_data_option']
 		},
 		'user' : {
