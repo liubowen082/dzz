@@ -223,6 +223,48 @@ define(function (require) {
 
             createHTML($.extend(parameter, args));
         });
+
+        window.agree_reject_handle = function (ele) {
+            var target = $(ele), args = queryToJson(target.attr('arg'));
+            var office_tips = $('#office_tips'), v = $.trim(office_tips.val());
+
+            if (v == '') {
+                ui.error('请添加详细说明');
+                return false;
+            }
+
+            if (target.attr('loading') == 'true') {
+                return false;
+            }
+            target.attr('loading', 'true');
+
+            args.remark = v;
+
+            senRequestHandle('/index.php?mod=shenpi&op=index&act=application_approve', args, function () {
+                target.attr('loading', 'false');
+                $('[node_id="' + args.id + '"]', approveBox).find('.office_status_8').replaceWith(tpl.approve(args.status == 2 ? '已通过' : '已驳回'));
+                ui.box.close();
+            }, function () {
+                ui.box.close();
+                target.attr('loading', 'false');
+            });
+        };
+
+        //同意功能
+        approveBox.delegate('a[node_type="agree"]', 'click', function (e) {
+            var target = $(e.target), args = target.attr('node_args');
+
+            ui.box.show(tpl.agree(args));
+            return false;
+        });
+
+        //驳回功能
+        approveBox.delegate('a[node_type="reject"]', 'click', function (e) {
+            var target = $(e.target), args = target.attr('node_args');
+
+            ui.box.show(tpl.reject(args));
+            return false;
+        });
     }
 
     ~function () {
