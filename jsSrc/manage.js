@@ -242,7 +242,7 @@ define(function (require) {
 
             senRequestHandle('/index.php?mod=shenpi&op=index&act=application_approve', args, function () {
                 target.attr('loading', 'false');
-                $('[node_id="' + args.id + '"]', approveBox).find('.office_status_8').replaceWith(tpl.approve(args.status == 2 ? '已通过' : '已驳回'));
+                $('[node_id="' + args.id + '"]', mainBox).find('.office_status_8').replaceWith(tpl.approve(args.status == 2 ? '已通过' : '已驳回'));
                 ui.box.close();
             }, function () {
                 ui.box.close();
@@ -251,7 +251,7 @@ define(function (require) {
         };
 
         //同意功能
-        approveBox.delegate('a[node_type="agree"]', 'click', function (e) {
+        mainBox.delegate('a[node_type="agree"]', 'click', function (e) {
             var target = $(e.target), args = target.attr('node_args');
 
             ui.box.show(tpl.agree(args));
@@ -259,7 +259,7 @@ define(function (require) {
         });
 
         //驳回功能
-        approveBox.delegate('a[node_type="reject"]', 'click', function (e) {
+        mainBox.delegate('a[node_type="reject"]', 'click', function (e) {
             var target = $(e.target), args = target.attr('node_args');
 
             ui.box.show(tpl.reject(args));
