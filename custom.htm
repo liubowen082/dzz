@@ -62,7 +62,7 @@
 							<dd class="txt">
 								<ul>
 									<!--{loop $process['approver_config'] $index $approver}-->
-										<!--{if ! empty(approver) && $index < 3}-->
+										<!--{if ! empty($approver) && $index < 3}-->
 											<li><span>{$approver['title']}：</span>{$this->_uerNames[$approver['id']]}</li>
 										<!--{/if}-->
 									<!--{/loop}-->
