@@ -56,24 +56,28 @@ var createFormList = function(dom,items,temp){
 
 				if(m == 0){
 					valueStr.push(modTemp(temp[rel].value,{
-						value1 : val[0],
-						value2 : val[1] || option[0],
+						value1 : val[0] || option[0],
+						value2 : val[1] || "0",
 						value3 : val[2],
 						option1 : option[1],
 						option_else : a.option_else,
 						option : a.option,
-						data_option : a.data_option
+						data_option : a.data_option,
+						data_format_display : a.data_format == 'notime' ? 'style="display:none"' : '',
+						data_format : a.data_format
 					}))
 				}else{
 
 					valueStr.push(modTemp(temp[rel].valueOther,{
-						value1 : val[0],
-						value2 : val[1] || option[0],
+						value1 : val[0] || option[0],
+						value2 : val[1] || '0',
 						value3 : val[2],
 						option1 : option[1],
 						option_else : a.option_else,
 						option : a.option,
-						data_option : a.data_option
+						data_option : a.data_option,
+						data_format_display : a.data_format == 'notime' ? 'style="display:none"' : '',
+						data_format : a.data_format
 					}))
 
 				}
@@ -83,9 +87,12 @@ var createFormList = function(dom,items,temp){
 				valueStr.push(modTemp(temp[rel].value,{
 						option_else : a.option_else,
 						option : a.option,
-						value2 : option[0],
+						value1 : option[0],
+						value2 : 0,
 						option1 : option[1],
-						data_option : a.data_option
+						data_option : a.data_option,
+						data_format_display : a.data_format == 'notime' ? 'style="display:none"' : '',
+						data_format : a.data_format
 					}))
 			}
 
@@ -175,7 +182,6 @@ var createApproval = function(dom,items,temp){
 	$(items).each(function(i,a){
 		var rel = 'user';
 		var id = getId();
-		console.log(a)
 		
 		var option = [];
 		if(a.value && a.value != ''){

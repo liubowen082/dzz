@@ -117,6 +117,8 @@ define(function(require, exports, module) {
 			// 关闭
 			$('.layer-window').on('click', '[event-node="close_index_ajax"]', function() {
 					$(this).parent().remove();
+					$(document.body).css('overflow-y','auto')
+
 				})
 			// 	// 提交
 			// $(t.layCon).on('click', '[event-node="submit_btn"]', function() {
@@ -247,15 +249,18 @@ define(function(require, exports, module) {
 				// option="#{option}" option_else="#{option_else}"
 
 				var option = $(this).attr('option');
+				var data_format = $(this).attr('data_format');
+
 				var data_option = $(this).attr('data_option').split('|');
 				var option_else = $(this).attr('option_else');
-				console.log($(this).parent().parent().find('.js_total'))
 
 				$(this).parent().parent().find('.js_total').before(modTemp(str,{
 					option : option,
 					option_else : option_else,
-					value2 : data_option[0],
-					option1 : data_option[1]
+					value1 : data_option[0],
+					value2 : 0,
+					option1 : data_option[1],
+					data_format_display : data_format == 'notime' ? 'style="display:none"' : ''
 				}))
 
 
@@ -266,6 +271,7 @@ define(function(require, exports, module) {
 				par.remove();
 				pre.find('[node-name="data-list-num"]').blur();
 			});
+
 
 
 			$(t.layCon).on('blur','[node-name="data-list-num"]',function(){
@@ -280,8 +286,8 @@ define(function(require, exports, module) {
 				})
 				$(parent).find('[node-name="data-list-all"]').html(num)
 
-
-			})
+			});
+			$(t.layCon).find('[node-name="data-list-num"]').blur();
 
 			// 关闭
 			$('[node-name="js_close_btn"]').on('click',function(){
@@ -305,7 +311,7 @@ define(function(require, exports, module) {
 							var val = $(a).find('textarea').val();
 						break;
 						case 'select' : 
-							var val = $(a).data('id');
+							var val = $(a).data('id') || '';
 						break;
 						case 'radio' : 
 							var val = $(a).find('input:radio:checked').val();
@@ -426,6 +432,7 @@ define(function(require, exports, module) {
 			}else{
 				this.get();
 			}
+			$(document.body).css('overflow-y','hidden')
 
 		},
 		hidden : function(){

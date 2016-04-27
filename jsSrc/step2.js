@@ -132,7 +132,7 @@ define(function(require, exports, module) {
 
 	$('#designBoxin .js_edit_data_option input:text').eq(0).on('keyup',function(){
 		var id = $('#designBoxin').attr('editid');
-		$('#' + id).find('input').eq(1).val($(this).val());
+		$('#' + id).find('input').eq(0).val($(this).val());
 	})
 	$('#designBoxin .js_edit_data_option input:text').eq(1).on('keyup',function(){
 		var id = $('#designBoxin').attr('editid');
@@ -251,7 +251,7 @@ define(function(require, exports, module) {
 		var value = {};
 
 		if(rel == 'data_list'){
-			value.value1 = 0
+			value.value1 = "金额"
 			value.value2 = '元'
 		}
 		obj = $.extend(obj,value);

@@ -470,7 +470,7 @@
 .ioffice-plus .data-list .q-txt,
 .design-form .data-list .q-txt{margin:0 5px 0 0;float:left;}
 .ioffice-plus .data-list .vline,
-.design-form .data-list .vline{float:left;display:block;width:28px;text-align:center;line-height:34px;margin:0 5px 0 0}
+.design-form .data-list .vline{float:left;display:block; padding-left:5px; padding-right:5px;text-align:center;line-height:34px;margin:0 5px 0 0}
 .ioffice-plus .data-list .js_add,
 .design-form .data-list [class*="icon-"]{color:#37bc9b;cursor:pointer;display:block;line-height:34px;padding:0;text-align:right;width:24px;float:left;font-size:16px;}
 .ioffice-plus .period .widget-date{float:left;width:215px}
