@@ -407,6 +407,9 @@ define(function(require, exports, module) {
 					success: function(json) {
 						if (json.status == 0) {
 							$(t).trigger('onSubmitSuccess',{id:t.id,data:_data_});
+							if(t.sid) {
+								setTimeout(function(){window.close();},2*1000);
+							}
 						} else {
 							ui.error(json.msg)
 						}

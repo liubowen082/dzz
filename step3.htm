@@ -48,7 +48,13 @@
 												node-name="removeSearch"> </a></li>
 											<!--{/if}-->
 										</ul>
-										<input type="text" class="q-txt" style="width:120px" node-name="user" placeholder="输入姓名选择审批人" user_format="signle">
+										<input type="text" class="q-txt" node-name="user" placeholder="输入姓名选择审批人" user_format="signle"
+										<!--{if empty($approver['id'])}-->
+										style="width:120px"
+										<!--{else}-->
+										style="width:120px; display:none"
+										<!--{/if}-->
+										/>
 									</div>
 								</div>
 								<div class="process-tips">
@@ -92,7 +98,12 @@
 											node-name="removeSearch"> </a></li>
 								<!--{/if}-->
                                 </ul>
-                                <input type="text" id="search_ids_check_uid" class="q-txt" node-name="user" placeholder="请选择核销人员，默认为空" user_format="signle">
+                                <input type="text" id="search_ids_check_uid" class="q-txt" node-name="user" placeholder="请选择核销人员，默认为空" user_format="signle"
+								<!--{if empty($process['checker_id'])}-->
+								<!--{else}-->
+								style="display:none"
+								<!--{/if}-->
+								/>
                             </div>
                         </div>
                         <!--
