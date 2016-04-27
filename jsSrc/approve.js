@@ -202,6 +202,17 @@ define(function (require) {
         });
 
         $('#btn_create').click(function () {
+
+            var target = $('#btn_create');
+            var outH = target.outerHeight(),
+                outW = target.outerWidth(),
+                offset = target.offset();
+
+            create_menu_btn.css({
+                top: offset.top + outH + 'px',
+                left: offset.left - create_menu_btn.width() + outW + 'px'
+            });
+
             create_menu_btn.toggle();
             $('#drop-navtop').hide();
             $('#office_time_drop').hide();
