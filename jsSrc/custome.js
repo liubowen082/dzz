@@ -40,11 +40,37 @@ define(function (require) {
 			var id = $(this).attr("data-id");
 			processStart(id);
 		});
-		$('.custom-delete').click(function() {
-			var id = $(this).attr("data-id");
-			processDelete(id);
-		});
+//		$('.custom-delete').click(function() {
+//			var id = $(this).attr("data-id");
+//			processDelete(id);
+//		});
 		
+		$(".custom-delete").click(function() {
+			var id = $(this).attr("data-id");
+			ui.box.show(
+					''
+					+'<div class="M-content">'
+					+'	<div class="hd">'
+					+'		<a class="icon-close" href="javascript:ui.box.close();"></a>'
+					+'		<div class="M-title">删除此流程</div>'
+					+'	</div>'
+					+'	<div class="bd" id="layer-content">'
+					+'		<div class="pop-create-group">'
+					+'			<dl>'
+					+'				<dt class="txt">'
+					+'					<i class="ico-question-sign"></i>确认要删除当前流程？'
+					+'				</dt>'
+					+'				<dd class="action">'
+					+'					<a class="btn btn-blue mr10" href="javascript:window.processDelete('+ id +');"><span>确定</span></a>'
+					+'					<a class="btn btn-gray" href="javascript:ui.box.close();"><span>取消</span></a>'
+					+'				</dd>'
+					+'			</dl>'
+					+'		</div>'
+					+'	</div>'
+					+'</div>'
+					+''
+			);
+		});
 	}
 	
 	function processAdd() {

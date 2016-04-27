@@ -202,17 +202,6 @@ define(function (require) {
         });
 
         $('#btn_create').click(function () {
-
-            var target = $('#btn_create');
-            var outH = target.outerHeight(),
-                outW = target.outerWidth(),
-                offset = target.offset();
-
-            create_menu_btn.css({
-                top: offset.top + outH + 'px',
-                left: offset.left - create_menu_btn.width() + outW + 'px'
-            });
-
             create_menu_btn.toggle();
             $('#drop-navtop').hide();
             $('#office_time_drop').hide();
@@ -439,9 +428,17 @@ define(function (require) {
 
             args.remark = v;
 
-            senRequestHandle('/index.php?mod=shenpi&op=index&act=application_approve', args, function () {
+            senRequestHandle('/index.php?mod=shenpi&op=index&act=application_approve', args, function (result) {
                 target.attr('loading', 'false');
-                $('[node_id="' + args.id + '"]', approveBox).find('.office_status_8').replaceWith(tpl.approve(args.status == 2 ? '已通过' : '已驳回'));
+                if (result.data == 1) {
+                	if (args.status == 2) { 
+                		$('[node_id="' + args.id + '"]', approveBox).find('.office_status_8').replaceWith(tpl.approve('已通过'));
+                	} else {
+                		$('[node_id="' + args.id + '"]', approveBox).find('.office_status_8').replaceWith(tpl.rejected('已驳回'));
+                	}
+                } else {
+            		$('[node_id="' + args.id + '"]', approveBox).find('.office_status_8').replaceWith(tpl.wait_approve('待审批'));
+                }
                 ui.box.close();
             }, function () {
                 ui.box.close();

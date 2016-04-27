@@ -8,8 +8,14 @@ define(function () {
     arguments[2].exports = {
         nodata: '<div class="mod-empty" ><div style="height: 810px;" class="empty-table"><div class="empty-td"><i class="icon-ioffice"></i><div class="empty-txt">没有相关审批哦</div></div></div></div>',
         loading: '<div class="loading" style="text-align:center;padding:20px;" id="loadMore"><span class="loader ico-spinner2"></span></div>',
-        approve: function (msg) {
+        wait_approve: function (msg) {
             return '<div class="handle office_status_16 status"><span class="btn-f60">' + msg + '</span></div>'
+        },
+        approve: function (msg) {
+            return '<div class="handle office_status_16 status"><span class="btn-390">' + msg + '</span></div>'
+        },
+        rejected: function (msg) {
+            return '<div class="handle office_status_16 status"><span class="btn-f00">' + msg + '</span></div>'
         },
         checked: function (msg) {
             return '<div class="handle office_status_16 status"><span class="btn-f9">' + msg + '</span></div>'

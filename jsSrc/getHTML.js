@@ -96,7 +96,7 @@ define(function (require, exports, module) {
                             0: '<span class="btn-f60">待审批</span>',
                             1: '<span class="btn-f60">待审批</span>',
                             2: '<span class="btn-390">已通过</span>',
-                            3: '<span class="btn-f9">已驳回</span>',
+                            3: '<span class="btn-f00">已驳回</span>',
                             4: '<span class="btn-f60">待核销</span>',
                             5: '<span class="btn-f9">已核销</span>'
                         };
@@ -137,6 +137,7 @@ define(function (require, exports, module) {
                     var html = '<dl class="dynamic-list"><dt class="dynamic-icon">#{icon}</dt><dd><div class="comment-bg"><div class="comment-arrow"><i class="ico-arrow-left22"></i></div><div class="comment-name"><a href="#">#{name}</a>&nbsp;#{msg}</div>#{remark}<div class="comment-info"><div class="time">#{approve_time}</div></div></div></dd></dl>';
 
                     var approver_result = eval(obj.approver_result),arr = [];
+                    approver_result.reverse();
                     $.each(approver_result,function(i,item){
                         if(item.approve_time){
                             arr.push(modTemp(html,{

@@ -643,6 +643,10 @@ $("#resetStep1").click(function() {
 	);
 });
 
+$('#a-process-delete').click(function() {
+	var userSuggest = require('custome');
+	window.processDelete(GLOBAL.id);
+});
 
 })
 
