@@ -308,7 +308,7 @@ define(function(require, exports, module) {
 
 					switch(rel){
 						case 'textarea' :
-							var val = $(a).find('textarea').val();
+							var val = $(a).find('textarea').val().replace("\n", "\\n");;
 						break;
 						case 'select' : 
 							var val = $(a).data('id') || '';
