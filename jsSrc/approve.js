@@ -428,8 +428,8 @@ define(function (require) {
             var office_tips = $('#office_tips'), v = $.trim(office_tips.val());
 
             if (v == '') {
-                ui.error('请添加详细说明');
-                return false;
+//                ui.error('请添加详细说明');
+//                return false;
             }
 
             if (target.attr('loading') == 'true') {
@@ -462,8 +462,8 @@ define(function (require) {
             var office_tips = $('#office_tips'), v = $.trim(office_tips.val());
 
             if (v == '') {
-                ui.error('请添加详细说明');
-                return false;
+//                ui.error('请添加详细说明');
+//                return false;
             }
 
             if (target.attr('loading') == 'true') {
